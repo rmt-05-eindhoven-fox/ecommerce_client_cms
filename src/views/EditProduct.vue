@@ -1,0 +1,89 @@
+<template>
+  <div>
+    <div id="nav">
+      <div>E-commerce CMS</div>
+      <router-link to="/">Home</router-link>
+    </div>
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-purple">Edit Product</h4>
+          <button id="close-add" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form>
+              <div class="form-group ">
+                  <label>
+                      Name
+                  </label>
+                  <input
+                      v-model="name"
+                      class="form-control text-purple"
+                      type="text"
+                  >
+              </div>
+
+              <div class="form-group">
+                  <label>
+                    Image URL
+                  </label>
+                  <input
+                    v-model="image_url"
+                    class="form-control text-purple"
+                    type="text"
+                  >
+              </div>
+
+              <div class="form-group">
+                  <label>
+                    Price
+                  </label>
+                  <input
+                    v-model="price"
+                    class="form-control text-purple"
+                    type="number"
+                  >
+              </div>
+
+              <div class="form-group">
+                  <label>
+                    Stock
+                  </label>
+                  <input
+                    v-model="stock"
+                    class="form-control text-purple"
+                    type="number"
+                  >
+              </div>
+
+              <button type="submit" class="btn btn-purple btn-block">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'EditProduct',
+  components: {
+  },
+  data () {
+    return {
+      name: '',
+      image_url: '',
+      price: '',
+      stock: ''
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>
