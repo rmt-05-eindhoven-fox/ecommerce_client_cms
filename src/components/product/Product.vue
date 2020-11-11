@@ -22,7 +22,7 @@
                   <tr>
                     <td>
                       <img
-                        src="../assets/images/avatar.png"
+                        src="../../assets/images/logo.png"
                         width="48"
                         alt="Product img"
                       />
@@ -34,8 +34,8 @@
                       <span class="col-red">Stock will run out</span>
                     </td>
                     <td>
-                      <a
-                        href="javascript:void(0);"
+                      <a href="javascript:void(0);"
+                      @click.prevent="showEditProduct"
                         class="btn btn-default waves-effect waves-float btn-sm waves-green"
                         ><i class="zmdi zmdi-edit"></i
                       ></a>
@@ -53,12 +53,37 @@
         </div>
       </div>
     </div>
+
+    <!-- <EditProduct
+    v-if="showModal"
+    v-show="showModal"
+    @isDisplayModal="isDisplayModal"/> -->
+
   </div>
 </template>
 
 <script>
+// import EditProduct from '@/components/product/EditProduct.vue'
+
 export default {
-  name: 'ListProduct'
+  name: 'ListProduct',
+  data () {
+    return {
+      showModal: false
+    }
+  },
+  components: {
+  },
+  methods: {
+    isDisplayModal (params) {
+      this.showModal = params
+    },
+
+    showEditProduct () {
+      console.log('clicked')
+      this.isDisplayModal(true)
+    }
+  }
 }
 </script>
 

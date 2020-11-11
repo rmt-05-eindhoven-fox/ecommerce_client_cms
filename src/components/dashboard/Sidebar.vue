@@ -8,7 +8,7 @@
         </button>
         <a href="#"
           ><img
-            src="../assets/images/logo.png"
+            src="../../assets/images/logo.png"
             width="25"
             alt="Oshop"
           /><span class="m-l-10">VUESHOP</span></a
@@ -19,7 +19,7 @@
           <li>
             <div class="user-info">
               <a class="image" href="#"
-                ><img src="../assets/images/avatar.png" alt="User"
+                ><img src="../../assets/images/avatar.png" alt="User"
               /></a>
               <div class="detail text-left">
                 <h4>Riyan Pratama</h4>
@@ -57,13 +57,8 @@
 <script>
 export default {
   name: 'LeftSidebar',
-  methods: {
-    routeProduct () {
-      this.$router.push('/products')
-    },
-    routeHome () {
-      this.$router.push('/')
-    }
+  data () {
+    return {}
   }
 }
 </script>

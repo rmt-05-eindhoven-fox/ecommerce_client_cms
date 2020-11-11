@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card widget_2 big_icon sales">
+        <div class="card widget_2 big_icon balance2">
           <div class="body">
             <h6>Revenue</h6>
             <h2>Rp21.000.000 <small class="info"></small></h2>
