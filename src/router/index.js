@@ -17,7 +17,8 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: { requiresAuth: true }
   },
   {
     path: '/createProduct',
@@ -40,6 +41,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && localStorage.access_token) {
+    next()
+  } else if (to.name !== 'LandingPage' && !localStorage.access_token) {
+    next({ name: 'LandingPage' })
+  } else if (to.name === 'LandingPage' && localStorage.access_token) {
+    next({ name: 'Dashboard' })
+  } else {
+    next()
+  }
 })
 
 export default router
