@@ -69,6 +69,12 @@ export default {
     Sidebar,
     AddProduct
   },
+  computed: {
+    title () {
+      return this.$store.state.title
+    }
+  },
+
   data () {
     return {
       showButtonAdd: false,

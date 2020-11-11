@@ -74,6 +74,11 @@ export default {
   },
   components: {
   },
+
+  created () {
+    this.getProducts()
+  },
+
   methods: {
     isDisplayModal (params) {
       this.showModal = params
@@ -82,6 +87,10 @@ export default {
     showEditProduct () {
       console.log('clicked')
       this.isDisplayModal(true)
+    },
+
+    getProducts () {
+      this.$store.dispatch('getProducts')
     }
   }
 }
