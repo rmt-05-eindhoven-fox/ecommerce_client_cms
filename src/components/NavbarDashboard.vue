@@ -10,6 +10,9 @@
         </nav>
       </div>
       <div class="d-flex align-items-center logout">
+        <div id="user-login" class="mr-4">
+          <span class="rainbow">Hello! {{login_user}}</span>
+        </div>
         <button @click.prevent="logout()" type="button" class="btn btn-danger">Logout</button>
       </div>
     </div>
@@ -24,6 +27,11 @@ export default {
     logout () {
       this.$router.push({ name: 'LandingPage' })
       localStorage.clear()
+    }
+  },
+  computed: {
+    login_user () {
+      return localStorage.getItem('login_user')
     }
   }
 }

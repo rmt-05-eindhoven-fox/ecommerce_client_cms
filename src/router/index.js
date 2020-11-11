@@ -2,9 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LandingPage from '../views/LandingPage.vue'
 import Dashboard from '../views/Dashboard.vue'
-import CreateProduct from '../components/CreateProduct.vue'
-import EditProduct from '../components/EditProduct.vue'
-import CreateCategory from '../components/CreateCategory.vue'
+import CreateProduct from '../views/CreateProduct.vue'
+import EditProduct from '../views/EditProduct.vue'
+import CreateCategory from '../views/CreateCategory.vue'
 
 Vue.use(VueRouter)
 

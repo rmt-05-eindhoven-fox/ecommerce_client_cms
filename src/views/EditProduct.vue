@@ -14,23 +14,23 @@
               <form @submit.prevent="editProduct()">
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input v-model="product.name" type="text" id="name" class="form-control rounded-pill" placeholder="E.g. Meja Belajar OLYMPIC" required autofocus autocomplete="off">
+                  <input v-model="product.name" type="text" id="name" class="form-control rounded-pill" placeholder="E.g. Meja Belajar OLYMPIC" autofocus autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="image">Image URL</label>
-                  <input v-model="product.image_url" type="text" id="image" class="form-control rounded-pill" placeholder="E.g https://image.jpg" required autofocus autocomplete="off">
+                  <input v-model="product.image_url" type="text" id="image" class="form-control rounded-pill" placeholder="E.g https://image.jpg" autofocus autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="desc">Description</label>
-                  <input v-model="product.description" type="text" id="desc" class="form-control rounded-pill" placeholder="E.g. Meja siku kayu mahoni, kusen bulat" required autofocus autocomplete="off">
+                  <input v-model="product.description" type="text" id="desc" class="form-control rounded-pill" placeholder="E.g. Meja siku kayu mahoni, kusen bulat" autofocus autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="price">Price</label>
-                  <input v-model="product.price" type="number" id="price" class="form-control rounded-pill" placeholder="E.g. 1500000" min="0" required autofocus autocomplete="off">
+                  <input v-model="product.price" type="number" id="price" class="form-control rounded-pill" placeholder="E.g. 1500000" min="0" autofocus autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="stock">Stock</label>
-                  <input v-model="product.stock" type="number" id="stock" class="form-control rounded-pill" placeholder="E.g. 15" min="0" required autofocus autocomplete="off">
+                  <input v-model="product.stock" type="number" id="stock" class="form-control rounded-pill" placeholder="E.g. 15" min="0" autofocus autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="category">Category</label>
@@ -89,9 +89,9 @@ export default {
         name: this.product.name,
         image_url: this.product.image_url,
         description: this.product.description,
-        price: +this.product.price,
-        stock: +this.product.stock,
-        CategoryId: +this.product.CategoryId,
+        price: this.product.price,
+        stock: this.product.stock,
+        CategoryId: this.product.CategoryId,
         id: id
       }
       this.$store.dispatch('editProduct', payload)
@@ -111,6 +111,11 @@ export default {
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          this.$swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     cancel () {

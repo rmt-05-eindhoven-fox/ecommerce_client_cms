@@ -10,7 +10,6 @@ export default new Vuex.Store({
   state: {
     // Products
     products: [],
-
     // Categories
     categories: []
   },
@@ -37,11 +36,28 @@ export default new Vuex.Store({
       })
         .then((result) => {
           const accessToken = result.data.access_token
+          const loginUser = result.data.email
           localStorage.setItem('access_token', accessToken)
+          localStorage.setItem('login_user', loginUser)
+
+          Vue.swal({
+            position: 'center',
+            icon: 'success',
+            title: 'Welcome to E-Commerce CMS',
+            text: 'by Bobby Septianto',
+            showConfirmButton: false,
+            timer: 1750
+          })
+
           router.push({ name: 'Dashboard' })
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     readProducts (context, payload) {
@@ -58,6 +74,11 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     readProductById (context, payload) {
@@ -82,16 +103,26 @@ export default new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           description: payload.description,
-          price: +payload.price,
-          stock: +payload.stock,
-          CategoryId: +payload.CategoryId
+          price: payload.price,
+          stock: payload.stock,
+          CategoryId: payload.CategoryId
         }
       })
         .then((result) => {
+          Vue.swal(
+            'Created!',
+            'Your new product has been created.',
+            'success'
+          )
           router.push({ name: 'Dashboard' })
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     editProduct (context, payload) {
@@ -106,32 +137,73 @@ export default new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           description: payload.description,
-          price: +payload.price,
-          stock: +payload.stock,
-          CategoryId: +payload.CategoryId
+          price: payload.price,
+          stock: payload.stock,
+          CategoryId: payload.CategoryId
         }
       })
         .then((result) => {
+          Vue.swal(
+            'Edited!',
+            'Your product has been edited.',
+            'success'
+          )
           router.push({ name: 'Dashboard' })
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     deleteProduct (context, payload) {
       const accessToken = localStorage.getItem('access_token')
-      axios({
-        url: `/products/${+payload}`,
-        method: 'DELETE',
-        headers: {
-          access_token: accessToken
-        }
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       })
         .then((result) => {
-          context.dispatch('readProducts')
+          if (result.isConfirmed) {
+            axios({
+              url: `/products/${+payload}`,
+              method: 'DELETE',
+              headers: {
+                access_token: accessToken
+              }
+            })
+              .then((result) => {
+                Vue.swal(
+                  'Deleted!',
+                  'Your task has been deleted.',
+                  'success'
+                )
+                context.dispatch('readProducts')
+              })
+              .catch((err) => {
+                console.log(err.response.data.msg)
+                Vue.swal(
+                  'Error!',
+                  err.response.data.msg,
+                  'error'
+                )
+              })
+          }
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     readCategories (context, payload) {
@@ -148,6 +220,11 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     createCategory (context, payload) {
@@ -163,26 +240,67 @@ export default new Vuex.Store({
         }
       })
         .then((result) => {
+          Vue.swal(
+            'Created!',
+            `Your "${payload.name}" category has been created.`,
+            'success'
+          )
           context.dispatch('readCategories')
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     },
     deleteCategory (context, payload) {
       const accessToken = localStorage.getItem('access_token')
-      axios({
-        url: `/categories/${+payload}`,
-        method: 'DELETE',
-        headers: {
-          access_token: accessToken
-        }
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "All related products will be deleted! You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       })
         .then((result) => {
-          context.dispatch('readCategories')
+          if (result.isConfirmed) {
+            axios({
+              url: `/categories/${+payload}`,
+              method: 'DELETE',
+              headers: {
+                access_token: accessToken
+              }
+            })
+              .then((result) => {
+                Vue.swal(
+                  'Deleted!',
+                  'Selected category has been deleted.',
+                  'success'
+                )
+                context.dispatch('readCategories')
+              })
+              .catch((err) => {
+                console.log(err.response.data.msg)
+                Vue.swal(
+                  'Error!',
+                  err.response.data.msg,
+                  'error'
+                )
+              })
+          }
         })
         .catch((err) => {
           console.log(err.response.data.msg)
+          Vue.swal(
+            'Error!',
+            err.response.data.msg,
+            'error'
+          )
         })
     }
   },
