@@ -1,20 +1,40 @@
 <template>
   <div class="products">
     <div class="md-layout md-gutter md-alignment-top-center">
-      <div class="md-layout-item md-size-15 md-medium-size-10 md-small-hide md-xsmall-hide"></div>
-      <div class="md-layout-item md-size-20 md-medium-size-25 md-small-size-25 md-xsmall-hide" style="background-color: white">
+      <div class="md-layout-item md-size-10 md-medium-size-10 md-small-hide md-xsmall-hide"></div>
+      <div class="md-layout-item md-size-25 md-medium-size-25 md-small-size-25 md-xsmall-hide">
+        <h2 class="title">Search Product</h2>
+        <md-card class="search-card">
+          <md-card-header>
+            <md-field>
+              <md-icon>search</md-icon>
+              <label>Search</label>
+              <md-input v-model="type"></md-input>
+            </md-field>
+          </md-card-header>
+        </md-card>
         <h2 class="title">Categories</h2>
-        <md-list>
-          <md-list-item>
-            <p class="md-list-item-text">Shoes</p>
-          </md-list-item>
-          <md-list-item>
-            <p class="md-list-item-text">Bag</p>
-          </md-list-item>
-          <md-list-item>
-            <p class="md-list-item-text">Shirt</p>
-          </md-list-item>
-        </md-list>
+        <md-card class="category-card">
+          <md-card-content>
+            <md-list class="category-content scrollable">
+              <md-list-item>
+                <md-button class="md-list-item-text">Shoes</md-button>
+              </md-list-item>
+              <md-list-item>
+                <md-button class="md-list-item-text">Bag</md-button>
+              </md-list-item>
+              <md-list-item>
+                <md-button class="md-list-item-text">Shirt</md-button>
+              </md-list-item>
+              <md-list-item>
+                <md-button class="md-list-item-text">Watch</md-button>
+              </md-list-item>
+              <md-list-item>
+                <md-button class="md-list-item-text">Watch</md-button>
+              </md-list-item>
+            </md-list>
+          </md-card-content>
+        </md-card>
       </div>
       <div class="md-layout-item main-content">
         <div class="md-layout md-gutter">
@@ -270,7 +290,7 @@
           </md-card>
         </div>
       </div>
-      <div class="md-layout-item md-size-15 md-medium-size-10 md-small-hide md-xsmall-hide"></div>
+      <div class="md-layout-item md-size-10 md-medium-size-10 md-small-hide md-xsmall-hide"></div>
     </div>
   </div>
 </template>
@@ -286,14 +306,26 @@ export default {
     max-height: 80vh;
     overflow: auto;
   }
+
   .stock {
     margin-top: 16px;
   }
-  .title {
-    margin-top: 8px;
+
+  .search-card {
+    margin-top: 16px;
+    border-radius: 15px;
+    margin-bottom: 16px;
   }
 
-  .main-content {
-    margin-top: 8px;
+  .category-card {
+    margin-top: 16px;
+    border-radius: 15px;
+  }
+
+  .category-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 30vh;
+    overflow: auto;
   }
 </style>

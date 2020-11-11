@@ -9,23 +9,23 @@
           <h3 class="md-title">SKoutwear Admin</h3>
         </md-app-toolbar>
         <md-app-drawer :md-active.sync="menuVisible">
-          <md-list>
-            <div class="user-profile">
-              <md-avatar class="md-avatar-icon md-large">
-                <md-icon>account_circle</md-icon>
-              </md-avatar>
-              <div class="user-menu">
-                <md-menu md-size="medium" md-align-trigger>
-                  <md-button md-menu-trigger>Admin@mail.com</md-button>
-                  <md-menu-content>
-                    <md-menu-item>
-                      <md-button>Logout</md-button>
-                    </md-menu-item>
-                  </md-menu-content>
-                </md-menu>
-              </div>
+          <div class="user-profile">
+            <md-avatar class="md-avatar-icon md-large">
+              <md-icon>account_circle</md-icon>
+            </md-avatar>
+            <div class="user-menu">
+              <md-menu md-size="medium" md-align-trigger>
+                <md-button md-menu-trigger>Admin@mail.com</md-button>
+                <md-menu-content>
+                  <md-menu-item>
+                    <md-button>Logout</md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
             </div>
-            <md-divider></md-divider>
+          </div>
+          <md-divider></md-divider>
+          <md-list>
             <div id="nav">
               <md-list-item>
                 <md-icon>leaderboard</md-icon>
@@ -44,7 +44,7 @@
               <md-list-item>
                 <md-icon>category</md-icon>
                 <span class="md-list-item-text">
-                  <router-link to="/about">Categories</router-link>
+                  <router-link to="/categories">Categories</router-link>
                 </span>
               </md-list-item>
 
@@ -91,6 +91,10 @@
 </template>
 
 <style>
+::-webkit-scrollbar {
+  display: none;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-family: "Poppins", sans-serif;
@@ -106,7 +110,7 @@
 }
 
 #nav {
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 #nav a {
@@ -115,7 +119,7 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #ff5252;
 }
 
 .md-app {
@@ -135,7 +139,7 @@
 }
 
 .user-profile {
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .user-menu {
