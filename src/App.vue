@@ -26,11 +26,6 @@ export default {
 
 body {
   background-color: rgb(254,254,254);
-  background-image: url('../public/images/2741840.jpg');
-  background-repeat: no-repeat;
-  background-size: 600px;
-  background-position-y: 110px;
-  background-position-x: 150px;
 }
 
 #nav {

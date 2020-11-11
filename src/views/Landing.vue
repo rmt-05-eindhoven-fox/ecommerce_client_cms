@@ -12,6 +12,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  * {
+    background-image: url('../../public/images/2741840.jpg');
+    background-repeat: no-repeat;
+    background-size: 800px;
+    background-position-y: -55px;
+    background-position-x: 50px;
+  }
 </style>
