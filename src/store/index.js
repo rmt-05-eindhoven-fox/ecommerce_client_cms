@@ -8,6 +8,7 @@ export default new Vuex.Store({
   // State, tempat menyimpan data untuk di panggil di component
   state: {
     title: 'Ecommerce-CMS',
+    pageTitle: '',
     products: [],
     product: {}
   },
@@ -19,6 +20,10 @@ export default new Vuex.Store({
 
     setProduct (state, payload) {
       state.product = payload
+    },
+
+    changePageTitle (state, payload) {
+      state.pageTitle = payload
     }
   },
   // Method yg digunakan untuk aksi
@@ -31,6 +36,7 @@ export default new Vuex.Store({
         })
         const { products } = data
         context.commit('setProducts', products)
+        return
       } catch (error) {
         console.log(error.response)
       }
@@ -48,6 +54,10 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error.response)
       }
+    },
+
+    changePageTitle (context, page) {
+      context.commit('changePageTitle', page)
     }
   },
   modules: {

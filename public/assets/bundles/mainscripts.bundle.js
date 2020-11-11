@@ -196,10 +196,11 @@ function CustomJs() {
       $.AdminAero.leftSideBar.activate(),
       $.AdminAero.rightSideBar.activate(),
       $.AdminAero.navbar.activate(),
-      $.AdminAero.select.activate(),
-      setTimeout(function () {
-        $(".page-loader-wrapper").fadeOut();
-      }, 50);
+      $.AdminAero.select.activate()
+      // ,
+      // setTimeout(function () {
+      //   $(".page-loader-wrapper").fadeOut();
+      // }, 5000);
   }),
   (window.Aero = {
     colors: {

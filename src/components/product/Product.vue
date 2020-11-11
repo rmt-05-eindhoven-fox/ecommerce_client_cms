@@ -1,5 +1,6 @@
 <template>
   <div id="list-product">
+    <Loading :loading="loading"/>
     <div class="container-fluid">
       <div class="row clearfix">
         <div class="col-lg-12">
@@ -40,6 +41,7 @@
                         ><i class="zmdi zmdi-edit"></i
                       ></a>
                       <a
+                        @click.prevent="deleteProduct(product.id)"
                         href="javascript:void(0);"
                         class="btn btn-default waves-effect waves-float btn-sm waves-red"
                         ><i class="zmdi zmdi-delete"></i
@@ -65,17 +67,21 @@
 
 <script>
 import EditProduct from '@/components/product/EditProduct.vue'
+import axios from '@/config/axios'
+import Loading from '@/components/loading/Loading.vue'
 
 export default {
   name: 'ListProduct',
   data () {
     return {
       showModal: false,
+      loading: false,
       product: {}
     }
   },
   components: {
-    EditProduct
+    EditProduct,
+    Loading
   },
 
   computed: {
@@ -85,6 +91,8 @@ export default {
   },
 
   created () {
+    this.loading = true
+    this.$store.dispatch('changePageTitle', 'Product List')
     this.getProducts()
   },
 
@@ -93,17 +101,39 @@ export default {
       this.showModal = params
     },
 
-    getProducts () {
-      this.$store.dispatch('getProducts')
+    async getProducts () {
+      await this.$store.dispatch('getProducts')
+      this.loading = false
     },
 
     async editProduct (id) {
       try {
+        this.loading = true
         const result = await this.$store.dispatch('getProductById', id)
         this.product = result
         this.isDisplayModal(true)
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async deleteProduct (id) {
+      try {
+        this.loading = true
+        await axios({
+          url: 'products/' + id,
+          method: 'delete',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        this.$store.dispatch('getProducts')
+      } catch (error) {
+        console.log(error.response)
+      } finally {
+        this.loading = false
       }
     }
   }

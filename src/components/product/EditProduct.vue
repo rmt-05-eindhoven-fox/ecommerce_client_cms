@@ -1,5 +1,7 @@
 <template>
   <div id="form-add-product">
+    <Loading :loading="loading" />
+
     <div
       v-bind:class="[modal, fade, margin, isShow]"
       id="modal-add-product"
@@ -106,11 +108,13 @@
 
 <script>
 import axios from '@/config/axios'
+import Loading from '@/components/loading/Loading.vue'
 
 export default {
   name: 'EditProduct',
   data () {
     return {
+      loading: false,
       // Modal add product
       modal: 'modal',
       fade: 'fade',
@@ -126,6 +130,10 @@ export default {
       prodPrice: '',
       prodStock: ''
     }
+  },
+
+  components: {
+    Loading
   },
 
   props: ['product'],
@@ -166,16 +174,23 @@ export default {
         price: this.prodPrice,
         stock: this.prodStock
       }
-      await axios({
-        url: 'products/' + this.prodId,
-        method: 'put',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        },
-        data: payload
-      })
-      this.$store.dispatch('getProducts')
-      this.cancelTask()
+      try {
+        this.loading = true
+        await axios({
+          url: 'products/' + this.prodId,
+          method: 'put',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          },
+          data: payload
+        })
+        await this.$store.dispatch('getProducts')
+        this.cancelTask()
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }

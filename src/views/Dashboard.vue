@@ -1,13 +1,12 @@
 <template>
   <div id='Landing'>
     <Sidebar/>
-
     <section class="content">
       <div class="body_scroll">
         <div class="block-header">
           <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-              <h2>Product List</h2>
+              <h2>{{ pageTitle }}</h2>
               <ul class="breadcrumb">
                 <li class="breadcrumb-item">
                   <a href="#"><i class="zmdi zmdi-home"></i> Home</a>
@@ -37,7 +36,7 @@
                 <i class="zmdi zmdi-power"></i>
               </button>
               <button
-                v-if="showButtonAdd"
+                v-if="buttonAdd"
                 @click.prevent="showAddProduct"
                 class="btn btn-success btn-icon float-right"
                 type="button"
@@ -72,22 +71,27 @@ export default {
   computed: {
     title () {
       return this.$store.state.title
+    },
+
+    pageTitle () {
+      return this.$store.state.pageTitle
     }
   },
 
   data () {
     return {
-      showButtonAdd: false,
-      showModal: false
+      buttonAdd: false,
+      showModal: false,
+      loading: false
     }
   },
 
+  created () {
+    this.showButton()
+  },
+
   updated () {
-    if (this.$route.name === 'Product') {
-      this.showButtonAdd = true
-    } else {
-      this.showButtonAdd = false
-    }
+    this.showButton()
   },
 
   methods: {
@@ -97,6 +101,14 @@ export default {
 
     showAddProduct () {
       this.isDisplayModal(true)
+    },
+
+    showButton () {
+      if (this.$route.name === 'Product') {
+        this.buttonAdd = true
+      } else {
+        this.buttonAdd = false
+      }
     },
 
     logout () {
