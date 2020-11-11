@@ -40,7 +40,7 @@
                         type="text"
                         id="add-prodImgURL"
                         class="form-control"
-                        maxlength="100"
+                        maxlength="255"
                         placeholder="Image URL.."
                         required
                       />
@@ -138,6 +138,7 @@ export default {
           data: payload
         })
         console.log(data)
+        this.$store.dispatch('getProducts')
         this.clearForm()
       } catch (error) {
         console.log(error.response)

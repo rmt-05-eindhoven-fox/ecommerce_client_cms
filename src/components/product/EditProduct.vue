@@ -17,7 +17,7 @@
                 <strong class="text-pink"> Edit Product </strong>
               </h6>
             </div>
-            <form @submit.prevent="submitProduct" id="add-todo">
+            <form @submit.prevent="updateProduct" id="add-todo">
               <div class="modal-body">
                 <div class="row clearfix">
                   <input
@@ -47,7 +47,7 @@
                         type="text"
                         id="add-prodImgURL"
                         class="form-control"
-                        maxlength="100"
+                        maxlength="255"
                         placeholder="Image URL.."
                         required
                       />
@@ -105,6 +105,8 @@
 </template>
 
 <script>
+import axios from '@/config/axios'
+
 export default {
   name: 'EditProduct',
   data () {
@@ -125,10 +127,14 @@ export default {
       prodStock: ''
     }
   },
-  methods: {
-    submitProduct () {
 
-    },
+  props: ['product'],
+
+  created () {
+    this.setForm(this.product)
+  },
+
+  methods: {
 
     cancelTask () {
       this.isShow = ''
@@ -138,10 +144,38 @@ export default {
     },
 
     clearForm () {
+      this.prodId = ''
       this.prodName = ''
       this.prodImgURL = ''
       this.prodPrice = ''
       this.prodStock = ''
+    },
+
+    setForm (product) {
+      this.prodId = product.id
+      this.prodName = product.name
+      this.prodImgURL = product.image_url
+      this.prodPrice = product.price
+      this.prodStock = product.stock
+    },
+
+    async updateProduct () {
+      const payload = {
+        name: this.prodName,
+        image_url: this.prodImgURL,
+        price: this.prodPrice,
+        stock: this.prodStock
+      }
+      await axios({
+        url: 'products/' + this.prodId,
+        method: 'put',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: payload
+      })
+      this.$store.dispatch('getProducts')
+      this.cancelTask()
     }
   }
 }

@@ -29,8 +29,8 @@ export default new Vuex.Store({
           url: 'products',
           method: 'get'
         })
-        console.log(data)
-        context.commit('setProducts', data)
+        const { products } = data
+        context.commit('setProducts', products)
       } catch (error) {
         console.log(error.response)
       }
@@ -42,8 +42,9 @@ export default new Vuex.Store({
           url: 'products/' + id,
           method: 'get'
         })
-        console.log(data)
-        context.commit('setProduct', data)
+        const { product } = data
+        context.commit('setProduct', product)
+        return product
       } catch (error) {
         console.log(error.response)
       }
