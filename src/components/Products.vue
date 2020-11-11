@@ -12,6 +12,7 @@
           </b-list-group>
         </div>
         <div class="col-md-10">
+
           <!-- <b-carousel
             id="carousel-fade"
             style="text-shadow: 0px 0px 2px #000;"
@@ -33,7 +34,7 @@
               img-src="https://picsum.photos/1024/480/?image=22"
             ></b-carousel-slide>
           </b-carousel> -->
-          <h4 class="text-left font-weight-bold m-4">Produk Terlaris</h4>
+          <h4 class="text-left font-weight-bold m-4"> Products <b-button class="font-weight-bold float-right" variant="warning">Create New <font-awesome-icon :icon="['fas', 'plus-square']" /></b-button></h4>
           <div class="row mx-auto" style="font-size: 14px;">
             <b-card
               img-src="https://images-na.ssl-images-amazon.com/images/I/71h6PpGaz9L._AC_SL1500_.jpg"
@@ -46,8 +47,8 @@
             >
               <b-card-text class="mt-4">
                 <p class=" mb-3">MDL-072 TPA3116D2 XH-M543 2x120W CLASS D</p>
-                <p class="mb-3 font-weight-bold" style="font-size: 16px;">Rp. 8.999.999</p>
-                <p class="mb-2 font-weight-bold text-warning">10 items left</p>
+                <p class=" font-weight-bold" style="font-size: 16px;">Rp. 8.999.999</p>
+                <b-badge class="" variant="warning" style="color: white; font-size: 13px;">10 Items left</b-badge>
               </b-card-text>
             </b-card>
             <b-card

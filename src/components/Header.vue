@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="warning">
       <font-awesome-icon :icon="['fas', 'shopping-cart']" size="2x" class="mr-4 ml-5" />
-      <b-navbar-brand href="#" class="font-weight-bold">Entar Komputer</b-navbar-brand>
+      <b-navbar-brand href="#" class="font-weight-bold">CMS Panel</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -21,7 +21,6 @@
             <template #button-content>
               <font-awesome-icon :icon="['fas', 'user']" size="1x" id="ikon" />
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>

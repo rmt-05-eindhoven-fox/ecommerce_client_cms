@@ -31,10 +31,20 @@
 
 <script>
 export default {
-  name: 'LoginCard'
+  name: 'LoginCard',
+  mounted () {
+    axios
+      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => (this.info = response))
+  }
 }
 </script>
 <style scoped>
+
+  body{
+    background-color: #ffffff;
+  }
+
   .login-form{
     display: flex;
     flex-direction:row-reverse;
