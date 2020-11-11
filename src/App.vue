@@ -10,7 +10,6 @@
 
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
-import './axios/axiosInstance.js'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
 }
@@ -25,9 +24,9 @@ export default {
   color: #2c3e50;
 }
 
-body {
-  /* background-color: rgb(254,254,254); */
-}
+body{
+    background-color: #ffffff;
+  }
 
 #nav {
   padding: 30px;

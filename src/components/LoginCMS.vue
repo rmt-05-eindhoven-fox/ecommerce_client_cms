@@ -1,7 +1,7 @@
 <template>
   <div class="text-center login-form">
       <b-card
-        title="Sign In"
+        title="Admin"
         tag="article"
         style="min-width: 355px; border-radius: 5px; min-height: 425px;"
         class="mb-2 login-card">
@@ -14,13 +14,9 @@
               <label class="sr-only">Password</label>
               <input type="password" id="password" class="form-control" placeholder="Password" required>
               <br>
-              <a href="#">New member? click here</a>
               <section class="buttons">
                 <div class="mt-3">
                     <button class="btn btn-primary btn-block">Sign In</button>
-                </div>
-                <div class="mt-3 ">
-                    <button class="btn btn-warning btn-block">Sign In With Google</button>
                 </div>
               </section>
           </form>
@@ -32,7 +28,7 @@
 <script>
 import axios from '@/axios/axiosInstance.js'
 export default {
-  name: 'LoginCard',
+  name: 'LoginCMS',
   data () {
     return {
       info: ''

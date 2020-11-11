@@ -1,14 +1,14 @@
 <template>
-    <LoginCard />
+    <LoginCMS />
 </template>
 
 <script>
-import LoginCard from '@/components/LoginCard.vue'
+import LoginCMS from '@/components/LoginCMS.vue'
 
 export default {
   name: 'Login',
   components: {
-    LoginCard
+    LoginCMS
   }
 }
 </script>
