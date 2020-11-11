@@ -9,21 +9,7 @@
           <h3 class="md-title">SKoutwear Admin</h3>
         </md-app-toolbar>
         <md-app-drawer :md-active.sync="menuVisible">
-          <div class="user-profile">
-            <md-avatar class="md-avatar-icon md-large">
-              <md-icon>account_circle</md-icon>
-            </md-avatar>
-            <div class="user-menu">
-              <md-menu md-size="medium" md-align-trigger>
-                <md-button md-menu-trigger>Admin@mail.com</md-button>
-                <md-menu-content>
-                  <md-menu-item>
-                    <md-button>Logout</md-button>
-                  </md-menu-item>
-                </md-menu-content>
-              </md-menu>
-            </div>
-          </div>
+          <UserProfile></UserProfile>
           <md-divider></md-divider>
           <md-list>
             <div id="nav">
@@ -59,31 +45,7 @@
         </md-app-drawer>
         <md-app-content>
           <router-view />
-          <div class="speed-add">
-            <md-speed-dial class="md-bottom-right">
-              <md-speed-dial-target>
-                <md-icon class="md-morph-initial">add</md-icon>
-                <md-icon class="md-morph-final">edit</md-icon>
-              </md-speed-dial-target>
-
-              <md-speed-dial-content>
-                <md-button class="md-icon-button">
-                  <md-icon>view_carousel</md-icon>
-                  <md-tooltip md-direction="left">Banner</md-tooltip>
-                </md-button>
-
-                <md-button class="md-icon-button">
-                  <md-icon>category</md-icon>
-                  <md-tooltip md-direction="left">Category</md-tooltip>
-                </md-button>
-
-                <md-button class="md-icon-button">
-                  <md-icon>shopping_bag</md-icon>
-                  <md-tooltip md-direction="left">Product</md-tooltip>
-                </md-button>
-              </md-speed-dial-content>
-            </md-speed-dial>
-          </div>
+          <SpeedDial></SpeedDial>
         </md-app-content>
       </md-app>
     </div>
@@ -137,21 +99,20 @@
   width: 230px;
   max-width: calc(100vw - 125px);
 }
-
-.user-profile {
-  margin-top: 16px;
-}
-
-.user-menu {
-  margin-bottom: 16px;
-}
 </style>
 
 <script>
+import SpeedDial from './components/SpeedDial'
+import UserProfile from './components/UserProfile'
+
 export default {
   name: 'App',
   data: () => ({
     menuVisible: false
-  })
+  }),
+  components: {
+    SpeedDial,
+    UserProfile
+  }
 }
 </script>
