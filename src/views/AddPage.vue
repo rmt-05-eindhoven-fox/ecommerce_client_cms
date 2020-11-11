@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="addPage">
     <div class="row nav">
       <div style="padding-left: 15px" class="col-1">
         <div class="nav flex-column nav-pills navpil" id="v-pills-tab" role="tablist" aria-orientation="vertical">

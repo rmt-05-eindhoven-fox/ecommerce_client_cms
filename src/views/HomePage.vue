@@ -24,6 +24,18 @@ export default {
   name: 'HomePage',
   components: {
     Dashboard
+  },
+  methods: {
+    isLogin () {
+      if (localStorage.getItem('token')) {
+        console.log('log')
+      } else {
+        this.$router.push('/')
+      }
+    }
+  },
+  created () {
+    this.isLogin()
   }
 }
 </script>

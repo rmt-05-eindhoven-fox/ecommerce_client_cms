@@ -8,19 +8,19 @@
         </div>
 
         <!-- Login Form -->
-        <form>
+        <form @submit.prevent="login">
           <input
+            v-model="email"
             type="email"
             id="login"
             class="fadeIn second"
-            name="login"
             placeholder="email"
           />
           <input
+            v-model="password"
             type="password"
             id="password"
             class="fadeIn third"
-            name="login"
             placeholder="password"
           />
           <input type="submit" class="fadeIn fourth mt-3" value="Log In" />
@@ -36,8 +36,36 @@
 </template>
 
 <script>
+import axios from '../axios/axiosInstance'
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    login () {
+      axios({
+        url: '/login',
+        method: 'POST',
+        data: {
+          email: this.email,
+          password: this.password
+        }
+      })
+        .then(({ data }) => {
+          const token = data.access_token
+          localStorage.setItem('token', token)
+          this.$router.push('/dashboard')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
 }
 </script>
 

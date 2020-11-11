@@ -47,7 +47,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.navbar {
+  background: #2c393f;
+  color: white;
+  height: 7vh;
+}
+.navbar-title {
+  font-size: 20px;
+  margin: auto;
+}
 .addProduct {
   background: #ededed;
   height: 100vh;

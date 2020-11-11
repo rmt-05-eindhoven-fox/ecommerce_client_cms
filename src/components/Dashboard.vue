@@ -5,49 +5,34 @@
         DASHBOARD
       </p>
     </div>
-
-    <div class="container">
-      <table class="table mt-5 text-center">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row mt-4">
+      <Product/>
     </div>
   </div>
 </template>
 
 <script>
+import Product from './ContentProduct'
+
 export default {
-  name: 'Dashboard'
+  name: 'Dashboard',
+  components: {
+    Product
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  methods: {
+    fetchProducts () {
+      this.$store.dispatch('fetchProducts')
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .navbar {
   background: #2c393f;
   color: white;
@@ -60,6 +45,14 @@ export default {
 .dashboard {
   background: #ededed;
   height: 100vh;
+}
+.card {
+  width: 100%;
+  margin: 0 15px;
+}
+.row {
+  width: 100%;
+  padding-left: 25px;
 }
 
 </style>
