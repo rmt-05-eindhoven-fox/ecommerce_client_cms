@@ -55,7 +55,6 @@
 
 <script>
 import NavbarDashboard from '../components/NavbarDashboard'
-import axios from '../config/axios'
 
 export default {
   name: 'CreateProduct',
@@ -64,9 +63,6 @@ export default {
   },
   data () {
     return {
-      // Categories
-      categories: [],
-
       // Product
       product: {
         name: '',
@@ -78,43 +74,25 @@ export default {
       }
     }
   },
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
+  },
   methods: {
     readCategories () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'GET',
-        url: '/categories',
-        headers: {
-          access_token: accessToken
-        }
-      }).then((result) => {
-        this.categories = []
-        this.categories = result.data
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      this.$store.dispatch('readCategories')
     },
     createProduct () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'POST',
-        url: '/products',
-        headers: {
-          access_token: accessToken
-        },
-        data: {
-          name: this.product.name,
-          image_url: this.product.image_url,
-          description: this.product.description,
-          price: +this.product.price,
-          stock: +this.product.stock,
-          CategoryId: +this.product.CategoryId
-        }
-      }).then((result) => {
-        this.$router.push({ name: 'Dashboard' })
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      const payload = {
+        name: this.product.name,
+        image_url: this.product.image_url,
+        description: this.product.description,
+        price: +this.product.price,
+        stock: +this.product.stock,
+        CategoryId: +this.product.CategoryId
+      }
+      this.$store.dispatch('createProduct', payload)
     },
     cancel () {
       this.$router.push({ name: 'Dashboard' })

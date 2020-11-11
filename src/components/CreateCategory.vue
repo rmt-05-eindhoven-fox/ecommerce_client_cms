@@ -14,7 +14,7 @@
               <form @submit.prevent="createCategory()">
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input v-model="category.name" type="text" id="name" class="form-control rounded-pill" placeholder="E.g. Ruang Keluarga" required autofocus autocomplete="off">
+                  <input v-model="category.name" type="text" id="name" class="form-control rounded-pill" placeholder="E.g. Ruang Keluarga" autofocus autocomplete="off">
                 </div>
                 <hr class="bg-light">
                 <button class="btn btn-lg btn-primary btn-block mt-4 p-2 rounded-pill" type="submit">CREATE</button>
@@ -32,7 +32,7 @@
     <div class="container mb-5 pb-5">
       <h5>Category List :</h5>
       <div v-for="category in categories" :key="category.id" class="alert alert-success alert-dismissible">
-        <a href="#" @click.prevent="deleteCategory(category.id)" class="close btn btn-danger">&times;</a>
+        <a href="#" @click.prevent="deleteCategory(category.id)" class="close btn">&times;</a>
         <strong>{{category.name}}</strong>
       </div>
     </div>
@@ -42,7 +42,6 @@
 
 <script>
 import NavbarDashboard from '../components/NavbarDashboard'
-import axios from '../config/axios'
 
 export default {
   name: 'CreateCategory',
@@ -51,64 +50,33 @@ export default {
   },
   data () {
     return {
-      // Categories
-      categories: [],
-
       // Category
       category: {
         name: ''
       }
     }
   },
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
+  },
   methods: {
     readCategories () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'GET',
-        url: '/categories',
-        headers: {
-          access_token: accessToken
-        }
-      }).then((result) => {
-        this.categories = []
-        this.categories = result.data
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      this.$store.dispatch('readCategories')
     },
     createCategory () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'POST',
-        url: '/categories',
-        headers: {
-          access_token: accessToken
-        },
-        data: {
-          name: this.category.name
-        }
-      }).then((result) => {
-        this.$router.push({ name: 'CreateCategory' })
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      const payload = {
+        name: this.category.name
+      }
+      this.$store.dispatch('createCategory', payload)
+      this.category.name = ''
     },
     cancel () {
       this.$router.push({ name: 'Dashboard' })
     },
-    deleteCategory (id) {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        url: `/categories/${+id}`,
-        method: 'DELETE',
-        headers: {
-          access_token: accessToken
-        }
-      }).then((result) => {
-        this.$router.push({ name: 'CreateCategory' })
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+    deleteCategory (payload) {
+      this.$store.dispatch('deleteCategory', payload)
     }
   },
   created () {

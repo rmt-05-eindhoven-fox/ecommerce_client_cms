@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  font-family: 'Russo One', 'Montserrat', sans-serif;
+}
+
+.card-hover:hover{
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}

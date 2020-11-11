@@ -5,7 +5,7 @@
     <!-- NAVBAR DASHBOARD -->
 
     <!-- PRODUCTS -->
-    <div class="container">
+    <div class="container my-5 pb-5">
       <div class="row">
         <div class="col d-flex justify-content-between">
           <h2>Product List</h2>
@@ -36,7 +36,6 @@
 <script>
 import NavbarDashboard from '../components/NavbarDashboard'
 import Products from '../components/Products'
-import axios from '../config/axios'
 
 export default {
   name: 'Dashboard',
@@ -46,56 +45,28 @@ export default {
   },
   data () {
     return {
-      // Products
-      products: [],
-
-      // Categories
-      categories: [],
-
+      // Filter
       selectedCategory: ''
     }
   },
-  watch: {
-    selectedCategory () {
-      this.readProducts()
+  computed: {
+    products () {
+      if (this.selectedCategory) {
+        return this.$store.getters.filteredProductsByCategory(this.selectedCategory)
+      } else {
+        return this.$store.state.products
+      }
+    },
+    categories () {
+      return this.$store.state.categories
     }
   },
   methods: {
     readProducts () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'GET',
-        url: '/products',
-        headers: {
-          access_token: accessToken
-        }
-      }).then((result) => {
-        this.products = []
-        result.data.forEach(data => {
-          if (data.CategoryId === this.selectedCategory) {
-            this.products.push(data)
-          } else if (!this.selectedCategory) {
-            this.products.push(data)
-          }
-        })
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      this.$store.dispatch('readProducts')
     },
     readCategories () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'GET',
-        url: '/categories',
-        headers: {
-          access_token: accessToken
-        }
-      }).then((result) => {
-        this.categories = []
-        this.categories = result.data
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      this.$store.dispatch('readCategories')
     },
     goToCreateProduct () {
       this.$router.push({ name: 'CreateProduct' })

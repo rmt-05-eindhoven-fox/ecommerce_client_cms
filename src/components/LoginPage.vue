@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import axios from '../config/axios'
-
 export default {
   name: 'LoginPage',
   data () {
@@ -41,20 +39,13 @@ export default {
   },
   methods: {
     login () {
-      axios({
-        method: 'POST',
-        url: '/loginAdmin',
-        data: {
-          email: this.user.email_login,
-          password: this.user.password_login
+      const payload = {
+        user: {
+          email_login: this.user.email_login,
+          password_login: this.user.password_login
         }
-      }).then((result) => {
-        const accessToken = result.data.access_token
-        localStorage.setItem('access_token', accessToken)
-        this.$router.push({ name: 'Dashboard' })
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      }
+      this.$store.dispatch('login', payload)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="row mb-3">
+  <div class="card-hover row mb-3">
     <div class="col-md-auto border">
       <img :src="product.image_url" height="200" alt="" srcset="">
     </div>
@@ -17,7 +17,7 @@
       </div>
       <div class="card-body border">
         <p class="card-text">{{product.description}}</p>
-        <h6 class="card-title"><i class="fas fa-tags"></i> : Rp. {{product.price}}</h6>
+        <h6 class="card-title"><i class="fas fa-tags"></i> : {{product.moneyFormat}}</h6>
         <h6 class="card-title"><i class="fas fa-layer-group mr-1"></i> : {{product.stock}} Items</h6>
         <p class="card-text">Category : {{product.Category.name}}</p>
       </div>
@@ -26,25 +26,12 @@
 </template>
 
 <script>
-import axios from '../config/axios'
-
 export default {
   name: 'Products',
   props: ['product'],
   methods: {
-    deleteProduct (id) {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        url: `/products/${+id}`,
-        method: 'DELETE',
-        headers: {
-          access_token: accessToken
-        }
-      }).then((result) => {
-        this.$router.push({ name: 'Dashboard' })
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+    deleteProduct (payload) {
+      this.$store.dispatch('deleteProduct', payload)
     },
     goToEditProduct (id) {
       this.$router.push({ name: 'EditProduct', params: { id } })

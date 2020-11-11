@@ -55,7 +55,6 @@
 
 <script>
 import NavbarDashboard from '../components/NavbarDashboard'
-import axios from '../config/axios'
 
 export default {
   name: 'EditProduct',
@@ -64,9 +63,6 @@ export default {
   },
   data () {
     return {
-      // Categories
-      categories: [],
-
       // Product
       product: {
         name: '',
@@ -78,44 +74,44 @@ export default {
       }
     }
   },
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
+  },
   methods: {
     readCategories () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'GET',
-        url: '/categories',
-        headers: {
-          access_token: accessToken
-        }
-      }).then((result) => {
-        this.categories = []
-        this.categories = result.data
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      this.$store.dispatch('readCategories')
     },
     editProduct () {
       const id = +this.$route.params.id
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'PUT',
-        url: `/products/${id}`,
-        headers: {
-          access_token: accessToken
-        },
-        data: {
-          name: this.product.name,
-          image_url: this.product.image_url,
-          description: this.product.description,
-          price: +this.product.price,
-          stock: +this.product.stock,
-          CategoryId: +this.product.CategoryId
-        }
-      }).then((result) => {
-        this.$router.push({ name: 'Dashboard' })
-      }).catch((err) => {
-        console.log(err.response.data.msg)
-      })
+      const payload = {
+        name: this.product.name,
+        image_url: this.product.image_url,
+        description: this.product.description,
+        price: +this.product.price,
+        stock: +this.product.stock,
+        CategoryId: +this.product.CategoryId,
+        id: id
+      }
+      this.$store.dispatch('editProduct', payload)
+    },
+    readProductById () {
+      const payload = {
+        id: +this.$route.params.id
+      }
+      this.$store.dispatch('readProductById', payload)
+        .then((result) => {
+          this.product.name = result.data.name
+          this.product.image_url = result.data.image_url
+          this.product.description = result.data.description
+          this.product.price = result.data.price
+          this.product.stock = result.data.stock
+          this.product.CategoryId = result.data.CategoryId
+        })
+        .catch((err) => {
+          console.log(err.response.data.msg)
+        })
     },
     cancel () {
       this.$router.push({ name: 'Dashboard' })
@@ -123,6 +119,7 @@ export default {
   },
   created () {
     this.readCategories()
+    this.readProductById()
   }
 }
 </script>
