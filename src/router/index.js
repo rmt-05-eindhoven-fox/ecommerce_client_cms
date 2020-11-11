@@ -5,6 +5,7 @@ import Dashboard from '../views/Dashboard.vue'
 import CreateProduct from '../views/CreateProduct.vue'
 import EditProduct from '../views/EditProduct.vue'
 import CreateCategory from '../views/CreateCategory.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/createCategory',
     name: 'CreateCategory',
     component: CreateCategory
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: NotFound
   }
 ]
 
