@@ -4,7 +4,7 @@
       <div>E-commerce CMS</div>
       <router-link to="/">Home</router-link> |
       <router-link to="/addProduct">Add</router-link> |
-      <router-link to="/login">Logout</router-link>
+      <a @click.prevent="logout" href="">Logout</a>
     </div>
     <Dashboard/>
   </div>
@@ -21,6 +21,11 @@ export default {
   },
   data () {
     return {
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
     }
   }
 }

@@ -4,7 +4,6 @@
       <div>E-commerce CMS</div>
       <router-link to="/">Home</router-link>
     </div>
-
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -15,7 +14,7 @@
         </div>
 
         <div class="modal-body">
-          <form>
+          <form @submit.prevent="editProduct">
               <div class="form-group ">
                   <label>
                       Name
@@ -60,7 +59,7 @@
                   >
               </div>
 
-              <button type="submit" class="btn btn-purple btn-block">Add</button>
+              <button type="submit" class="btn btn-purple btn-block">Edit</button>
           </form>
         </div>
       </div>
@@ -80,6 +79,42 @@ export default {
       price: '',
       stock: ''
     }
+  },
+  computed: {
+  },
+  methods: {
+    fetchProductId () {
+      const id = this.$route.params.id
+      this.$store.dispatch('fetchProductId', id)
+        .then(({ data }) => {
+          // console.log(data)
+          this.name = data.name
+          this.image_url = data.image_url
+          this.price = data.price
+          this.stock = data.stock
+        })
+        .catch(err => {
+          if (+err.response.status === 404) {
+            this.$router.push({ name: 'NotFound' })
+          } else {
+            console.log(err.response.data)
+          }
+        })
+    },
+    editProduct () {
+      const id = this.$route.params.id
+      const payload = {
+        name: this.name,
+        image_url: this.image_url,
+        price: this.price,
+        stock: this.stock,
+        id: id
+      }
+      this.$store.dispatch('editProduct', payload)
+    }
+  },
+  created () {
+    this.fetchProductId()
   }
 }
 </script>

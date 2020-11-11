@@ -35,12 +35,12 @@
             :key="product.id"
           >
               <td>{{index + 1}}</td>
-              <td class="w-20"><img :src="product.image_url"></td>
+              <td class="w-20"><img :src="product.image_url" style="width: 200px; height: 180px; object-fit: contain"></td>
               <td>{{product.name}}</td>
               <td>{{product.price}}</td>
               <td>{{product.stock}}</td>
               <td>
-                  <button @click="$router.push(`/editProduct/${product.id}`)" class="btn btn-primary">Edit</button>
+                  <button @click="changePage(`editProduct/${product.id}`)" class="btn btn-primary">Edit</button>
                   <button @click="deleteProduct (product.id)" class="btn btn-danger">Delete</button>
               </td>
           </tr>
@@ -52,53 +52,35 @@
 </template>
 
 <script>
-import axios from '../axios/axiosInstance'
 export default {
   name: 'Dashboard',
   data () {
     return {
-      products: []
     }
   },
-  props: {
-    msg: String
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   },
   methods: {
     changePage (path) {
-      this.$router.push(`/${path}`)
+      this.$store.dispatch('changePage', path)
     },
     fetchProduct () {
-      axios({
-        url: '/products',
-        method: 'GET',
-        headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2MDQ5ODM2OTV9.MglsVyEckK4Wd5F5Qkf8xdd70R6L6RW3AkV6kdbE77w'
-        }
-      })
-        .then(({ data }) => {
-          this.email = data.loggedInUser
-          this.products = data.productList
-          console.log(this.products)
-        })
-        .catch(err => {
-          console.log(err.response.data, 'fetch product')
-        })
+      this.$store.dispatch('fetchProduct')
     },
     deleteProduct (id) {
-      console.log(id)
-      axios({
-        url: `/products/${id}`,
-        method: 'DELETE',
-        headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2MDQ5ODM2OTV9.MglsVyEckK4Wd5F5Qkf8xdd70R6L6RW3AkV6kdbE77w'
-        }
-      })
-        .then(({ data }) => {
-          // this.$router.push('/')
+      this.$store.dispatch('deleteProduct', id)
+        .then(() => {
           this.fetchProduct()
         })
         .catch(err => {
-          console.log(err.response.data)
+          if (+err.response.status === 404) {
+            this.$router.push({ name: 'NotFound' })
+          } else {
+            console.log(err.response.data)
+          }
         })
     }
   },
@@ -120,7 +102,7 @@ export default {
     max-width: 100%;
     height: auto;
   } */
-  .w-20 {
-    width: 20%!important;
-  }
+  /* .w-20 {
+    width: 50%!important;
+  } */
 </style>

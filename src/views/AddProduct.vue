@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import axios from '../axios/axiosInstance'
 export default {
   name: 'AddProduct',
   components: {
@@ -84,27 +83,13 @@ export default {
   },
   methods: {
     addProduct () {
-      axios({
-        url: '/products',
-        method: 'POST',
-        data: {
-          name: this.name,
-          image_url: this.image_url,
-          price: this.price,
-          stock: this.stock
-        },
-        headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2MDQ5ODM2OTV9.MglsVyEckK4Wd5F5Qkf8xdd70R6L6RW3AkV6kdbE77w'
-        }
-      })
-        .then(({ data }) => {
-          // this.fetchTasks()
-          // $('#close-add').trigger('click')
-          this.$router.push('/')
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
+      const payload = {
+        name: this.name,
+        image_url: this.image_url,
+        price: this.price,
+        stock: this.stock
+      }
+      this.$store.dispatch('addProduct', payload)
     }
   }
 }
