@@ -8,6 +8,9 @@
           <a @click.prevent="logout" class="dropdown-item" href="#">Logout</a>
         </div>
       </li>
+      <li class="nav-item">
+        <a @click.prevent="goToAddProduct" class="nav-link" href="#">Add Product</a>
+      </li>
     </ul>
   </nav>
 </template>
@@ -19,6 +22,9 @@ export default {
     logout () {
       localStorage.removeItem('access_token')
       this.$router.push('Login')
+    },
+    goToAddProduct () {
+      this.$router.push({ name: 'AddProduct' })
     }
   }
 }

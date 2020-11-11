@@ -30,7 +30,7 @@
                   <input  v-model="stock" placeholder="product stock" type="number" class="form-control" id="add-stock">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-danger">Cancel</button>
+                <button @click="$router.push({ name: 'Products' })" type="button" class="btn btn-danger">Cancel</button>
               </form>
             </div>
           </div>
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import axios from '../axios/axiosInstance'
 
 export default {
   name: 'AddProduct',
@@ -57,20 +56,15 @@ export default {
   methods: {
     addProduct () {
       const accessToken = localStorage.getItem('access_token')
-      axios({
-        url: '/products',
-        method: 'post',
-        data: {
-          name: this.name,
-          image_url: this.image_url,
-          category: this.category,
-          price: this.price,
-          stock: this.stock
-        },
-        headers: {
-          access_token: accessToken
-        }
-      })
+      const payload = {
+        name: this.name,
+        image_url: this.image_url,
+        category: this.category,
+        price: this.price,
+        stock: this.stock,
+        access_token: accessToken
+      }
+      this.$store.dispatch('addProduct', payload)
         .then(({ data }) => {
           this.$router.push('Products')
         })

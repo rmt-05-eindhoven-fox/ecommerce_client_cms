@@ -32,41 +32,32 @@
 </template>
 
 <script>
-import axios from '@/axios/axiosInstance'
 import NavbarDashboard from '../components/NavbarDashboard'
 import ProductItem from '../components/ProductItem'
 
 export default {
   name: 'Products',
   components: {
-    NavbarDashboard, ProductItem
+    NavbarDashboard,
+    ProductItem
   },
   data () {
     return {
-      products: []
     }
   },
   methods: {
     fetchProducts () {
       const accessToken = localStorage.getItem('access_token')
-      axios({
-        url: '/products',
-        method: 'get',
-        headers: {
-          access_token: accessToken
-        }
-      })
-        .then(({ data }) => {
-          // console.log(data)
-          this.products = data
-        })
-        .catch(({ response }) => {
-          console.log(response)
-        })
+      this.$store.dispatch('fetchProducts', accessToken)
     }
   },
   created () {
     this.fetchProducts()
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>
