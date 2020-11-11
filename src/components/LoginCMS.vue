@@ -8,15 +8,15 @@
         <b-card-text>
           <form>
               <!-- <img class="mt-4 mb-4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/512px-Bootstrap_logo.svg.png"> -->
-              <label class="sr-only">Email Address</label>
+              <label class="sr-only" for="emailAddress">Email Address</label>
               <font-awesome-icon :icon="['fas', 'user']" size="2x" id="ikon" />
-              <input type="email" id="emailAddress" class="form-control" placeholder="Email Address" required>
-              <label class="sr-only">Password</label>
-              <input type="password" id="password" class="form-control" placeholder="Password" required>
+              <input v-model="email" type="email" id="emailAddress" class="form-control" placeholder="Email Address" required>
+              <label class="sr-only" for="password">Password</label>
+              <input v-model="password" type="password" id="password" class="form-control" placeholder="Password" required>
               <br>
               <section class="buttons">
                 <div class="mt-3">
-                    <button class="btn btn-primary btn-block">Sign In</button>
+                    <button @click.prevent="login" class="btn btn-primary btn-block bg-warning">Sign In</button>
                 </div>
               </section>
           </form>
@@ -31,13 +31,26 @@ export default {
   name: 'LoginCMS',
   data () {
     return {
-      info: ''
+      email: '',
+      password: ''
     }
   },
-  mounted () {
-    axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.info = response))
+  methods: {
+    login () {
+      axios({
+        method: 'post',
+        url: '/login',
+        data: { email: this.email, password: this.password }
+      })
+        .then(response => {
+          localStorage.setItem('role', response.data.role)
+          localStorage.setItem('access_token', response.data.access_token)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    }
   }
 }
 </script>
@@ -51,7 +64,7 @@ export default {
   .login-card {
     margin-right: 180px;
     background-color: #ffffff;
-    border: 5px solid #e8e6e6;
+    border: 5px solid #e2e2e2;
   }
 
   form img {
@@ -65,6 +78,8 @@ export default {
 
   .buttons div button {
     font-size: 15px;
+    color: black;
+    border: 0;
   }
 
   input {

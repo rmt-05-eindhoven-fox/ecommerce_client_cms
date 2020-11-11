@@ -1,6 +1,8 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
+import { store } from './store/store.js'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret, faUser, faShoppingCart, faList, faAngleRight, faPlusSquare, faTachometerAlt, faArchive } from '@fortawesome/free-solid-svg-icons'
@@ -19,10 +21,13 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
 new Vue({
+  store,
+  el: '#app',
   router,
   render: h => h(App)
 }).$mount('#app')
