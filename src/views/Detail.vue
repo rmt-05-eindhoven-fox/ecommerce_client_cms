@@ -25,34 +25,16 @@
 </template>
 
 <script>
-import axios from '../axios/axiosInstance'
-
 export default {
   name: 'Detail',
   data () {
     return {
-      product: {}
     }
   },
   methods: {
-    fetchProduct () {
+    fetchOne () {
       const id = this.$route.params.id
-
-      axios({
-        url: '/products/' + id,
-        method: 'GET'
-      })
-        .then(({ data }) => {
-          // console.log(data)
-          if (data) {
-            this.product = data
-          } else {
-            this.$router.push({ name: 'NotFound' })
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.$store.dispatch('fetchOne', { id })
     },
     backToProducts () {
       this.$router.push('/products')
@@ -63,8 +45,13 @@ export default {
       this.$router.push(`/detail/${id}/${path}`)
     }
   },
+  computed: {
+    product () {
+      return this.$store.state.product
+    }
+  },
   created () {
-    this.fetchProduct()
+    this.fetchOne()
   }
 }
 </script>
