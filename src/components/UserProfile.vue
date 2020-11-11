@@ -5,10 +5,10 @@
     </md-avatar>
     <div class="user-menu">
       <md-menu md-size="medium" md-align-trigger>
-        <md-button md-menu-trigger>Admin@mail.com</md-button>
+        <md-button md-menu-trigger>{{ userEmail }}</md-button>
         <md-menu-content>
           <md-menu-item>
-            <md-button>Logout</md-button>
+            <md-button @click="logout">Logout</md-button>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
@@ -18,7 +18,18 @@
 
 <script>
 export default {
-  name: 'UserProfile'
+  name: 'UserProfile',
+  computed: {
+    userEmail () {
+      return this.$store.state.userEmail
+    }
+  },
+  methods: {
+    logout () {
+      localStorage.removeItem('access_token')
+      this.$router.push('login')
+    }
+  }
 }
 </script>
 
