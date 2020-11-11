@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.login-page {
+  min-height: 100vh;
+  background-color: #333399;
+  display: flex;
+  align-items: center;
+  font-family: "Roboto Mono", monospace;
+}
+
+.card-login {
+  margin-left: auto;
+  margin-right: auto;
+}
+.card-login .card {
+  width: 300px;
+  height: 320px;
+  border-radius: 10px;
+}
+.card-login h3 {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #989797;
+}
+.card-login form input {
+  border: 1px solid #000000;
+}
+.card-login .btn {
+  background-color: #333399;
+  color: #ffffff;
+}
+.card-login .btn:hover {
+  background-color: #191961;
+  color: #ffffff;
+}
+
+.dashboard {
+  display: flex;
+}
+.dashboard .sidebar-sticky {
+  background-color: #333399;
+  max-width: 200px;
+  min-height: 100vh;
+  font-family: "Roboto Mono", monospace;
+  font-weight: 300;
+  position: fixed;
+}
+.dashboard .sidebar-sticky .user-login {
+  padding: 10px;
+  color: #ffffff;
+  font-size: 24px;
+}
+.dashboard .sidebar-sticky .user-login small {
+  font-size: 12px;
+  margin-top: -110px;
+}
+.dashboard .sidebar-sticky .nav {
+  margin-top: 80px;
+}
+.dashboard .sidebar-sticky .nav a {
+  color: #ffffff;
+}
+.dashboard .sidebar-sticky .nav a:hover {
+  background-color: #191961;
+}
+.dashboard .main-dash {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 300;
+  padding-top: 50px;
+  padding-left: 95px;
+  margin-left: 200px;
+  min-height: 200vh;
+}
+.dashboard .main-dash .page-title {
+  margin-bottom: 50px;
+}
+.dashboard .main-dash .page-title h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+.dashboard .list-product .card {
+  width: 320px;
+  height: 420px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.dashboard .list-product .card .card-body {
+  display: inline-block;
+}
+.dashboard .list-product .card img {
+  height: 230px;
+  width: 275px;
+}
+.dashboard .list-product p {
+  font-size: 14px;
+}
+.dashboard .product-form input {
+  width: 460px;
+  border: #000000 1px solid;
+  border-radius: 8px;
+}
+.dashboard .product-form .btn {
+  background-color: #333399;
+  color: #ffffff;
+  border-radius: 8px;
+}
+.dashboard .product-form .btn:hover {
+  background-color: #191961;
+  color: #ffffff;
+}
+
+/*# sourceMappingURL=style.css.map */
