@@ -4,10 +4,10 @@
       <a class="navbar-brand" href="">Products</a>
       <div class="dropdown">
         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-skull">Username</i>
+          <i class="fas fa-skull"></i>{{ username }}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="" @click.prevent="Logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
+          <a class="dropdown-item" href="" @click.prevent="Logout"><i class="fa fa-sign-out-alt bg-dark"></i>Logout</a>
         </div>
       </div>
     </nav>
@@ -21,6 +21,11 @@
 import ListofProducts from '../components/ListofProducts.vue'
 export default {
   name: 'Product',
+  data () {
+    return {
+      username: ''
+    }
+  },
   methods: {
     Logout () {
       localStorage.clear()
@@ -29,6 +34,9 @@ export default {
   },
   components: {
     ListofProducts
+  },
+  created () {
+    this.username = localStorage.getItem('username')
   }
 }
 </script>

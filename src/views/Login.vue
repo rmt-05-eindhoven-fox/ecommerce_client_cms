@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from '../axios/axiosInstance.js'
+// import axios from '../axios/axiosInstance.js'
 export default {
   name: 'Login',
   data () {
@@ -29,17 +29,14 @@ export default {
   },
   methods: {
     postLogin () {
-      axios({
-        url: '/login',
-        method: 'POST',
-        data: {
-          email: this.emailLogin,
-          password: this.passwordLogin
-        }
-      })
-        .then(data => {
-          console.log(data)
-          localStorage.setItem('token', data.data)
+      const objParams = {
+        email: this.emailLogin,
+        password: this.passwordLogin
+      }
+      this.$store.dispatch('postLogin', objParams)
+        .then(({ data }) => {
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('username', data.username)
           this.$router.push('Product')
         })
         .catch(err => {

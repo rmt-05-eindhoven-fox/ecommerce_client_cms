@@ -2,25 +2,8 @@
   <div class="container">
     <h1>List of Products</h1>
     <button type="button" class="btn btn-light mb-3" data-toggle="modal" data-target="#modalAddProduct">Add Product</button>
-    <div class="modal fade" id="modalAddProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content bg-dark text-white">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
-            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <table class="table table-dark">
+    <AddProduct/>
+    <table class="table table-dark text-align-center">
       <thead>
         <tr>
           <th scope="col">No</th>
@@ -32,25 +15,39 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td><img src="https://s0.bukalapak.com/img/53971606541/large/data.png" alt=""></td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>12</td>
-          <td>
-            <button class="btn-sm btn-warning">Edit</button> |
-            <button class="btn-sm btn-danger">Delete</button>
-          </td>
-        </tr>
+        <EachProduct
+          v-for="(product, i) in products"
+          :key="product.id"
+          :no="i"
+          :product="product"
+        />
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
+import EachProduct from './EachProduct.vue'
+import AddProduct from './AddProduct.vue'
 export default {
-  name: 'ListofProducts'
+  name: 'ListofProducts',
+  components: {
+    EachProduct,
+    AddProduct
+  },
+  methods: {
+    fetchProducts () {
+      this.$store.dispatch('fetchProducts')
+    }
+  },
+  created () {
+    this.fetchProducts()
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  }
 }
 </script>
 
