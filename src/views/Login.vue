@@ -6,10 +6,13 @@
 
 <script>
 import LoginCard from '@/components/LoginCard.vue'
+// import axios from '../axios/axios.js'
 export default {
   name: 'Login',
   components: {
     LoginCard
+  },
+  methods: {
   }
 }
 </script>

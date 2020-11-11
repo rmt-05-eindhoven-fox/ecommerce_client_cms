@@ -14,17 +14,17 @@
         Navigation
       </p>
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          Dashboard <span class="sr-only">(current)</span>
+        <a class="nav-link" href="" @click.prevent="isShow = false">
+          Dashboard
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="" @click.prevent="isShow = true">
           Add Products
         </a>
       </li>
       <li class="nav-item mt-5">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="" @click.prevent="logout">
           Logout
         </a>
       </li>
@@ -32,14 +32,10 @@
   </div>
     <div class="main-dash">
       <!-- LIST PRODUCT -->
-      <div class="page-title">
-        <h1>Dashboard</h1>
-        <p>Recent added product</p>
-      </div>
       <!-- PRODUCT CARD -->
-      <ProductCard />
+      <ProductCard v-if="!isShow"/>
       <!-- PRODUCT FORM -->
-      <AddForm />
+      <AddForm v-else />
     </div>
   </section>
 </template>
@@ -52,8 +48,20 @@ export default {
   components: {
     ProductCard,
     AddForm
+  },
+  data () {
+    return {
+      isShow: false
+    }
+  },
+  methods: {
+    logout () {
+      localStorage.clear()
+      this.$router.push('/')
+    }
   }
 }
+
 </script>
 
 <style>

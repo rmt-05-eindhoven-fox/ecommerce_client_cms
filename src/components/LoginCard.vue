@@ -6,9 +6,10 @@
         <small id="emailHelp" class="form-text text-center text-muted mb-2"
           >Login with admin account to access CMS</small
         >
-        <form action="">
+        <form @submit.prevent="userLogin">
           <div class="form-group">
             <input
+              v-model="email"
               type="email"
               class="form-control"
               id="email"
@@ -18,6 +19,7 @@
           </div>
           <div class="form-group">
             <input
+              v-model="password"
               type="password"
               class="form-control"
               id="password"
@@ -32,8 +34,34 @@
 </template>
 
 <script>
+import axios from '../axios/axios.js'
 export default {
-  name: 'LoginCard'
+  name: 'LoginCard',
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    userLogin () {
+      axios({
+        url: '/login',
+        method: 'post',
+        data: {
+          email: this.email,
+          password: this.password
+        }
+      })
+        .then(({ data }) => {
+          localStorage.setItem('token', data.access_token)
+          this.$router.push('/dashboard')
+        })
+        .catch(err => {
+          console.log(err.response.data.message)
+        })
+    }
+  }
 }
 </script>
 

@@ -1,4 +1,8 @@
 <template>
+  <div class="page-title">
+    <h1>Dashboard</h1>
+    <p>Recent added product</p>
+
     <div class="row list-product">
       <div class="col-lg-4">
         <div class="card">
@@ -17,6 +21,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
