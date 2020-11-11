@@ -1,0 +1,29 @@
+<template>
+  <nav class="navbar navbar-dark bg-dark">
+    <ul class="nav nav-tabs">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Bintang Wibawa</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-divider"></div>
+          <a @click.prevent="logout" class="dropdown-item" href="#">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: 'NavbarDashboard',
+  methods: {
+    logout () {
+      localStorage.removeItem('access_token')
+      this.$router.push('Login')
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>
