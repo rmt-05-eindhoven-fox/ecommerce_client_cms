@@ -9,4 +9,5 @@
 </template>
 
 <style lang="scss">
+  @import 'assets/css/style.css'
 </style>
