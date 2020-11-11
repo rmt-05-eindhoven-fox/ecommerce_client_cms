@@ -1,18 +1,22 @@
 <template>
-    <Login />
+    <LoginCard />
 </template>
 
 <script>
-import Login from '@/components/Login.vue'
+import LoginCard from '@/components/LoginCard.vue'
+
 export default {
-  name: 'Landing',
+  name: 'Login',
   components: {
-    Login
+    LoginCard
   }
 }
 </script>
 
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
   * {
     background-image: url('../../public/images/2741840.jpg');
     background-repeat: no-repeat;

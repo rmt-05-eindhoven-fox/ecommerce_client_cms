@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center login-form">
+  <div class="text-center login-form">
       <b-card
         title="Sign In"
         tag="article"
@@ -31,14 +31,10 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'LoginCard'
 }
 </script>
-
 <style scoped>
-
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
-
   .login-form{
     display: flex;
     flex-direction:row-reverse;
