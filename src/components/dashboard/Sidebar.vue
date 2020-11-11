@@ -53,10 +53,46 @@
 </template>
 
 <script>
+import $ from 'jquery'
+
 export default {
   name: 'LeftSidebar',
   data () {
     return {}
+  },
+  mounted () {
+    this.ajaxPorses()
+  },
+
+  methods: {
+    ajaxPorses () {
+      $('.ls-toggle-btn').on('click', function () {
+        console.log('clicked togel')
+        $('body').toggleClass('ls-toggle-menu')
+      })
+
+      $('.right_icon_toggle_btn').on('click', function () {
+        $('body').toggleClass('right_icon_toggle')
+      })
+
+      $.each($('.menu-toggle.toggled'), function (e, a) {
+        $(a).next().slideToggle(0)
+      })
+
+      $('.menu-toggle').on('click', function (e) {
+        var a = $(this)
+        var r = a.next()
+        if ($(a.parents('ul')[0]).hasClass('list')) {
+          var t = $(e.target).hasClass('menu-toggle') ? e.target : $(e.target).parents('.menu-toggle')
+          $.each($('.menu-toggle.toggled').not(t).next(), function (e, a) {
+          // eslint-disable-next-line no-unused-expressions
+            $(a).is(':visible') && ($(a).prev().toggleClass('toggled'), $(a).slideUp())
+          })
+        }
+        a.toggleClass('toggled')
+        r.slideToggle(320)
+      })
+    }
   }
 }
 </script>

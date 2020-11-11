@@ -1,5 +1,6 @@
 <template>
   <div id="auth">
+    <Loading :loading="loading"/>
     <div class="authentication">
       <div class="container">
         <div class="row">
@@ -46,15 +47,20 @@
 <script>
 
 import axios from '@/config/axios'
+import Loading from '@/components/loading/Loading.vue'
 
 export default {
   name: 'Auth',
   data () {
     return {
       thisYear: new Date().getFullYear(),
+      loading: false,
       email: '',
       password: ''
     }
+  },
+  components: {
+    Loading
   },
   methods: {
 
@@ -63,7 +69,7 @@ export default {
         email: this.email,
         password: this.password
       }
-
+      this.loading = true
       axios({
         url: 'login',
         method: 'post',
@@ -74,6 +80,9 @@ export default {
           this.$router.push({ name: 'Home' })
         }).catch((err) => {
           console.log(err.response)
+        }).then(() => {
+          // always executed
+          this.loading = false
         })
     },
 
