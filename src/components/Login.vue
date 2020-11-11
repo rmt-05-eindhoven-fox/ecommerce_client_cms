@@ -3,7 +3,7 @@
       <b-card
         title="Sign In"
         tag="article"
-        style="min-width: 355px; border-radius: 15px; min-height: 425px;"
+        style="min-width: 355px; border-radius: 5px; min-height: 425px;"
         class="mb-2 login-card">
         <b-card-text>
           <form>
@@ -43,13 +43,12 @@ export default {
     display: flex;
     flex-direction:row-reverse;
     margin-top: 100px;
-    font-family: 'Comfortaa', cursive;
   }
 
   .login-card {
     margin-right: 180px;
-    background-color: #ebebeb;
-    border: 5px solid #ebebeb;
+    background-color: #ffffff;
+    border: 5px solid #e8e6e6;
   }
 
   form img {
