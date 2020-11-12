@@ -21,8 +21,8 @@
               ><img src="../../assets/images/avatar.png" alt="User"
             /></a>
             <div class="detail text-left">
-              <h4>Riyan Pratama</h4>
-              <small>Super Admin</small>
+              <h4>{{ getFullname }}</h4>
+              <small>{{ getRole }}</small>
             </div>
           </div>
         </li>
@@ -41,10 +41,7 @@
             ><i class="zmdi zmdi-apps"></i><span>Other</span></a
           >
           <ul class="ml-menu">
-            <li><a href="#">Email</a></li>
-            <li><a href="#">Chat Apps</a></li>
-            <li><a href="#">Calendar</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">Live Banner</a></li>
           </ul>
         </li>
       </ul>
@@ -59,6 +56,14 @@ export default {
   name: 'LeftSidebar',
   data () {
     return {}
+  },
+  computed: {
+    getFullname () {
+      return localStorage.getItem('fullname')
+    },
+    getRole () {
+      return localStorage.getItem('role')
+    }
   },
   mounted () {
     this.ajaxPorses()

@@ -4,7 +4,7 @@
 
     <div
       v-bind:class="[modal, fade, margin, isShow]"
-      id="modal-add-product"
+      id="modal-edit-product"
       tabindex="-1"
       role="dialog"
       style="display: block"
@@ -19,7 +19,14 @@
                 <strong class="text-pink"> Edit Product </strong>
               </h6>
             </div>
-            <form @submit.prevent="updateProduct" id="add-todo">
+
+            <div v-if="messageInfo.length > 0" class="alert alert-danger alert-dismissible fade show m-3 p-1">
+              <ul class="m-b-0">
+                <li v-for="(msg, i) in messageInfo" :key="i" class="p-l-1 m-b-0">{{ msg.error }}</li>
+              </ul>
+            </div>
+
+            <form @submit.prevent="updateProduct" id="edit-product">
               <div class="modal-body">
                 <div class="row clearfix">
                   <input
@@ -118,7 +125,7 @@ export default {
       // Modal add product
       modal: 'modal',
       fade: 'fade',
-      margin: 'p-t-70',
+      margin: 'p-t-30',
       isShow: 'show',
       ariaModal: true,
       ariaHidden: false,
@@ -128,7 +135,8 @@ export default {
       prodName: '',
       prodImgURL: '',
       prodPrice: '',
-      prodStock: ''
+      prodStock: '',
+      messageInfo: []
     }
   },
 
@@ -187,7 +195,9 @@ export default {
         await this.$store.dispatch('getProducts')
         this.cancelTask()
       } catch (error) {
-        console.log(error)
+        const msg = error.response.data.message || []
+        this.messageInfo = msg
+        console.log(msg)
       } finally {
         this.loading = false
       }

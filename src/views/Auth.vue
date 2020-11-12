@@ -4,17 +4,14 @@
     <div class="authentication">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4 col-sm-12">
-            <form @submit.prevent="login" class="card auth_form">
+          <div class="col-lg-4 col-sm-12" >
+            <form @submit.prevent="login" class="card auth_form" style="height: 64vh;">
               <div class="header">
                 <img class="logo" src="../assets/images/logo.png" alt="">
                 <h5>Log in</h5>
               </div>
               <div v-if="messageInfo !== ''" class="alert alert-danger alert-dismissible fade show m-3">
                 {{ messageInfo }}
-                <!-- <button type="button" class="close m-t-15" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button> -->
               </div>
               <div class="body">
                 <div class="input-group mb-3">
@@ -70,15 +67,6 @@ export default {
     Loading
   },
 
-  created () {
-    const logedinUser = this.$store.state.logedinUser || {}
-    const keys = Object.keys(logedinUser)
-    const haveToken = keys.filter(k => k === 'access_token')
-    if (haveToken.length > 1) {
-      this.$store.dispatch('clearUserInfo')
-    }
-  },
-
   methods: {
 
     login () {
@@ -96,9 +84,10 @@ export default {
           this.messageInfo = ''
           if (data.user.role !== 'admin') {
             this.messageInfo = 'Access denied'
+          } else {
+            this.saveUserInfo(data)
+            this.$router.push({ name: 'Home' })
           }
-          this.saveUserInfo(data)
-          this.$router.push({ name: 'Home' })
         }).catch((err) => {
           this.messageInfo = err.response.data.message || 'Something Error'
           console.log(err.response)
@@ -108,8 +97,6 @@ export default {
     },
 
     saveUserInfo (data) {
-      delete data.status
-      this.$store.dispatch('saveUserInfo', data)
       localStorage.setItem('id', data.user.id)
       localStorage.setItem('fullname', data.user.fullname)
       localStorage.setItem('role', data.user.role)

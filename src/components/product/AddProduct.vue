@@ -1,15 +1,6 @@
 <template>
   <div id="add-product">
     <Loading :loading="loading" />
-    <!-- <div data-notify="container"
-      class="bootstrap-notify-container alert alert-dismissible bg-black animated fadeInDown"
-      role="alert"
-      data-notify-position="top-center"
-      style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; left: 0px; right: 0px;">
-
-      <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">×</button><span data-notify="icon"></span> <span data-notify="title"></span>
-      <span data-notify="message">Turning standard Bootstrap alerts</span><a href="#" target="_blank" data-notify="url"></a>
-    </div> -->
 
     <div id="form-add-product" style="min-width: 300px">
       <div
@@ -29,7 +20,14 @@
                   <strong class="text-pink"> Add New Product </strong>
                 </h6>
               </div>
-              <form @submit.prevent="submitProduct" id="add-todo">
+
+              <div v-if="messageInfo.length > 0" class="alert alert-danger alert-dismissible fade show m-3 p-1">
+                <ul class="m-b-0">
+                  <li v-for="(msg, i) in messageInfo" :key="i" class="p-l-1 m-b-0">{{ msg.error }}</li>
+                </ul>
+              </div>
+
+              <form @submit.prevent="submitProduct" id="add-product">
                 <div class="modal-body">
                   <div class="row clearfix">
                     <div class="col-12">
@@ -125,7 +123,7 @@ export default {
       // Modal add product
       modal: 'modal',
       fade: 'fade',
-      margin: 'p-t-70',
+      margin: 'p-t-30',
       isShow: 'show',
       ariaModal: true,
       ariaHidden: false,
@@ -134,7 +132,8 @@ export default {
       prodName: '',
       prodImgURL: '',
       prodPrice: '',
-      prodStock: ''
+      prodStock: '',
+      messageInfo: []
     }
   },
   methods: {
@@ -160,7 +159,9 @@ export default {
         await this.$store.dispatch('getProducts')
         this.clearForm()
       } catch (error) {
-        console.log(error.response)
+        const msg = error.response.data.message || []
+        this.messageInfo = msg
+        console.log(msg)
       } finally {
         this.loading = false
       }
