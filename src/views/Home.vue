@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <div id="nav">
+      <router-link to="/">Home | </router-link>
+      <router-link to="/add-product">Add Product | </router-link>
+      <a href="#" @click="logout">Logout</a>
+    </div>
     <div class="container">
       <table class="table table-striped ">
       <thead>
@@ -26,8 +31,8 @@
           <td>{{ product.category }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.stock }}</td>
-          <td>Edit</td>
-          <td>Delete</td>
+          <td><button @click="goToEditForm(`/edit-product/${product.id}`)">Edit</button></td>
+          <td><a href="#" @click="deleteProduct(product.id)">Delete</a></td>
         </tr>
       </tbody>
     </table>
@@ -37,37 +42,38 @@
 
 <script>
 // @ is an alias to /src
-import axios from '@/config/axios.js'
-
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnYWJyaWVsQGFkbWluLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTYwNTA1ODc2N30.WTIPuV3xcbJKYXn1HnskjjL6IaSzTP0l14zZk6RhHuY'
 
 export default {
   name: 'Home',
   components: {
   },
-  data () {
-    return {
-      products: []
-    }
-  },
   methods: {
     fetchAllProducts () {
-      axios
-        .get('products', {
-          headers: {
-            access_token: accessToken
-          }
+      this.$store.dispatch('fetchAllProducts')
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteProduct', id)
+        .then(() => {
+          this.fetchAllProducts()
         })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
         })
+    },
+    goToEditForm (route) {
+      this.$router.push(route)
+    },
+    logout () {
+      this.$store.dispatch('logout')
     }
   },
   created () {
     this.fetchAllProducts()
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>
