@@ -10,7 +10,8 @@ export default new Vuex.Store({
     title: 'Ecommerce-CMS',
     pageTitle: '',
     products: [],
-    product: {}
+    product: {},
+    logedInUser: {}
   },
   // Mengubah data dstate
   mutations: {
@@ -24,6 +25,14 @@ export default new Vuex.Store({
 
     changePageTitle (state, payload) {
       state.pageTitle = payload
+    },
+
+    saveUserInfo (state, payload) {
+      state.logedInUser = payload
+    },
+
+    clearUserInfo (state) {
+      state.logedInUser = {}
     }
   },
   // Method yg digunakan untuk aksi
@@ -54,6 +63,14 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error.response)
       }
+    },
+
+    saveUserInfo (context, user) {
+      context.commit('saveUserInfo', user)
+    },
+
+    clearUserInfo (context) {
+      context.commit('clearUserInfo')
     },
 
     changePageTitle (context, page) {

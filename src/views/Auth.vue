@@ -10,6 +10,12 @@
                 <img class="logo" src="../assets/images/logo.png" alt="">
                 <h5>Log in</h5>
               </div>
+              <div v-if="messageInfo !== ''" class="alert alert-danger alert-dismissible fade show m-3">
+                {{ messageInfo }}
+                <!-- <button type="button" class="close m-t-15" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
               <div class="body">
                 <div class="input-group mb-3">
                   <div class="input-group-append">
@@ -56,12 +62,23 @@ export default {
       thisYear: new Date().getFullYear(),
       loading: false,
       email: '',
-      password: ''
+      password: '',
+      messageInfo: ''
     }
   },
   components: {
     Loading
   },
+
+  created () {
+    const logedinUser = this.$store.state.logedinUser || {}
+    const keys = Object.keys(logedinUser)
+    const haveToken = keys.filter(k => k === 'access_token')
+    if (haveToken.length > 1) {
+      this.$store.dispatch('clearUserInfo')
+    }
+  },
+
   methods: {
 
     login () {
@@ -76,20 +93,26 @@ export default {
         data: payload
       })
         .then(({ data }) => {
+          this.messageInfo = ''
+          if (data.user.role !== 'admin') {
+            this.messageInfo = 'Access denied'
+          }
           this.saveUserInfo(data)
           this.$router.push({ name: 'Home' })
         }).catch((err) => {
+          this.messageInfo = err.response.data.message || 'Something Error'
           console.log(err.response)
         }).then(() => {
-          // always executed
           this.loading = false
         })
     },
 
     saveUserInfo (data) {
-      console.log(data)
+      delete data.status
+      this.$store.dispatch('saveUserInfo', data)
       localStorage.setItem('id', data.user.id)
       localStorage.setItem('fullname', data.user.fullname)
+      localStorage.setItem('role', data.user.role)
       localStorage.setItem('email', data.user.email)
       localStorage.setItem('access_token', data.access_token)
     }

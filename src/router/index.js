@@ -35,8 +35,13 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('access_token')
-  if (to.name !== 'Login' && !token) {
-    next({ name: 'Login' })
+  const role = localStorage.getItem('role')
+  if (to.name !== 'Login' && (!token || role !== 'admin')) {
+    localStorage.clear()
+    router.push({ path: 'Login' })
+      .catch(() => {
+        // console.info(error.message)
+      })
   } else if (to.name === 'Login' && token) {
     next({ name: 'Home' })
   } else {

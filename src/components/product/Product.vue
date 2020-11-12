@@ -29,10 +29,10 @@
                       />
                     </td>
                     <td><h5>{{ product.name }}</h5></td>
-                    <td>{{ product.price }}</td>
+                    <td>Rp {{ formatNumber(product.price) }}</td>
                     <td>{{ product.stock }}</td>
                     <td>
-                      <span class="col-red">Stock will run out</span>
+                      <span :class="colorStatus(product.stock)">{{ cekStock(product.stock) }}</span>
                     </td>
                     <td>
                       <a href="javascript:void(0);"
@@ -41,7 +41,7 @@
                         ><i class="zmdi zmdi-edit"></i
                       ></a>
                       <a
-                        @click.prevent="deleteProduct(product.id)"
+                        @click.prevent="confirmDelete(product.id)"
                         href="javascript:void(0);"
                         class="btn btn-default waves-effect waves-float btn-sm waves-red"
                         ><i class="zmdi zmdi-delete"></i
@@ -69,6 +69,7 @@
 import EditProduct from '@/components/product/EditProduct.vue'
 import axios from '@/config/axios'
 import Loading from '@/components/loading/Loading.vue'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'ListProduct',
@@ -97,9 +98,6 @@ export default {
   },
 
   methods: {
-    isDisplayModal (params) {
-      this.showModal = params
-    },
 
     async getProducts () {
       await this.$store.dispatch('getProducts')
@@ -135,6 +133,71 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+
+    isDisplayModal (params) {
+      this.showModal = params
+    },
+
+    formatNumber (value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    },
+
+    cekStock (stock) {
+      let message = 'Ready Stock'
+      this.colorStockStatus = 'col-green'
+
+      if (stock < 1) {
+        message = 'Out of Stock'
+        this.colorStockStatus = 'col-red'
+      } else if (stock <= 5) {
+        this.colorStockStatus = 'col-yellow'
+        message = 'Stock will run out'
+      }
+      return message
+    },
+
+    colorStatus (stock) {
+      let color = 'col-green'
+      if (stock < 1) {
+        color = 'col-red'
+      } else if (stock <= 5) {
+        color = 'col-orange'
+      }
+      return color
+    },
+
+    confirmDelete (id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.loading = true
+          axios({
+            url: 'products/' + id,
+            method: 'delete',
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          })
+            .then((result) => {
+              this.$store.dispatch('getProducts')
+              Swal.fire('Success', 'Success deleted product!', 'success')
+            }).catch((error) => {
+              const message = error.response.data.message || 'Somthing error'
+              Swal.fire('Delete Failed', message, 'error')
+              console.log(error.response)
+            }).then(() => {
+              this.loading = false
+            })
+        }
+      })
     }
   }
 }
