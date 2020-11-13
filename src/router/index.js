@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LandingPage from '../views/LandingPage.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "addProduct" */ '../views/AddPage.vue')
   },
   {
+    path: '/editProduct/:id',
+    name: 'EditPage',
+    component: () => import(/* webpackChunkName: "addProduct" */ '../views/EditPage.vue')
+  },
+  {
     path: '/addBanner',
     name: 'AddBanner',
     component: () => import(/* webpackChunkName: "addBanner" */ '../views/AddBanner.vue')
@@ -37,6 +43,14 @@ const routes = [
     path: '/banner',
     name: 'BannerPage',
     component: () => import(/* webpackChunkName: "banner" */ '../views/BannerPage.vue')
+  },
+  {
+    path: '/404',
+    component: NotFound
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 

@@ -5,19 +5,25 @@
         DASHBOARD
       </p>
     </div>
-    <div class="row mt-4">
-      <Product/>
+    <div class="container mt-5">
+      <div class="mt-4 row row-cols-3">
+        <ContentProduct
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Product from './ContentProduct'
+import ContentProduct from './ContentProduct'
 
 export default {
   name: 'Dashboard',
   components: {
-    Product
+    ContentProduct
   },
   computed: {
     products () {
@@ -28,6 +34,9 @@ export default {
     fetchProducts () {
       this.$store.dispatch('fetchProducts')
     }
+  },
+  created () {
+    this.fetchProducts()
   }
 }
 </script>
@@ -45,14 +54,6 @@ export default {
 .dashboard {
   background: #ededed;
   height: 100vh;
-}
-.card {
-  width: 100%;
-  margin: 0 15px;
-}
-.row {
-  width: 100%;
-  padding-left: 25px;
 }
 
 </style>

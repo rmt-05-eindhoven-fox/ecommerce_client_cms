@@ -27,10 +27,8 @@ export default {
   },
   methods: {
     isLogin () {
-      if (localStorage.getItem('token')) {
-        console.log('log')
-      } else {
-        this.$router.push('/')
+      if (!localStorage.getItem('token')) {
+        this.$router.push('/login')
       }
     }
   },

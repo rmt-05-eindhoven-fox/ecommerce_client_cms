@@ -24,6 +24,16 @@ export default {
   name: 'AddBanner',
   components: {
     AdsBanner
+  },
+  methods: {
+    isLogin () {
+      if (!localStorage.getItem('token')) {
+        this.$router.push('/login')
+      }
+    }
+  },
+  created () {
+    this.isLogin()
   }
 }
 </script>

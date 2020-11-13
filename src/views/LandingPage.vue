@@ -17,7 +17,14 @@
 
 <script>
 export default {
-  name: 'LandingPage'
+  name: 'LandingPage',
+  created () {
+    if (localStorage.getItem('token')) {
+      this.$router.push('/dashboard')
+    } else {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
