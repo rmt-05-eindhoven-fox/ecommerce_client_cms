@@ -36,10 +36,7 @@
   color: #ffffff;
 }
 
-.dashboard {
-  display: flex;
-}
-.dashboard .sidebar-sticky {
+.sidebar-sticky {
   background-color: #333399;
   max-width: 200px;
   min-height: 100vh;
@@ -47,23 +44,23 @@
   font-weight: 300;
   position: fixed;
 }
-.dashboard .sidebar-sticky .user-login {
+.sidebar-sticky .user-login {
   padding: 10px;
   color: #ffffff;
   font-size: 24px;
 }
-.dashboard .sidebar-sticky .user-login small {
-  font-size: 12px;
-  margin-top: -110px;
+.sidebar-sticky .nav {
+  margin-top: 50px;
 }
-.dashboard .sidebar-sticky .nav {
-  margin-top: 80px;
-}
-.dashboard .sidebar-sticky .nav a {
+.sidebar-sticky .nav a {
   color: #ffffff;
 }
-.dashboard .sidebar-sticky .nav a:hover {
+.sidebar-sticky .nav a:hover {
   background-color: #191961;
+}
+
+.dashboard {
+  display: flex;
 }
 .dashboard .main-dash {
   font-family: "Roboto Mono", monospace;
@@ -98,17 +95,33 @@
 .dashboard .list-product p {
   font-size: 14px;
 }
-.dashboard .product-form input {
-  width: 460px;
+
+.product-form {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 300;
+  padding-top: 50px;
+  padding-left: 95px;
+  margin-left: 200px;
+}
+.product-form input {
+  width: 500px;
   border: #000000 1px solid;
   border-radius: 8px;
 }
-.dashboard .product-form .btn {
+.product-form .page-title {
+  margin-bottom: 50px;
+  margin-left: 10px;
+}
+.product-form .page-title h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+.product-form .btn {
   background-color: #333399;
   color: #ffffff;
   border-radius: 8px;
 }
-.dashboard .product-form .btn:hover {
+.product-form .btn:hover {
   background-color: #191961;
   color: #ffffff;
 }

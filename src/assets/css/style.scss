@@ -44,44 +44,38 @@
   }
 }
 
+.sidebar-sticky {
+  background-color: #333399;
+  max-width: 200px;
+  min-height: 100vh;
+  font-family: "Roboto Mono",
+    monospace;
+  font-weight: 300;
+  position: fixed;
 
-.dashboard {
-  display: flex;
+  .user-login {
+    padding: 10px;
+    color: #ffffff;
+    font-size: 24px;
+  }
 
+  .nav {
+    margin-top: 50px;
 
-  .sidebar-sticky {
-    background-color: #333399;
-    max-width: 200px;
-    min-height: 100vh;
-    font-family: "Roboto Mono",
-      monospace;
-    font-weight: 300;
-    position: fixed;
-
-    .user-login {
-      padding: 10px;
+    a {
       color: #ffffff;
-      font-size: 24px;
-
-      small {
-        font-size: 12px;
-        margin-top: -110px;
-      }
-    }
-
-    .nav {
-      margin-top: 80px;
-
-      a {
-        color: #ffffff;
 
 
-        &:hover {
-          background-color: #191961;
-        }
+      &:hover {
+        background-color: #191961;
       }
     }
   }
+}
+
+
+.dashboard {
+  display: flex;
 
   .main-dash {
     font-family: "Roboto Mono",
@@ -131,23 +125,40 @@
     }
 
   }
+}
 
-  .product-form {
-    input {
-      width: 460px;
-      border: #000000 1px solid;
-      border-radius: 8px
+.product-form {
+  font-family: "Roboto Mono",
+    monospace;
+  font-weight: 300;
+  padding-top: 50px;
+  padding-left: 95px;
+  margin-left: 200px;
+
+  input {
+    width: 500px;
+    border: #000000 1px solid;
+    border-radius: 8px
+  }
+
+  .page-title {
+    margin-bottom: 50px;
+    margin-left: 10px;
+
+    h1 {
+      font-size: 48px;
+      font-weight: bold;
     }
+  }
 
-    .btn {
-      background-color: #333399;
+  .btn {
+    background-color: #333399;
+    color: #ffffff;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #191961;
       color: #ffffff;
-      border-radius: 8px;
-
-      &:hover {
-        background-color: #191961;
-        color: #ffffff;
-      }
     }
   }
 }

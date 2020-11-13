@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
+import AddForm from '../views/AddForm.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -19,6 +21,11 @@ const routes = [
     // // which is lazy-loaded when the route is visited.
     // component: () =>
     //   import(/* webpackChunkName: 'about' */ '../views/Dashboard.vue')
+  },
+  {
+    path: '/add-product',
+    name: 'AddForm',
+    component: AddForm
   }
 ]
 

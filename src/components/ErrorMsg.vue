@@ -1,13 +1,18 @@
 <template>
   <div class="alert alert-danger" role="alert">
-    {{ errorMsg }}
+    {{ errorMsg || NoConnection }}
   </div>
 </template>
 
 <script>
 export default {
   name: 'ErrorMsg',
-  props: ['errorMsg']
+  props: ['errorMsg'],
+  data () {
+    return {
+      NoConnection: 'Connection Error'
+    }
+  }
 }
 </script>
 
