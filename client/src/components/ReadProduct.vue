@@ -1,8 +1,11 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mt-4">
+    <div class=button-add>
+      <button @click.prevent="toAddProduct" class="btn btn-primary">Add Product</button>
+    </div>
     <div class="mt-3 table-responsive scroll">
-      <table class="table table-striped">
-        <thead>
+      <table class="table table-bordered">
+        <thead class="thead-dark">
           <tr class="text-center">
             <th>No</th>
             <th>Product Name</th>
@@ -22,7 +25,7 @@
             <td>
               <button class="btn btn-success" @click.prevent="showEdit(product.id)"
               >Edit</button> ||
-              <button class="btn btn-danger" @click="destroy(product.id)">Delete</button>
+              <button class="btn btn-danger" @click.prevent="destroy(product.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -48,6 +51,9 @@ export default {
     this.fetchProduct()
   },
   methods: {
+    toAddProduct () {
+      this.$router.push('/addProduct')
+    },
     fetchProduct () {
       this.$store.dispatch('fetchProduct')
     },

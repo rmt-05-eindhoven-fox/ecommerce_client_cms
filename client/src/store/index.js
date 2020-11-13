@@ -8,11 +8,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    banners: []
   },
   mutations: {
     fetchProduct (state, data) {
       state.products = data
+    },
+    fetchBanner (state, dataBanner) {
+      state.banners = dataBanner
     }
   },
   actions: {
@@ -31,7 +35,6 @@ export default new Vuex.Store({
             position: 'top',
             icon: 'success',
             title: 'Welcome back',
-            showConfirmButton: false,
             timer: 1500
           })
           localStorage.setItem('token', token)
@@ -42,9 +45,21 @@ export default new Vuex.Store({
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `${err.response.data.errors}`
+          text: `${err.response.data.errors}`,
+          timer: 2000
         })
       })
+    },
+    fetchBanner (context) {
+      axios({
+        url: '/banner',
+        method: 'get',
+        headers: {
+          token: localStorage.token
+        }
+      }).then(data => {
+        context.commit('fetchBanner', data.data.data)
+      }).catch(err => console.log(err))
     },
     fetchProduct (context) {
       axios({
@@ -57,6 +72,34 @@ export default new Vuex.Store({
         // console.log(data, 'aldkjfl')
         context.commit('fetchProduct', data.data.dataProduct)
       }).catch(err => console.log(err))
+    },
+    addBanner (context, dataBanner) {
+      axios({
+        url: '/banner',
+        method: 'post',
+        headers: {
+          token: localStorage.token
+        },
+        data: {
+          title: dataBanner.title,
+          image_url: dataBanner.image_url,
+          status: dataBanner.status
+        }
+      }).then(data => {
+        Swal.fire({
+          title: 'Success',
+          text: 'Success create banner',
+          timer: 2000
+        })
+        context.dispatch('fetchBanner')
+      }).catch(err => {
+        console.log(err)
+        Swal.fire({
+          title: 'Ooops',
+          text: 'Type correctly, Try again!',
+          timer: 2000
+        })
+      })
     },
     addProduct (context, dataProduct) {
       axios({
@@ -75,14 +118,41 @@ export default new Vuex.Store({
         // console.log(newProduct, 'lasjf')
         Swal.fire({
           title: 'Success',
-          text: 'Success create product'
+          text: 'Success create product',
+          timer: 2000
         })
         context.dispatch('fetchProduct')
       }).catch(err => {
         console.log(err)
         Swal.fire({
           title: 'Ooops',
-          text: 'Try again'
+          text: 'Type correctly, Try again!',
+          timer: 2000
+        })
+      })
+    },
+    destroyBanner (context, id) {
+      axios({
+        url: `/banner/${id}`,
+        method: 'delete',
+        headers: {
+          token: localStorage.token
+        }
+      }).then(banner => {
+        if (banner) {
+          Swal.fire(
+            'Deleted!',
+            'Your product has been deleted.',
+            'success'
+          )
+          context.dispatch('fetchBanner')
+        }
+      }).catch(err => {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
         })
       })
     },
@@ -95,33 +165,22 @@ export default new Vuex.Store({
         }
       }).then(product => {
         if (product) {
-          Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire(
-                'Deleted!',
-                'Your product has been deleted.',
-                'success'
-              )
-              context.dispatch('fetchProduct')
-            }
-          })
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!'
-          })
+          Swal.fire(
+            'Deleted!',
+            'Your product has been deleted.',
+            'success'
+          )
+          context.dispatch('fetchProduct')
         }
         // console.log(product.data, 'ini delete')
-      }).catch(err => console.log(err))
+      }).catch(err => {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
+        })
+      })
     },
     getProductById (context, id) {
       return axios({
@@ -130,6 +189,43 @@ export default new Vuex.Store({
         headers: {
           token: localStorage.token
         }
+      })
+    },
+    getBannerById (context, id) {
+      return axios({
+        url: `/banner/${id}`,
+        method: 'get',
+        headers: {
+          token: localStorage.token
+        }
+      })
+    },
+    editBanner (context, dataBanner) {
+      axios({
+        url: `/banner/${dataBanner.id}`,
+        method: 'put',
+        headers: {
+          token: localStorage.token
+        },
+        data: {
+          title: dataBanner.title,
+          image_url: dataBanner.image_url,
+          status: dataBanner.status
+        }
+      }).then(doneEdit => {
+        Swal.fire(
+          'Edited!',
+          'Your product has been edited.',
+          'success'
+        )
+        context.dispatch('fetchBanner')
+      }).catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Type correctly!'
+        })
+        console.log(err)
       })
     },
     editProduct (context, dataProduct) {
@@ -146,8 +242,20 @@ export default new Vuex.Store({
           stock: dataProduct.stock
         }
       }).then(afterEdit => {
+        Swal.fire(
+          'Edited!',
+          'Your product has been edited.',
+          'success'
+        )
         context.dispatch('fetchProduct')
-      }).catch(err => console.log(err.response))
+      }).catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Type correctly!'
+        })
+        console.log(err)
+      })
     }
   },
   modules: {

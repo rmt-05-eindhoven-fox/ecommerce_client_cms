@@ -1,9 +1,8 @@
 <template>
 <div>
   <header>
-    <h1>Ecommerce Admin</h1>
-    <a @click.prevent="showAddProduct" class="cta"><button >Add Product</button></a>
-    <a @click.prevent="showAddCategory" class="cta"><button >Add Category</button></a>
+    <a href="" @click.prevent="toHome"><h1>Ecommerce Admin</h1></a>
+    <a @click.prevent="toBanner" class="cta"><button>Banner</button></a>
     <a @click.prevent="logout" class="cta"><button>Logout</button></a>
   </header>
 </div>
@@ -16,25 +15,16 @@ export default {
   methods: {
     logout () {
       localStorage.clear()
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, I want to logout!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire(
-            'See you <3!'
-          )
-          this.$router.push('/login')
-        }
-      })
+      Swal.fire(
+        'See you <3!'
+      )
+      this.$router.push('/login')
     },
-    showAddProduct () {
-      this.$router.push('/addProduct')
+    toBanner () {
+      this.$router.push('/banner')
+    },
+    toHome () {
+      this.$router.push('/')
     }
   }
 }

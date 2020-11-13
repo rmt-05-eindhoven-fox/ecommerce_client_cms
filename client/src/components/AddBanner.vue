@@ -1,25 +1,24 @@
 <template>
   <div class="container">
     <div class="text-center mt-5">
-      <h1>Add Product</h1>
+      <h1>Add Banner</h1>
     </div>
     <div class="form-add mt-3">
-      <form @submit.prevent="postAddProduct">
+      <form @submit.prevent="postAddBanner">
         <div class="form-group">
-          <label for="name">Product Name</label>
-          <input class="form-control" type="text" v-model="name" placeholder="eg: Macbook Air">
+          <label for="title">Banner Title:</label>
+          <input class="form-control" type="text" v-model="title" placeholder="eg: Banner Shopee 11.11">
         </div>
         <div class="form-group">
-          <label for="image_url">Image Url</label>
+          <label for="image_url">Image Url:</label>
           <input class="form-control" type="url" v-model="image_url" placeholder="eg: https://static.bhphoto.com/images.jpg">
         </div>
         <div class="form-group">
-          <label for="price">Price</label>
-          <input class="form-control" type="number" v-model="price" placeholder="eg: 12000">
-        </div>
-        <div class="form-group">
-          <label for="stock">Stock</label>
-          <input class="form-control" type="number" v-model="stock" placeholder="eg: 10">
+          <label for="status">Status:</label><br>
+          <input type="radio" id="active" name="status" v-model="status" value="Active">
+          <label for="active">Active</label><br>
+          <input type="radio" id="non-active" name="status" v-model="status" value="Non-Active">
+          <label for="non-active">Non-Active</label><br>
         </div>
         <div>
           <button class="btn btn-primary" type="submit">Add</button>
@@ -38,27 +37,24 @@ export default {
   data () {
     return {
       pageName: 'addProduct',
-      name: '',
+      title: '',
       image_url: '',
-      price: '',
-      stock: ''
+      status: ''
     }
   },
   methods: {
     toHome () {
       this.$router.push('/')
     },
-    postAddProduct () {
-      this.$store.dispatch('addProduct', {
-        name: this.name,
+    postAddBanner () {
+      this.$store.dispatch('addBanner', {
+        title: this.title,
         image_url: this.image_url,
-        price: this.price,
-        stock: this.stock
+        status: this.status
       })
-      this.$router.push('/')
+      this.$router.push('/banner')
     }
   }
-
 }
 </script>
 

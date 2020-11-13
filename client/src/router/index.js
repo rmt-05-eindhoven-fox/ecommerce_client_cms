@@ -24,6 +24,21 @@ const routes = [
     path: '/editProduct/:id',
     name: 'EditProduct',
     component: () => import('../components/EditProduct.vue')
+  },
+  {
+    path: '/banner',
+    name: 'Banner',
+    component: () => import('../views/Banner.vue')
+  },
+  {
+    path: '/addBanner',
+    name: 'AddBanner',
+    component: () => import('../components/AddBanner.vue')
+  },
+  {
+    path: '/editBanner/:id',
+    name: 'EditBanner',
+    component: () => import('../views/EditBanner.vue')
   }
 ]
 
