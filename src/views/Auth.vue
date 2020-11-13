@@ -89,8 +89,10 @@ export default {
             this.$router.push({ name: 'Home' })
           }
         }).catch((err) => {
-          this.messageInfo = err.response.data.message || 'Something Error'
-          console.log(err.response)
+          this.messageInfo = 'Error Connection'
+          if (err.response) {
+            this.messageInfo = err.response.data.message || 'Something Error'
+          }
         }).then(() => {
           this.loading = false
         })

@@ -159,9 +159,11 @@ export default {
         await this.$store.dispatch('getProducts')
         this.clearForm()
       } catch (error) {
-        const msg = error.response.data.message || []
+        let msg = [{ error: 'Connection Failed' }]
+        if (error.response) {
+          msg = error.response.data.message
+        }
         this.messageInfo = msg
-        console.log(msg)
       } finally {
         this.loading = false
       }

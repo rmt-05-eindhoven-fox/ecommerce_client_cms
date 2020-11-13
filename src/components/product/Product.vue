@@ -32,7 +32,7 @@
                     <td>Rp {{ formatNumber(product.price) }}</td>
                     <td>{{ product.stock }}</td>
                     <td>
-                      <span :class="colorStatus(product.stock)">{{ cekStock(product.stock) }}</span>
+                      <b><span :class="colorStatus(product.stock)">{{ cekStock(product.stock) }}</span></b>
                     </td>
                     <td>
                       <a href="javascript:void(0);"
@@ -144,15 +144,11 @@ export default {
     },
 
     cekStock (stock) {
-      let message = 'Ready Stock'
-      this.colorStockStatus = 'col-green'
-
+      let message = 'In Stock'
       if (stock < 1) {
         message = 'Out of Stock'
-        this.colorStockStatus = 'col-red'
       } else if (stock <= 5) {
-        this.colorStockStatus = 'col-yellow'
-        message = 'Stock will run out'
+        message = 'Low Stock'
       }
       return message
     },

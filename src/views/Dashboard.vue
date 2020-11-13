@@ -114,7 +114,6 @@ export default {
     logout () {
       console.log('Logout')
       localStorage.clear()
-      this.$store.dispatch('clearUserInfo')
       this.$router.push({ name: 'Login' })
     }
   }
