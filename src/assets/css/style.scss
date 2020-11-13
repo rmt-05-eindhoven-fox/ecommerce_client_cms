@@ -20,13 +20,12 @@
 
   .card {
     width: 300px;
-    height: 320px;
     border-radius: 10px;
   }
 
   h3 {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     color: #989797;
   }
 
@@ -106,12 +105,15 @@
 
   .list-product {
 
+
     .card {
       width: 320px;
       height: 420px;
       border: 1px solid #000000;
       border-radius: 10px;
       margin-bottom: 20px;
+      margin-right: 150px;
+
 
       .card-body {
         display: inline-block;
