@@ -21,27 +21,12 @@
 </template>
 
 <script>
-import axios from '../axios/axios.js'
 export default {
   name: 'ProductCard',
   props: ['product'],
   methods: {
     deleteProduct (id) {
-      const token = localStorage.getItem('token')
-      axios({
-        url: `/product/${id}`,
-        method: 'delete',
-        headers: {
-          token
-        }
-      })
-        .then(response => {
-          console.log(response)
-          this.router.push('/dashboard')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.$emit('deleteProduct', id)
     }
   }
 }

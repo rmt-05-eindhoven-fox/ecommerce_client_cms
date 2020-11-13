@@ -15,6 +15,7 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
+          @deleteProduct="deleteProduct"
         />
       </div>
     </div>
@@ -56,6 +57,23 @@ export default {
         })
         .finally(() => {
           this.isLoad = true
+        })
+    },
+    deleteProduct (id) {
+      const token = localStorage.getItem('token')
+      axios({
+        url: `/product/${id}`,
+        method: 'delete',
+        headers: {
+          token
+        }
+      })
+        .then(({ data }) => {
+          console.log(data.message)
+          this.getProduct()
+        })
+        .catch(err => {
+          console.log(err.message)
         })
     }
   },
