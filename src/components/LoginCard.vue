@@ -3,10 +3,14 @@
     <div class="card">
       <div class="card-body">
         <h3>CMS E-commerce</h3>
-        <small id="emailHelp" class="form-text text-center text-muted mb-2"
-          >Login with admin account to access CMS</small
-        >
-        <ErrorMsg :errorMsg="errorMsg" v-if="isError" />
+        <small
+          id="emailHelp"
+          class="form-text text-center text-muted mb-2"
+        >Login with admin account to access CMS</small>
+        <ErrorMsg
+          :errorMsg="errorMsg"
+          v-if="isError"
+        />
         <form @submit.prevent="userLogin">
           <div class="form-group">
             <input
@@ -29,10 +33,17 @@
               placeholder="Password"
             />
           </div>
-          <button type="submit" class="btn btn-block" v-if="!isLoad">
+          <button
+            type="submit"
+            class="btn btn-block"
+            v-if="!isLoad"
+          >
             Login
           </button>
-          <p class="text-center" v-else-if="isLoad">Authenticating...</p>
+          <p
+            class="text-center"
+            v-else-if="isLoad"
+          >Authenticating...</p>
         </form>
       </div>
     </div>
