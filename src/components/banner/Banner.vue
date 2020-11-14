@@ -21,7 +21,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="banner in banners" :key="banner.id">
                     <td>
                       <img
                         src="https://www.kindpng.com/picc/m/465-4653741_e-commerce-banner-ecommerce-web-development-services-hd.png"
@@ -30,19 +30,19 @@
                         class="img-fluid img-thumbnail"
                       />
                     </td>
-                    <td><h5>Nama Banner</h5></td>
-                    <td>21 Nov 2020</td>
-                    <td>22 Nov 2020</td>
-                    <td>Active</td>
-                    <td>Pakaian Pria</td>
+                    <td><h5>{{ banner.name }}</h5></td>
+                    <td>{{ formatDate(banner.start_date) }}</td>
+                    <td>{{ formatDate(banner.end_date) }}</td>
+                    <td><strong><span :class="getColor(banner.is_active)">{{ getStatus(banner.is_active) }}</span></strong></td>
+                    <td><strong><span :class="getColorCategory(banner.Category)"> {{ getCategory(banner.Category) }} </span></strong></td>
                     <td>
                       <a href="javascript:void(0);"
-                      @click.prevent="editBanner(product.id)"
+                      @click.prevent="editBanner(banner.id)"
                         class="btn btn-default waves-effect waves-float btn-sm waves-green"
                         ><i class="zmdi zmdi-edit"></i
                       ></a>
                       <a
-                        @click.prevent="confirmDelete(product.id)"
+                        @click.prevent="confirmDelete(banner.id)"
                         href="javascript:void(0);"
                         class="btn btn-default waves-effect waves-float btn-sm waves-red"
                         ><i class="zmdi zmdi-delete"></i
@@ -72,16 +72,44 @@ export default {
   components: {
     Loading
   },
+  computed: {
+    banners () {
+      return this.$store.state.banners
+    }
+  },
   created () {
-    this.loading = false
+    this.loading = true
     this.$store.dispatch('changePageTitle', 'Banner List')
+    this.getBanners()
   },
   methods: {
+
+    async getBanners () {
+      await this.$store.dispatch('getBanners')
+      this.loading = false
+    },
     editBanner (bannerId) {
       console.log(bannerId + 'Edited')
     },
     confirmDelete (bannerId) {
       console.log(bannerId + 'Deleted')
+    },
+    getStatus (status) {
+      return (status === 'true') ? 'Active' : 'Inactive'
+    },
+    getColor (status) {
+      return (status === 'true') ? 'col-green' : 'col-red'
+    },
+    getColorCategory (category) {
+      return (category === null) ? 'col-red' : 'text-dark'
+    },
+    getCategory (category) {
+      return (category !== null) ? category.name : 'No Category'
+    },
+    formatDate (date) {
+      const month = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      const newDate = new Date(date)
+      return newDate.getDate() + ' ' + month[newDate.getMonth()] + ' ' + newDate.getFullYear()
     }
   }
 }

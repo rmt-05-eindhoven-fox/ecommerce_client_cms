@@ -100,7 +100,7 @@
 </template>
 
 <script>
-// import axios from '@/config/axios'
+import axios from '@/config/axios'
 import Loading from '@/components/loading/Loading.vue'
 
 export default {
@@ -138,29 +138,28 @@ export default {
         end_date: this.endDate
       }
       console.log(payload)
-      this.clearForm()
-      // try {
-      //   this.loading = true
-      //   const { data } = await axios({
-      //     url: 'products',
-      //     method: 'post',
-      //     headers: {
-      //       access_token: localStorage.getItem('access_token')
-      //     },
-      //     data: payload
-      //   })
-      //   console.log(data)
-      //   await this.$store.dispatch('getProducts')
-      //   this.clearForm()
-      // } catch (error) {
-      //   let msg = [{ error: 'Connection Failed' }]
-      //   if (error.response) {
-      //     msg = error.response.data.message
-      //   }
-      //   this.messageInfo = msg
-      // } finally {
-      //   this.loading = false
-      // }
+      try {
+        this.loading = true
+        const { data } = await axios({
+          url: 'banners',
+          method: 'post',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          },
+          data: payload
+        })
+        console.log(data)
+        await this.$store.dispatch('getProducts')
+        this.clearForm()
+      } catch (error) {
+        let msg = [{ error: 'Connection Failed' }]
+        if (error.response) {
+          msg = error.response.data.message
+        }
+        this.messageInfo = msg
+      } finally {
+        this.loading = false
+      }
     },
 
     cancelTask () {

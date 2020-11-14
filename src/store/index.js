@@ -10,7 +10,9 @@ export default new Vuex.Store({
     title: 'Ecommerce-CMS',
     pageTitle: '',
     products: [],
-    product: {}
+    banners: [],
+    product: {},
+    banner: {}
   },
   // Mengubah data dstate
   mutations: {
@@ -20,6 +22,10 @@ export default new Vuex.Store({
 
     setProduct (state, payload) {
       state.product = payload
+    },
+
+    setBanners (state, payload) {
+      state.banners = payload
     },
 
     changePageTitle (state, payload) {
@@ -51,6 +57,23 @@ export default new Vuex.Store({
         const { product } = data
         context.commit('setProduct', product)
         return product
+      } catch (error) {
+        console.log(error.response)
+      }
+    },
+
+    async getBanners (context) {
+      try {
+        const { data } = await axios({
+          url: 'banners',
+          method: 'get',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        const { banners } = data
+        context.commit('setBanners', banners)
+        return
       } catch (error) {
         console.log(error.response)
       }
