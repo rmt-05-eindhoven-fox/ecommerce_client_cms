@@ -2,7 +2,6 @@
     <div class="d-flex flex-column bg-secondary shadow-lg" v-b-hover="sidebarRoute" style="justify-content: space-evenly; height: 100vh;">
       <div style="position: absolute; top: 0vh; width: 11%;" class="">
         <p class="mt-0 mb-0 text-light" v-if="sidebarLink" style="font-size: 12px;">E-commerce Content Management System</p>
-        <p class="mt-0 text-monospace text-light" v-if="sidebarLink" style="font-size: 11px;"><small>Agung Setya Pratama</small></p>
       </div>
 
       <b-button href="#" size="sm" class="d-flex text-decoration-none bg-dark w-100 rounded shadow-lg p-1" @click="dashboard">
@@ -42,6 +41,8 @@
         <b-icon variant="light" icon="box-arrow-left" class="" style="height: 2em; width: 2em;"></b-icon>
         <p class="ml-2 mt-1 mb-0 text-light" style="font-size: 17px" v-if="sidebarLink">Logout</p>
       </b-button>
+
+      <p class="mt-0 mb-0 text-monospace text-light" v-if="sidebarLink" style="position: absolute; top: 92vh; width: 11%;"><small>Agung Setya Pratama</small></p>
 
     </div>
 </template>

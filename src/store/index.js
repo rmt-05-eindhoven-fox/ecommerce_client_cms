@@ -9,7 +9,9 @@ export default new Vuex.Store({
   state: {
     error: false,
     errorMessage: [],
-    products: []
+    products: [],
+    success: false,
+    successMessage: ''
   },
   mutations: {
     error (state, data) {
@@ -27,6 +29,14 @@ export default new Vuex.Store({
     deleteProduct (state, id) {
       const data = state.products.findIndex(el => el.id === id)
       state.products.splice(data, 1)
+    },
+    hideSuccess (state) {
+      state.success = false
+      state.successMessage = []
+    },
+    success (state, data) {
+      state.success = true
+      state.successMessage = data
     }
   },
   actions: {
@@ -52,7 +62,7 @@ export default new Vuex.Store({
         data,
         method: 'post'
       }).then(({ data, status }) => {
-        alert(JSON.stringify(data))
+        context.commit('success', data.msg)
         route.push('/products')
       }).catch(({ response }) => {
         context.commit('error', response.data.msg)
@@ -72,6 +82,7 @@ export default new Vuex.Store({
       const headers = { access_token: localStorage.getItem('access_token') }
       axios.delete('/products/' + id, { headers })
         .then(({ data, status }) => {
+          context.commit('success', data.msg)
           context.commit('deleteProduct', id)
         })
         .catch(err => {
@@ -88,6 +99,7 @@ export default new Vuex.Store({
         data: { image_url: imageUrl, name, category, stock, price },
         method: 'patch'
       }).then(({ data, status }) => {
+        context.commit('success', data.msg)
         route.push({ name: 'Product list' })
       }).catch(err => {
         context.commit('error', err.response.data.msg)

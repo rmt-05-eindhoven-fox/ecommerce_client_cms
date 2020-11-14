@@ -13,11 +13,11 @@
         </div>
         <div class="form-group row py-3">
           <div class="h5 text-dark col-3">Price</div>
-          <input type="number" v-model="price" class="form-control col-9 shadow" required>
+          <input type="number" max="2139999999" v-model="price" class="form-control col-9 shadow" required>
         </div>
         <div class="form-group row py-3">
           <div class="h5 text-dark col-3">Stock</div>
-          <input type="number" v-model="stock" class="form-control col-9 shadow" required>
+          <input type="number" max="2139999999" v-model="stock" class="form-control col-9 shadow" required>
         </div>
         <div class="form-group row py-3">
           <div class="h5 text-dark col-3">Image Url</div>

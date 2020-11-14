@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-dark w-100">
     <div>Summary</div>
     <div>Analisis produk</div>
   </div>
