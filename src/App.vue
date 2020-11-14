@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Landing</router-link> |
       <router-link to="/products">Products</router-link> |
       <router-link to="/add-product">Add Product</router-link> |
       <router-link to="/products/1">Edit Product</router-link> |
       <router-link to="/login">Login</router-link>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>

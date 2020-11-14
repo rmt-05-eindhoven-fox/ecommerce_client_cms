@@ -1,9 +1,9 @@
 <template>
   <tr>
-    <th scope="row">{{ num + 1 }}</th>
+    <th scope="row">{{ product.id }}</th>
     <td>{{ product.name }}</td>
     <td><img :src="product.image_url" alt="Product" width="auto" height="300"></td>
-    <td>{{ product.category }}</td>
+    <td>{{ product.Category.name }}</td>
     <td>{{ product.price }}</td>
     <td>{{ product.stock }}</td>
     <td>
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   name: 'ProductItem',
   props: ['product', 'num'],
@@ -27,13 +29,28 @@ export default {
         id,
         access_token: accessToken
       }
-      this.$store.dispatch('deleteProduct', payload)
+      Swal.fire({
+        title: 'Delete',
+        text: 'Are you sure want to delete this Task?',
+        icon: 'warning',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        showCancelButton: true,
+        confirmButtonText: 'Delete'
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            return this.$store.dispatch('deleteProduct', payload)
+          }
+        })
         .then(({ data }) => {
           const accessToken = localStorage.getItem('access_token')
           this.$store.dispatch('fetchProducts', accessToken)
+          Swal.fire('Product deleted succesfully!', '', 'success')
         })
         .catch(({ response }) => {
-          console.log(response.data)
+          const err = response.data.msg
+          Swal.fire('Error', err, 'error')
         })
     }
   }

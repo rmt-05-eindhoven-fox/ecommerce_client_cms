@@ -1,5 +1,6 @@
 <template>
   <div id="addProduct">
+    <NavbarDashboard/>
     <div class="container">
       <div class="row">
         <div class="col-auto">
@@ -18,8 +19,14 @@
                   <input v-model="image_url" placeholder="image url" type="url" class="form-control" id="add-image_url">
                 </div>
                 <div class="form-group">
-                  <label for="add-category">Category</label>
-                  <input v-model="category" placeholder="product category" type="text" class="form-control" id="add-category">
+                  <label for="add-category" class="col-form-label">Category:</label>
+                  <select v-model="CategoryId" placeholder="..." class="custom-select" id="add-category">
+                    <option v-for="category in categories"
+                      :key="category.id"
+                      :value="category.id">
+                      {{ category.name }}
+                    </option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="add-price">Price</label>
@@ -27,7 +34,7 @@
                 </div>
                 <div class="form-group">
                   <label for="add-stock">Stock</label>
-                  <input  v-model="stock" placeholder="product stock" type="number" class="form-control" id="add-stock">
+                  <input v-model="stock" placeholder="product stock" type="number" class="form-control" id="add-stock">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button @click="$router.push({ name: 'Products' })" type="button" class="btn btn-danger">Cancel</button>
@@ -41,14 +48,18 @@
 </template>
 
 <script>
+import NavbarDashboard from '../components/NavbarDashboard'
 
 export default {
   name: 'AddProduct',
+  components: {
+    NavbarDashboard
+  },
   data () {
     return {
       name: '',
       image_url: '',
-      category: '',
+      CategoryId: '',
       price: '',
       stock: ''
     }
@@ -59,18 +70,23 @@ export default {
       const payload = {
         name: this.name,
         image_url: this.image_url,
-        category: this.category,
+        CategoryId: this.CategoryId,
         price: this.price,
         stock: this.stock,
         access_token: accessToken
       }
       this.$store.dispatch('addProduct', payload)
-        .then(({ data }) => {
-          this.$router.push('Products')
-        })
-        .catch(err => {
-          console.log(err.response)
-        })
+    },
+    fetchCategories () {
+      this.$store.dispatch('fetchCategories')
+    }
+  },
+  created () {
+    this.fetchCategories()
+  },
+  computed: {
+    categories () {
+      return this.$store.state.categories
     }
   }
 }

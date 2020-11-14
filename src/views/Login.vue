@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import axios from '@/axios/axiosInstance'
 
 export default {
   name: 'Login',
@@ -46,23 +45,11 @@ export default {
   },
   methods: {
     login () {
-      axios({
-        url: '/login',
-        method: 'post',
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
-        .then(({ data }) => {
-          console.log(data)
-          const accessToken = data.access_token
-          localStorage.setItem('access_token', accessToken)
-          this.$router.push({ name: 'Products' })
-        })
-        .catch(({ response }) => {
-          console.log(response.data)
-        })
+      const payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('login', payload)
     }
   }
 }
