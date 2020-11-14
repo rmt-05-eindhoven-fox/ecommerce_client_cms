@@ -107,7 +107,7 @@ export default {
   padding: 4px;
   margin-top: 3px;
 }
-.addForm input[type="submit"] {
+.addForm button[type="submit"] {
   width: 390px;
   height: 50px;
   background: black;

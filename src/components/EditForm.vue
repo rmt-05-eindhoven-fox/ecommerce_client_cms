@@ -107,7 +107,7 @@ export default {
   padding: 4px;
   margin-top: 3px;
 }
-.editForm input[type="submit"] {
+.editForm button[type="submit"] {
   width: 390px;
   height: 50px;
   background: black;
