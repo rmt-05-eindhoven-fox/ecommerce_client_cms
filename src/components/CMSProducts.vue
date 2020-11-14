@@ -21,7 +21,8 @@
               </h4>
             <hr>
             <AddProduct @onsubmit="showProducts" v-if="displayAdd" />
-            <ProductList v-if="displayProducts" />
+            <ProductList @showEditProduct="showEditProduct" v-if="displayProducts" />
+            <EditProduct @onsubmit="showProducts" v-if="displayEdit" />
           </div>
         </div>
       </div>
@@ -31,6 +32,7 @@
 <script>
 import AddProduct from '@/components/AddProduct.vue'
 import ProductList from './ProductList.vue'
+import EditProduct from './EditProduct.vue'
 export default {
   name: 'CMSProducts',
   data () {
@@ -60,10 +62,17 @@ export default {
     showProducts () {
       this.displayAdd = false
       this.displayProducts = true
+      this.displayEdit = false
     },
     showAddProduct () {
       this.displayAdd = true
       this.displayProducts = false
+      this.displayEdit = false
+    },
+    showEditProduct () {
+      this.displayAdd = false
+      this.displayProducts = false
+      this.displayEdit = true
     },
     increment () {
       this.$store.commit('increment')
@@ -74,7 +83,8 @@ export default {
   },
   components: {
     AddProduct,
-    ProductList
+    ProductList,
+    EditProduct
   }
 }
 </script>

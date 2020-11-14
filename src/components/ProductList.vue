@@ -32,7 +32,7 @@
         <td class=" text-center"><b-badge variant="warning" style="color: white; font-size: 13px;">{{product.stock}} Items left</b-badge></td>
         <td>
           <b-dropdown id="dropdown-left" class="" variant="warning">
-            <b-dropdown-item href="#">Edit</b-dropdown-item>
+            <b-dropdown-item @click="editProduct(product.id, product)">Edit</b-dropdown-item>
             <b-dropdown-item @click="deleteProduct(product.id)" >Delete</b-dropdown-item>
           </b-dropdown>
         </td>
@@ -61,17 +61,22 @@ export default {
     fetchProducts () {
       const accessToken = localStorage.getItem('access_token')
       this.$store.dispatch('fetchProducts', accessToken)
+    },
+    editProduct (id, payload) {
+      payload.id = id
+      this.$store.dispatch('bindEditForm', payload)
+      this.$emit('showEditProduct')
     }
   },
   mounted () {
     this.fetchProducts()
   },
   watch: {
-    products: {
-      handler: function (val, oldval) {
-        this.fetchProducts()
-      }
-    }
+    // products: {
+    //   handler: function (val, oldval) {
+    //     this.fetchProducts()
+    //   }
+    // }
   }
 }
 </script>
