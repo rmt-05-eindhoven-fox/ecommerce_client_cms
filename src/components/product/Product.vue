@@ -37,17 +37,17 @@
                       <b><span style="font-size: 0.8rem; padding: 6px" :class="colorStatus(product.stock)">{{ cekStock(product.stock) }}</span></b>
                     </td>
                     <td>
-                      <a href="javascript:void(0);"
+                      <button
                       @click.prevent="editProduct(product.id)"
-                        class="btn btn-default waves-effect waves-float btn-sm waves-green"
+                        class="btn btn-primary waves-effect waves-float btn-sm waves-green"
                         ><i class="zmdi zmdi-edit"></i
-                      ></a>
-                      <a
+                      ></button>
+                      <button
                         @click.prevent="confirmDelete(product.id)"
                         href="javascript:void(0);"
-                        class="btn btn-default waves-effect waves-float btn-sm waves-red"
+                        class="btn btn-danger waves-effect waves-float btn-sm waves-red"
                         ><i class="zmdi zmdi-delete"></i
-                      ></a>
+                      ></button>
                     </td>
                   </tr>
                 </tbody>
@@ -114,24 +114,6 @@ export default {
         this.isDisplayModal(true)
       } catch (error) {
         console.log(error)
-      } finally {
-        this.loading = false
-      }
-    },
-
-    async deleteProduct (id) {
-      try {
-        this.loading = true
-        await axios({
-          url: 'products/' + id,
-          method: 'delete',
-          headers: {
-            access_token: localStorage.getItem('access_token')
-          }
-        })
-        this.$store.dispatch('getProducts')
-      } catch (error) {
-        console.log(error.response)
       } finally {
         this.loading = false
       }

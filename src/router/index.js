@@ -22,6 +22,11 @@ const routes = [
         path: 'banners',
         name: 'Banner',
         component: () => import('../components/banner/Banner.vue')
+      },
+      {
+        path: 'categories',
+        name: 'Category',
+        component: () => import('../components/category/Category.vue')
       }
     ]
   },

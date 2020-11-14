@@ -38,7 +38,12 @@
         </li>
         <li>
           <router-link :to="{ name: 'Banner' }">
-            <i class="zmdi zmdi-apps"></i><span>Live Banner</span>
+            <i class="zmdi zmdi-view-carousel"></i><span>Live Banner</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'Category' }">
+            <i class="zmdi zmdi-label"></i><span>Category</span>
           </router-link>
         </li>
       </ul>

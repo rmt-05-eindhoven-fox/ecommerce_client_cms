@@ -36,17 +36,16 @@
                     <td><strong><span :class="getColor(banner.is_active)" style="font-size: 0.9rem; padding: 6px">{{ getStatus(banner.is_active) }}</span></strong></td>
                     <td><strong><span :class="getColorCategory(banner.Category)"> {{ getCategory(banner.Category) }} </span></strong></td>
                     <td>
-                      <a href="javascript:void(0);"
+                      <button
                       @click.prevent="editBanner(banner.id)"
-                        class="btn btn-default waves-effect waves-float btn-sm waves-green"
+                        class="btn btn-primary waves-effect waves-float btn-sm waves-green"
                         ><i class="zmdi zmdi-edit"></i
-                      ></a>
-                      <a
+                      ></button>
+                      <button
                         @click.prevent="confirmDelete(banner.id)"
-                        href="javascript:void(0);"
-                        class="btn btn-default waves-effect waves-float btn-sm waves-red"
+                        class="btn btn-danger waves-effect waves-float btn-sm waves-red"
                         ><i class="zmdi zmdi-delete"></i
-                      ></a>
+                      ></button>
                     </td>
                   </tr>
                 </tbody>
