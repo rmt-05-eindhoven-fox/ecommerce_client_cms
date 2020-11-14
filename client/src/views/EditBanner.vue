@@ -20,6 +20,22 @@
           <input type="radio" id="non-active" name="status" v-model="banner.status" value="Non-active">
           <label for="non-active">Non-Active</label><br>
         </div>
+        <div class="form-group dropdown">
+            <label for="category">
+                <i class="fas fa-layer-group"></i>
+                Choose a category:
+            </label><br>
+            <select name="category" id="category" v-model="banner.category">
+                <option value="">---Select one---</option>
+                <option value="SmartWatch">SmartWatch</option>
+                <option value="Laptop">Laptop</option>
+                <option value="SmartPhone">SmartPhone</option>
+                <option value="Tablet">Tablet</option>
+                <option value="PowerBank">PowerBank</option>
+                <option value="Aksesoris">Aksesoris</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </div>
         <div>
           <button class="btn btn-success" type="submit">Edit</button>
         </div>
@@ -40,7 +56,8 @@ export default {
       banner: {
         title: '',
         image_url: '',
-        status: ''
+        status: '',
+        category: ''
       }
     }
   },
@@ -56,6 +73,7 @@ export default {
           this.banner.title = res.data.data.title
           this.banner.image_url = res.data.data.image_url
           this.banner.status = res.data.data.status
+          this.banner.category = res.data.data.category
         })
         .catch(err => console.log(err.response))
     },
@@ -67,7 +85,8 @@ export default {
         id: this.$route.params.id,
         title: this.banner.title,
         image_url: this.banner.image_url,
-        status: this.banner.status
+        status: this.banner.status,
+        category: this.banner.category
       })
       this.$router.push('/banner')
     }

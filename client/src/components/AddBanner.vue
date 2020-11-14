@@ -20,6 +20,22 @@
           <input type="radio" id="non-active" name="status" v-model="status" value="Non-Active">
           <label for="non-active">Non-Active</label><br>
         </div>
+        <div class="form-group dropdown">
+            <label for="category">
+                <i class="fas fa-layer-group"></i>
+                Choose a category:
+            </label><br>
+            <select name="category" id="category" v-model="category">
+                <option value="" disabled>---Select one---</option>
+                <option value="SmartWatch">SmartWatch</option>
+                <option value="Laptop">Laptop</option>
+                <option value="SmartPhone">SmartPhone</option>
+                <option value="Tablet">Tablet</option>
+                <option value="PowerBank">PowerBank</option>
+                <option value="Aksesoris">Aksesoris</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </div>
         <div>
           <button class="btn btn-primary" type="submit">Add</button>
         </div>
@@ -39,7 +55,8 @@ export default {
       pageName: 'addProduct',
       title: '',
       image_url: '',
-      status: ''
+      status: '',
+      category: ''
     }
   },
   methods: {
@@ -50,7 +67,8 @@ export default {
       this.$store.dispatch('addBanner', {
         title: this.title,
         image_url: this.image_url,
-        status: this.status
+        status: this.status,
+        category: this.category
       })
       this.$router.push('/banner')
     }

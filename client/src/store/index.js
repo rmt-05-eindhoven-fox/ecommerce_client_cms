@@ -58,6 +58,7 @@ export default new Vuex.Store({
           token: localStorage.token
         }
       }).then(data => {
+        // console.log(data.data.data, 'ini alsdj')
         context.commit('fetchBanner', data.data.data)
       }).catch(err => console.log(err))
     },
@@ -69,7 +70,7 @@ export default new Vuex.Store({
           token: localStorage.getItem('token')
         }
       }).then(data => {
-        // console.log(data, 'aldkjfl')
+        // console.log(data.data.dataProduct, 'aldkjfl')
         context.commit('fetchProduct', data.data.dataProduct)
       }).catch(err => console.log(err))
     },
@@ -83,7 +84,8 @@ export default new Vuex.Store({
         data: {
           title: dataBanner.title,
           image_url: dataBanner.image_url,
-          status: dataBanner.status
+          status: dataBanner.status,
+          category: dataBanner.category
         }
       }).then(data => {
         Swal.fire({
@@ -112,7 +114,8 @@ export default new Vuex.Store({
           name: dataProduct.name,
           image_url: dataProduct.image_url,
           price: dataProduct.price,
-          stock: dataProduct.stock
+          stock: dataProduct.stock,
+          category: dataProduct.category
         }
       }).then(newProduct => {
         // console.log(newProduct, 'lasjf')
@@ -210,7 +213,8 @@ export default new Vuex.Store({
         data: {
           title: dataBanner.title,
           image_url: dataBanner.image_url,
-          status: dataBanner.status
+          status: dataBanner.status,
+          category: dataBanner.category
         }
       }).then(doneEdit => {
         Swal.fire(
@@ -239,7 +243,8 @@ export default new Vuex.Store({
           name: dataProduct.name,
           image_url: dataProduct.image_url,
           price: dataProduct.price,
-          stock: dataProduct.stock
+          stock: dataProduct.stock,
+          category: dataProduct.category
         }
       }).then(afterEdit => {
         Swal.fire(

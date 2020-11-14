@@ -11,6 +11,7 @@
             <th>Banner Title</th>
             <th>Image</th>
             <th>Status</th>
+            <th>Category</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -20,6 +21,7 @@
             <td>{{ banner.title }}</td>
             <td><img :src="banner.image_url" width="200"/></td>
             <td>{{ banner.status }}</td>
+            <td>{{ banner.category }}</td>
             <td>
               <button class="btn btn-success" @click.prevent="showEditBanner(banner.id)"
               >Edit</button> ||

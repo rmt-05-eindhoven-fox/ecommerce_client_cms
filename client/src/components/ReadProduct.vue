@@ -12,6 +12,7 @@
             <th>Image</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Category</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -22,6 +23,7 @@
             <td><img :src="product.image_url" width="80"/></td>
             <td>Rp {{ product.price }}</td>
             <td>{{ product.stock }}</td>
+            <td>{{ product.category }}</td>
             <td>
               <button class="btn btn-success" @click.prevent="showEdit(product.id)"
               >Edit</button> ||

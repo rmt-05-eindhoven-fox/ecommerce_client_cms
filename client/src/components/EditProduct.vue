@@ -21,6 +21,22 @@
           <label for="stock">Stock</label>
           <input class="form-control" type="number" v-model="product.stock">
         </div>
+        <div class="form-group dropdown">
+            <label for="category">
+                <i class="fas fa-layer-group"></i>
+                Choose a category:
+            </label><br>
+            <select name="category" id="category" v-model="product.category">
+                <option value="">---Select one---</option>
+                <option value="SmartWatch">SmartWatch</option>
+                <option value="Laptop">Laptop</option>
+                <option value="SmartPhone">SmartPhone</option>
+                <option value="Tablet">Tablet</option>
+                <option value="PowerBank">PowerBank</option>
+                <option value="Aksesoris">Aksesoris</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </div>
         <div>
           <button class="btn btn-success" type="submit">Edit</button>
         </div>
@@ -42,7 +58,8 @@ export default {
         name: '',
         image_url: '',
         price: '',
-        stock: ''
+        stock: '',
+        category: ''
       }
     }
   },
@@ -59,6 +76,7 @@ export default {
           this.product.image_url = res.data.dataProduct.image_url
           this.product.price = res.data.dataProduct.price
           this.product.stock = res.data.dataProduct.stock
+          this.product.category = res.data.dataProduct.category
         })
         .catch(err => console.log(err.response))
     },
@@ -71,7 +89,8 @@ export default {
         name: this.product.name,
         image_url: this.product.image_url,
         price: this.product.price,
-        stock: this.product.stock
+        stock: this.product.stock,
+        category: this.product.category
       })
       this.$router.push('/')
     }
