@@ -54,7 +54,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.name !== 'Login' && !localStorage.token) {
     next({ path: '/login' })
   } else if (to.name === 'Login' && localStorage.token) {
-    next({ path: 'Dashboard' })
+    next({ path: '/' })
   } else {
     next()
   }
