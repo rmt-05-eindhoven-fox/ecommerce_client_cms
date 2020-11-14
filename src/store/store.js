@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
     stock: 0
   },
   actions: {
-    fetchProducts ({ commit }, accessToken) {
+    fetchProducts ({ commit, state }, accessToken) {
       Vue.swal.showLoading()
       axios({
         method: 'GET',
@@ -109,6 +109,11 @@ export const store = new Vuex.Store({
   mutations: {
     SET_PRODUCTS (state, products) {
       state.products = products
+      const lastProduct = products[products.length - 1]
+      state.name = lastProduct.name
+      state.image_url = lastProduct.image_url
+      state.price = lastProduct.price
+      state.stock = lastProduct.stock
     },
     EDIT_PRODUCT (state, payload) {
       state.id = payload.id

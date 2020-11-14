@@ -3,13 +3,14 @@
       <div class="row no-gutters">
         <div class="col-md-2 bg-light" style="height: 1000px;">
           <b-list-group class="list-group list-group-flush pt-2 p-2 mt-3" style="text-align: left;">
-            <b-list-group-item style="border-radius: 50px;" class="bg-warning mb-2"><font-awesome-icon :icon="['fas', 'tachometer-alt']" size="1x" /> Dashboard</b-list-group-item>
-            <b-list-group-item style="border-radius: 50px;" class="bg-warning mb-2"><font-awesome-icon :icon="['fas', 'archive']" size="1x" /> Products</b-list-group-item>
-            <b-list-group-item style="border-radius: 50px;" class="bg-warning mb-2"><font-awesome-icon :icon="['fas', 'list']" size="1x" /> Categories</b-list-group-item>
+            <b-list-group-item @click="showDashboard" id="dashboard" style="border-radius: 50px;" class="mb-2"><font-awesome-icon :icon="['fas', 'tachometer-alt']" size="1x" /> Dashboard</b-list-group-item>
+            <b-list-group-item @click="showProducts" id="products" style="border-radius: 50px;" class="mb-2"><font-awesome-icon :icon="['fas', 'archive']" size="1x" /> Products</b-list-group-item>
+            <b-list-group-item id="categories" style="border-radius: 50px;" class="mb-2"><font-awesome-icon :icon="['fas', 'list']" size="1x" /> Categories</b-list-group-item>
           </b-list-group>
         </div>
         <div class="col-md-10 pt-2 pl-5 pr-5 product-body">
           <transition name="fade">
+            <Dashboard v-if="displayDashboard" />
             <AddProduct @showProducts="showProducts" @onsubmit="showProducts" v-if="displayAdd" />
             <ProductList @displayAdd="showAddProduct" @showEditProduct="showEditProduct" v-if="displayProducts" />
             <EditProduct @showProducts="showProducts" @onsubmit="showProducts" v-if="displayEdit" />
@@ -23,15 +24,17 @@
 import AddProduct from '@/components/AddProduct.vue'
 import ProductList from './ProductList.vue'
 import EditProduct from './EditProduct.vue'
+import Dashboard from './Dashboard.vue'
 export default {
-  name: 'CMSProducts',
+  name: 'Homepage',
   data () {
     return {
       selected: '',
       footer: true,
       displayAdd: false,
-      displayProducts: true,
-      displayEdit: false
+      displayProducts: false,
+      displayEdit: false,
+      displayDashboard: true
     }
   },
   created () {
@@ -53,6 +56,7 @@ export default {
       this.displayAdd = false
       this.displayProducts = true
       this.displayEdit = false
+      this.displayDashboard = false
     },
     showAddProduct () {
       this.displayAdd = true
@@ -63,12 +67,19 @@ export default {
       this.displayAdd = false
       this.displayProducts = false
       this.displayEdit = true
+    },
+    showDashboard () {
+      this.displayAdd = false
+      this.displayProducts = false
+      this.displayEdit = false
+      this.displayDashboard = true
     }
   },
   components: {
     AddProduct,
     ProductList,
-    EditProduct
+    EditProduct,
+    Dashboard
   }
 }
 </script>
@@ -81,6 +92,18 @@ export default {
 
   body {
      background-color: #ffffff;
+  }
+
+  #products:hover {
+    background-color: #FFC107;
+  }
+
+  #categories:hover {
+    background-color: #FFC107;
+  }
+
+  #dashboard:hover {
+    background-color: #FFC107;
   }
 
   .fade-enter-active, .fade-leave-active {
