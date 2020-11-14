@@ -82,6 +82,14 @@
                         />
                       </div>
                     </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <select v-model="productCategory" class="form-control">
+                          <option value="">--- Select Category ---</option>
+                          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -133,16 +141,25 @@ export default {
       prodImgURL: '',
       prodPrice: '',
       prodStock: '',
+      productCategory: '',
       messageInfo: []
     }
   },
+
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
+  },
+
   methods: {
     async submitProduct () {
       const payload = {
         name: this.prodName,
         image_url: this.prodImgURL,
         price: this.prodPrice,
-        stock: this.prodStock
+        stock: this.prodStock,
+        CategoryId: this.productCategory
       }
 
       try {

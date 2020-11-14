@@ -13,6 +13,7 @@
                   <tr>
                     <th>Image</th>
                     <th>Product Name</th>
+                    <th data-breakpoints="xs">Category</th>
                     <th data-breakpoints="xs">Price</th>
                     <th data-breakpoints="xs md">Stock</th>
                     <th data-breakpoints="xs md">Status</th>
@@ -29,6 +30,7 @@
                       />
                     </td>
                     <td><h5>{{ product.name }}</h5></td>
+                    <td><h5>{{ getCategory(product.Category) }}</h5></td>
                     <td>Rp {{ formatNumber(product.price) }}</td>
                     <td>{{ product.stock }}</td>
                     <td>
@@ -133,6 +135,10 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+
+    getCategory (category) {
+      return (category !== null) ? category.name : 'No Category'
     },
 
     isDisplayModal (params) {
