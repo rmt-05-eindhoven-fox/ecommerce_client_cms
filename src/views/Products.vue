@@ -82,8 +82,13 @@ export default {
     }
   },
   created () {
-    this.fetchProducts()
-    this.fetchCategories()
+    const accesToken = localStorage.getItem('access_token')
+    if (!accesToken) {
+      this.$router.push({ name: 'Login' })
+    } else {
+      this.fetchProducts()
+      this.fetchCategories()
+    }
   },
   computed: {
     products () {

@@ -11,6 +11,14 @@ export default {
     gotoLogin () {
       this.$router.push({ name: 'Login' })
     }
+  },
+  created () {
+    const accesToken = localStorage.getItem('access_token')
+    if (accesToken) {
+      this.$router.push({ name: 'Products' })
+    } else {
+      this.$router.push({ name: 'Login' })
+    }
   }
 }
 </script>

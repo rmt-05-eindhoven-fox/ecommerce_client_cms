@@ -2,7 +2,7 @@
   <div id="addProduct">
     <NavbarDashboard/>
     <div class="container">
-      <div class="row">
+      <div class="row d-flex justify-content-center my-5">
         <div class="col-auto">
           <div class="card">
             <div class="card-header">
@@ -13,7 +13,10 @@
                 <div class="form-group">
                   <label for="add-name">Name</label>
                   <input v-model="name" placeholder="product name" type="text" class="form-control" id="add-name">
-                </div>
+                </div><hr>
+                <div class="form-group" width="auto" height="150">
+                  <img :src="image_url" onerror="this.src='https://www.metrorollerdoors.com.au/wp-content/uploads/2018/02/unavailable-image.jpg'" alt="image_not_found" width="auto" height="150">
+                </div> <hr>
                 <div class="form-group">
                   <label for="add-image_url">Image URL</label>
                   <input v-model="image_url" placeholder="image url" type="url" class="form-control" id="add-image_url">
@@ -82,7 +85,12 @@ export default {
     }
   },
   created () {
-    this.fetchCategories()
+    const accesToken = localStorage.getItem('access_token')
+    if (!accesToken) {
+      this.$router.push({ name: 'Login' })
+    } else {
+      this.fetchCategories()
+    }
   },
   computed: {
     categories () {

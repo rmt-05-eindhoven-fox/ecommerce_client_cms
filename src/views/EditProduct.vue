@@ -15,7 +15,7 @@
                   <input v-model="name" placeholder="product name" type="text" class="form-control" id="edit-name">
                 </div> <hr>
                 <div class="form-group" width="auto" height="150">
-                  <img :src="image_url" alt="image not found" width="auto" height="150">
+                  <img :src="image_url" onerror="this.src='https://www.metrorollerdoors.com.au/wp-content/uploads/2018/02/unavailable-image.jpg'" alt="image_not_found" width="auto" height="150">
                 </div> <hr>
                 <div class="form-group">
                   <label for="edit-image_url">Image URL</label>
@@ -107,8 +107,13 @@ export default {
     }
   },
   created () {
-    this.getProductById()
-    this.fetchCategories()
+    const accesToken = localStorage.getItem('access_token')
+    if (accesToken) {
+      this.getProductById()
+      this.fetchCategories()
+    } else {
+      this.$router.push({ name: 'Login' })
+    }
   },
   computed: {
     categories () {

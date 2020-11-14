@@ -19,15 +19,17 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
         <div class="dropdown-menu">
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Categories</a>
+          <a @click.prevent="$router.push({ name: 'Categories' })" class="dropdown-item" href="#">Categories</a>
+          <a @click.prevent="$router.push({ name: 'AddCategory' })" class="dropdown-item" href="#">Add Category</a>
+        <div class="dropdown-divider"></div>
         </div>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Banners</a>
         <div class="dropdown-menu">
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Banners</a>
+          <a @click.prevent="$router.push({ name: 'Banners' })" class="dropdown-item" href="#">Banners</a>
+          <a @click.prevent="$router.push({ name: 'AddBanner' })" class="dropdown-item" href="#">Add Banner</a>
+        <div class="dropdown-divider"></div>
         </div>
       </li>
     </ul>
@@ -52,7 +54,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             localStorage.removeItem('access_token')
-            this.$router.push('Login')
+            this.$router.push({ name: 'Login' })
             Swal.fire('Logged out!', '', 'success')
           }
         })

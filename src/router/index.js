@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Landing from '../views/Landing.vue'
 import Products from '../views/Products.vue'
+import Banners from '../views/Banners.vue'
+import Categories from '../views/Categories.vue'
 import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -31,6 +33,36 @@ const routes = [
     path: '/products/:id',
     name: 'EditProduct',
     component: () => import('../views/EditProduct.vue')
+  },
+  {
+    path: '/banners',
+    name: 'Banners',
+    component: Banners
+  },
+  {
+    path: '/add-banners',
+    name: 'AddBanner',
+    component: () => import('../views/AddBanner.vue')
+  },
+  {
+    path: '/edit-banners',
+    name: 'EditBanner',
+    component: () => import('../views/EditBanner.vue')
+  },
+  {
+    path: '/categories',
+    name: 'Categories',
+    component: Categories
+  },
+  {
+    path: '/add-category',
+    name: 'AddCategory',
+    component: () => import('../views/AddCategory.vue')
+  },
+  {
+    path: '/edit-category',
+    name: 'EditCategory',
+    component: () => import('../views/EditCategory.vue')
   },
   {
     path: '*',

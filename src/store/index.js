@@ -10,11 +10,15 @@ export default new Vuex.Store({
   state: {
     products: [],
     categories: [],
+    banners: [],
     userLoggedIn: ''
   },
   mutations: {
     setProducts (state, payload) {
       state.products = payload
+    },
+    setBanners (state, payload) {
+      state.banners = payload
     },
     setCategories (state, payload) {
       state.categories = payload
@@ -163,6 +167,170 @@ export default new Vuex.Store({
         .catch(({ response }) => {
           console.log(response)
         })
+    },
+    fetchBanners (context) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        url: '/banners',
+        method: 'get',
+        headers: {
+          access_token: accessToken
+        }
+      })
+        .then(({ data }) => {
+          context.commit('setBanners', data)
+        })
+        .catch(({ response }) => {
+          console.log(response)
+        })
+    },
+    addBanner (context, payload) {
+      axios({
+        url: '/banners',
+        method: 'post',
+        data: {
+          title: payload.title,
+          image_url: payload.image_url,
+          status: payload.status
+        },
+        headers: {
+          access_token: payload.access_token
+        }
+      })
+        .then(({ data }) => {
+          router.push('Banners')
+          Swal.fire(
+            'Add Banner Success',
+            `Banner ${data.title} is successfully added`,
+            'success'
+          )
+        })
+        .catch(err => {
+          Swal.fire(
+            'Error',
+            `${err.response.data.msg}`,
+            'error'
+          )
+        })
+    },
+    deleteBanner (context, payload) {
+      return axios({
+        url: `/banners/${payload.id}`,
+        method: 'DELETE',
+        headers: {
+          access_token: payload.access_token
+        }
+      })
+    },
+    editBanner (context, payload) {
+      axios({
+        url: `/banners/${payload.id}`,
+        method: 'put',
+        headers: {
+          access_token: payload.access_token
+        },
+        data: {
+          title: payload.title,
+          image_url: payload.image_url,
+          status: payload.status
+        }
+      })
+        .then(({ data }) => {
+          router.push({ name: 'Banners' })
+          Swal.fire(
+            'Edit Successfull',
+            `Banner with ID ${data.id} is successfully edited`,
+            'success'
+          )
+        })
+        .catch(err => {
+          Swal.fire(
+            'Error',
+            `${err.response.data.msg}`,
+            'error'
+          )
+        })
+    },
+    getBannerById (context, payload) {
+      return axios({
+        url: `/banners/${payload.id}`,
+        method: 'get',
+        headers: {
+          access_token: payload.access_token
+        }
+      })
+    },
+    addCategory (context, payload) {
+      axios({
+        url: '/categories',
+        method: 'post',
+        data: {
+          name: payload.name
+        },
+        headers: {
+          access_token: payload.access_token
+        }
+      })
+        .then(({ data }) => {
+          router.push('Categories')
+          Swal.fire(
+            'Add Category Success',
+            `Category ${data.name} is successfully added`,
+            'success'
+          )
+        })
+        .catch(err => {
+          Swal.fire(
+            'Error',
+            `${err.response.data.msg}`,
+            'error'
+          )
+        })
+    },
+    deleteCategory (context, payload) {
+      return axios({
+        url: `/categories/${payload.id}`,
+        method: 'DELETE',
+        headers: {
+          access_token: payload.access_token
+        }
+      })
+    },
+    editCategory (context, payload) {
+      axios({
+        url: `/categories/${payload.id}`,
+        method: 'put',
+        headers: {
+          access_token: payload.access_token
+        },
+        data: {
+          name: payload.name
+        }
+      })
+        .then(({ data }) => {
+          router.push({ name: 'Categories' })
+          Swal.fire(
+            'Edit Successfull',
+            `Category with ID ${data.id} is successfully edited`,
+            'success'
+          )
+        })
+        .catch(err => {
+          Swal.fire(
+            'Error',
+            `${err.response.data.msg}`,
+            'error'
+          )
+        })
+    },
+    getCategoryById (context, payload) {
+      return axios({
+        url: `/categories/${payload.id}`,
+        method: 'get',
+        headers: {
+          access_token: payload.access_token
+        }
+      })
     }
   },
   modules: {
