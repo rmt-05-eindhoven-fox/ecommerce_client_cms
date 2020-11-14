@@ -92,8 +92,8 @@ export default {
           this.product = data
           this.loadingComplete = true
         })
-        .catch(error => {
-          console.log(error.response)
+        .catch(err => {
+          this.$store.dispatch('errToast', err.response.data.message)
         })
     },
     updateProduct () {
@@ -108,8 +108,8 @@ export default {
         .then(({ data }) => {
           this.$router.push({ name: 'Home' })
         })
-        .catch(({ response }) => {
-          console.log(response.message)
+        .catch((err) => {
+          this.$store.dispatch('errToast', err.response.data.message)
         })
     },
     deleteProduct () {
@@ -117,8 +117,8 @@ export default {
         .then(({ data }) => {
           this.$router.push({ name: 'Home' })
         })
-        .catch(({ response }) => {
-          console.log(response.message)
+        .catch((err) => {
+          this.$store.dispatch('errToast', err.response.data.message)
         })
     }
   },

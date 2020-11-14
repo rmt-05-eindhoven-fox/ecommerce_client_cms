@@ -66,8 +66,8 @@ export default {
           this.$store.commit('setProducts', data)
           this.loadComplete = true
         })
-        .catch(error => {
-          console.log(error.response.status)
+        .catch(err => {
+          this.$store.dispatch('errToast', err.response.data.message)
         })
     }
   },
