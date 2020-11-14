@@ -1,17 +1,17 @@
 <template>
-  <div>
-    <h1>Edit Product Page</h1>
-    <EditForm />
+  <div id="edit-product">
+    <h1 class="page-title">Edit Product Page</h1>
+    <EditProductForm />
   </div>
 </template>
 
 <script>
-import EditForm from '@/components/EditForm.vue'
+import EditProductForm from '@/components/EditProductForm.vue'
 
 export default {
   name: 'EditProduct',
   components: {
-    EditForm
+    EditProductForm
   }
 }
 </script>

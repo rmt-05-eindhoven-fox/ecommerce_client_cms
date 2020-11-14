@@ -2,7 +2,7 @@
   <div class="login-form container mt-5">
     <div class="row justify-content-center">
       <div class="col-4 p-3 mt-5 shadow rounded">
-        <h1 class="mt-2" style="margin-bottom: 20px">Eindhovenfox</h1>
+        <h1 class="mt-2" style="margin-bottom: 20px">Eindhovenfox CMS</h1>
         <img
           class="duck-logo"
           alt="Duck Logo"
@@ -59,6 +59,19 @@ export default {
       }
 
       this.$store.dispatch('login', payload)
+        .then(({ data }) => {
+          const token = data.token
+          const role = data.role
+
+          localStorage.setItem('token', token)
+          localStorage.setItem('role', role)
+          this.$store.commit('setNavBar', true)
+          this.$swal('Login Success', 'Welcome back!', 'success')
+          this.$router.push({ name: 'Dashboard' })
+        })
+        .catch((err) => {
+          this.$swal('Login Failed', `${err.response.data.errors}`, 'error')
+        })
     }
   }
 }

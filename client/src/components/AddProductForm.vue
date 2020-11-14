@@ -40,6 +40,16 @@
           placeholder="Enter stock of product"
         />
       </div>
+      <div class="form-group">
+        <label for="product-name">Category of Product</label>
+        <input
+          v-model="product.category"
+          type="text"
+          class="form-control"
+          id="product-category"
+          placeholder="Enter category of product"
+        />
+      </div>
       <button type="submit" class="add-btn btn btn-light">Add Product</button>
     </form>
   </div>
@@ -47,14 +57,15 @@
 
 <script>
 export default {
-  name: 'AddForm',
+  name: 'AddProductForm',
   data () {
     return {
       product: {
         name: '',
         image_url: '',
         price: '',
-        stock: ''
+        stock: '',
+        category: ''
       }
     }
   },
@@ -67,7 +78,8 @@ export default {
         name: this.product.name,
         image_url: this.product.image_url,
         price: this.product.price,
-        stock: this.product.stock
+        stock: this.product.stock,
+        category: this.product.category
       }
 
       this.$store
@@ -76,9 +88,11 @@ export default {
           console.log('Add new product succeed')
           this.fetchProducts()
           this.$router.push({ name: 'Dashboard' })
+          this.$swal('Success', 'Add new product succeed', 'success')
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err.response)
+          this.$swal('Failed Add Product', `${err.response.data.errors}`, 'error')
         })
     }
   }

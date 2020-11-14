@@ -1,24 +1,17 @@
 <template>
   <div>
-    <div id="nav">
-      <ul>
-        <li><router-link to='/dashboard'>Dashboard </router-link></li>
-        <li><router-link to='/add-product'>Add Product </router-link></li>
-      </ul>
-      <a @click.prevent="logOut" class="logout" href="">Log Out</a>
-    </div>
-    <h1>Add Product Page</h1>
-    <AddForm />
+    <h1 class="page-title">Add Product Page</h1>
+    <AddProductForm />
   </div>
 </template>
 
 <script>
-import AddForm from '@/components/AddForm.vue'
+import AddProductForm from '@/components/AddProductForm.vue'
 
 export default {
   name: 'AddProduct',
   components: {
-    AddForm
+    AddProductForm
   },
   methods: {
     logOut () {

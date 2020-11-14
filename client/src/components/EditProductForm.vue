@@ -1,6 +1,6 @@
 <template>
   <div id="edit-form">
-    <form @submit.prevent="editProduct" class="add-form">
+    <form @submit.prevent="editProduct" class="edit-form">
       <div class="form-group">
         <label for="product-name">Name of Product</label>
         <input
@@ -40,6 +40,16 @@
           placeholder="Enter stock of product"
         />
       </div>
+       <div class="form-group">
+        <label for="product-name">Category of Product</label>
+        <input
+          v-model="product.category"
+          type="text"
+          class="form-control"
+          id="product-category"
+          placeholder="Enter category of product"
+        />
+      </div>
       <button type="submit" class="edit-btn btn btn-light">Edit Product</button>
     </form>
   </div>
@@ -47,14 +57,15 @@
 
 <script>
 export default {
-  name: 'EditForm',
+  name: 'EditProductForm',
   data () {
     return {
       product: {
         name: '',
         image_url: '',
         price: '',
-        stock: ''
+        stock: '',
+        category: ''
       }
     }
   },
@@ -68,6 +79,7 @@ export default {
           this.product.image_url = data.image_url
           this.product.price = data.price
           this.product.stock = data.stock
+          this.product.category = data.category
         })
         .catch((err) => {
           console.log(err.response)
@@ -79,7 +91,8 @@ export default {
         name: this.product.name,
         image_url: this.product.image_url,
         price: this.product.price,
-        stock: this.product.stock
+        stock: this.product.stock,
+        category: this.product.category
       }
 
       this.$store
@@ -87,10 +100,12 @@ export default {
         .then(({ data }) => {
           console.log('Edit product succeed')
           this.$router.push({ name: 'Dashboard' })
+          this.$swal('Success', 'Edit product succeed', 'success')
           this.$store.dispatch('fetchProducts')
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err.response)
+          this.$swal('Failed Edit Product', `${err.response.data.errors}`, 'error')
         })
     }
   },

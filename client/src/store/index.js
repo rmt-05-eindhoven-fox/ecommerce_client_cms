@@ -1,22 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../axios/axiosInstance.js'
-import router from '../router'
+// import router from '../router'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    banners: [],
+    loginStatus: false
   },
   mutations: {
     setProducts (state, payload) {
       state.products = payload
+    },
+    setBanners (state, payload) {
+      state.banners = payload
+    },
+    setNavBar (state, payload) {
+      state.loginStatus = payload
     }
   },
   actions: {
     login (context, payload) {
-      axios({
+      return axios({
         url: '/login',
         method: 'POST',
         data: {
@@ -24,20 +32,9 @@ export default new Vuex.Store({
           password: payload.password
         }
       })
-        .then(({ data }) => {
-          const token = data.access_token
-          const role = data.role
-
-          localStorage.setItem('access_token', token)
-          localStorage.setItem('role', role)
-          router.push({ name: 'Dashboard' })
-        })
-        .catch((err) => {
-          console.log(err.response)
-        })
     },
     fetchProducts (context) {
-      const token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('token')
       const role = localStorage.getItem('role')
 
       axios({
@@ -56,7 +53,7 @@ export default new Vuex.Store({
         })
     },
     addProduct (context, payload) {
-      const token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('token')
       const role = localStorage.getItem('role')
 
       return axios({
@@ -66,7 +63,8 @@ export default new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           price: payload.price,
-          stock: payload.stock
+          stock: payload.stock,
+          category: payload.category
         },
         headers: {
           token,
@@ -75,7 +73,7 @@ export default new Vuex.Store({
       })
     },
     editProduct (context, payload) {
-      const token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('token')
       const role = localStorage.getItem('role')
       return axios({
         url: `/products/${payload.id}`,
@@ -84,7 +82,8 @@ export default new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           price: payload.price,
-          stock: payload.stock
+          stock: payload.stock,
+          category: payload.category
         },
         headers: {
           token,
@@ -93,9 +92,8 @@ export default new Vuex.Store({
       })
     },
     deleteProduct (context, id) {
-      const token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('token')
       const role = localStorage.getItem('role')
-      console.log(id, '<<< ID DELETE PRODUCT DI VUEX')
       return axios({
         url: `/products/${id}`,
         method: 'DELETE',
@@ -106,10 +104,88 @@ export default new Vuex.Store({
       })
     },
     fetchProductById (context, id) {
-      const token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('token')
       const role = localStorage.getItem('role')
       return axios({
         url: `/products/${id}`,
+        method: 'GET',
+        headers: {
+          token,
+          role
+        }
+      })
+    },
+    fetchBanners (context) {
+      const token = localStorage.getItem('token')
+      const role = localStorage.getItem('role')
+
+      axios({
+        url: '/banners',
+        method: 'GET',
+        headers: {
+          token,
+          role
+        }
+      })
+        .then(({ data }) => {
+          context.commit('setBanners', data)
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    addBanner (context, payload) {
+      const token = localStorage.getItem('token')
+      const role = localStorage.getItem('role')
+
+      return axios({
+        url: '/banners',
+        method: 'POST',
+        data: {
+          title: payload.title,
+          status: payload.status,
+          image_url: payload.image_url
+        },
+        headers: {
+          token,
+          role
+        }
+      })
+    },
+    editBanner (context, payload) {
+      const token = localStorage.getItem('token')
+      const role = localStorage.getItem('role')
+      return axios({
+        url: `/banners/${payload.id}`,
+        method: 'PUT',
+        data: {
+          title: payload.title,
+          status: payload.status,
+          image_url: payload.image_url
+        },
+        headers: {
+          token,
+          role
+        }
+      })
+    },
+    deleteBanner (context, id) {
+      const token = localStorage.getItem('token')
+      const role = localStorage.getItem('role')
+      return axios({
+        url: `/banners/${id}`,
+        method: 'DELETE',
+        headers: {
+          token,
+          role
+        }
+      })
+    },
+    fetchBannerById (context, id) {
+      const token = localStorage.getItem('token')
+      const role = localStorage.getItem('role')
+      return axios({
+        url: `/banners/${id}`,
         method: 'GET',
         headers: {
           token,

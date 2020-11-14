@@ -8,16 +8,19 @@
       />
     </div>
     <div class="product-detail row">
-      <div class="col-3">
+      <div class="col-2">
         <h5>{{ product.name }}</h5>
       </div>
-      <div class="col-3">
+      <div class="col-2">
         <p>{{ product.price }}</p>
       </div>
-      <div class="col-3">
-        <p>Stock: {{ product.stock }}</p>
+      <div class="col-2">
+        <p>{{ product.stock }}</p>
       </div>
-      <div class="buttons col-3">
+      <div class="col-3">
+        <p>{{ product.category }}</p>
+      </div>
+      <div class="buttons">
         <button @click="goToEdit(`/edit-product/${product.id}`)">Edit</button>
         <button @click="deleteProduct(product.id)" class="delete-btn">
           Delete
