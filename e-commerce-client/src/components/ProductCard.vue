@@ -15,7 +15,7 @@
       </div>
 
       <div class="col-3">
-        <button
+        <button class="btn btn-primary"
           @click="goToProductDetail"
         >Edit</button>
       </div>

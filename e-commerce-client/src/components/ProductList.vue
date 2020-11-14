@@ -2,7 +2,7 @@
   <div class="content">
   <form>
     <div class="form-group">
-      <input v-model="searchInput" type="text" class="form-control" placeholder="Filter by Name" aria-describedby="emailHelp">
+      <input v-model="searchInput" type="text" class="form-control" placeholder="Search Product" aria-describedby="emailHelp">
     </div>
   </form>
   <ul class="list-group list-group-flush">

@@ -5,7 +5,8 @@
     <div class="col-5">
 
         <header class="mb-5">
-          <h1>Login Page</h1>
+          <img class="mb-5" id="login-gif" src="../assets/38459-hello.gif" alt="Login">
+          <h1>Admin Login</h1>
         </header>
         <form>
             <div class="form-group">
@@ -19,11 +20,6 @@
               type="submit"
               class="btn mb-3 btn-primary w-100"
             >Submit</button>
-            <button
-              @click.prevent="goToHome"
-              type="submit"
-              class="btn btn-primary w-100"
-            >Go To Home</button>
         </form>
 
     </div>
@@ -33,7 +29,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Login',
   data () {
@@ -41,6 +36,8 @@ export default {
       email: '',
       password: ''
     }
+  },
+  components: {
   },
   methods: {
     goToHome () {
@@ -80,6 +77,12 @@ header {
   flex-direction: column;
   justify-content: center;
 
+}
+
+#login-gif{
+  width:200px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius:50%;
 }
 
 </style>

@@ -1,12 +1,14 @@
 <template>
   <div class = "container">
+    <Navbar></Navbar>
     <div class="row">
     <div class="col"></div>
     <div class="col-5">
 
       <div class="addProduct-container mb-5">
-        <header>
-          <h1>Add Product Form</h1>
+        <header class="header-add w-100">
+          <img src="https://img.icons8.com/dusk/64/000000/product.png"/>
+          <h3 class="mt-3">Add a New Product</h3>
         </header>
         <form>
             <div class="form-group">
@@ -46,6 +48,7 @@
 
 <script>
 import axios from '../axios/axiosInstance'
+import Navbar from '../components/Navbar'
 
 export default {
   name: 'AddProduct',
@@ -56,6 +59,9 @@ export default {
       price: '',
       stock: ''
     }
+  },
+  components: {
+    Navbar
   },
   methods: {
     addProduct () {
@@ -86,5 +92,10 @@ export default {
 </script>
 
 <style>
-
+header.header-add{
+  margin: 0px 0px 20px 0px;
+  padding: 30px 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 7px;
+}
 </style>
