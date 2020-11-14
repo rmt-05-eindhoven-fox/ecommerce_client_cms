@@ -7,6 +7,10 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret, faUser, faShoppingCart, faList, faAngleRight, faPlusSquare, faTachometerAlt, faArchive } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
+
+Vue.use(VueSweetalert2)
 library.add(faUserSecret)
 library.add(faUser)
 library.add(faShoppingCart)

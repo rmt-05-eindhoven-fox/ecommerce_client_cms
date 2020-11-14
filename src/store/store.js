@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../axios/axiosInstance.js'
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 Vue.use(Vuex)
+Vue.use(VueSweetalert2)
 
 export const store = new Vuex.Store({
   state: {
@@ -16,12 +19,14 @@ export const store = new Vuex.Store({
   },
   actions: {
     fetchProducts ({ commit }, accessToken) {
+      Vue.swal.showLoading()
       axios({
         method: 'GET',
         url: '/products',
         headers: { access_token: accessToken }
       })
         .then(response => {
+          Vue.swal.close()
           commit('SET_PRODUCTS', response.data)
         })
         .catch(err => {
@@ -29,6 +34,7 @@ export const store = new Vuex.Store({
         })
     },
     addProduct ({ commit }, payload) {
+      Vue.swal.showLoading()
       axios({
         method: 'POST',
         url: '/products',
@@ -41,6 +47,11 @@ export const store = new Vuex.Store({
         }
       })
         .then(response => {
+          Vue.swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Product Added!'
+          })
           console.log(response.data)
         })
         .catch(err => {
@@ -48,12 +59,18 @@ export const store = new Vuex.Store({
         })
     },
     deleteProduct ({ commit }, payload) {
+      Vue.swal.showLoading()
       axios({
         method: 'DELETE',
         url: `products/${payload.id}`,
         headers: { access_token: payload.accessToken }
       })
         .then(response => {
+          Vue.swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Product Deleted!'
+          })
           console.log(response.data)
         })
         .catch(err => {
@@ -64,6 +81,7 @@ export const store = new Vuex.Store({
       commit('EDIT_PRODUCT', payload)
     },
     editProduct ({ commit, state }, payload) {
+      Vue.swal.showLoading()
       axios({
         method: 'PUT',
         url: `/products/${state.id}`,
@@ -76,6 +94,11 @@ export const store = new Vuex.Store({
         }
       })
         .then(response => {
+          Vue.swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Product Edited!'
+          })
           console.log(response.data)
         })
         .catch(err => {
