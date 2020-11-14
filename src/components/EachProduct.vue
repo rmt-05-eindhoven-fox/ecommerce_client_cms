@@ -3,6 +3,7 @@
     <th scope="row">{{ no+1 }}</th>
     <td scope="row"><img :src="product.imgUrl" alt=""></td>
     <td scope="row">{{ product.name }}</td>
+    <td scope="row">{{ product.Category.name }}</td>
     <td scope="row">{{ product.price }}</td>
     <td scope="row">{{ product.stock }}</td>
     <td scope="row">

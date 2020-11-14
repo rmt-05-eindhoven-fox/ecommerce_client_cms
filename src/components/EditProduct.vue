@@ -15,6 +15,13 @@
               <input type="text" v-model="editProductname" class="form-control" id="editProductname" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
+              <label for="exampleFormControlSelect1">Category</label>
+              <select class="form-control" id="exampleFormControlSelect1" v-model="EditCategoryId">
+                <option default selected>---Select Category---</option>
+                <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+              </select>
+            </div>
+            <div class="form-group">
               <label for="exampleInputPassword1">Image Url</label>
               <input type="text" v-model="editImgUrl" class="form-control" id="editImgUrl">
             </div>
@@ -44,7 +51,8 @@ export default {
       editProductname: '',
       editImgUrl: '',
       editPrice: '',
-      editStock: ''
+      editStock: '',
+      EditCategoryId: ''
     }
   },
   props: ['product'],
@@ -55,7 +63,8 @@ export default {
         name: this.editProductname,
         imgUrl: this.editImgUrl,
         price: this.editPrice,
-        stock: this.editStock
+        stock: this.editStock,
+        CategoryId: this.EditCategoryId
       }
       this.$store.dispatch('editProduct', payload)
     }
@@ -65,6 +74,12 @@ export default {
     this.editImgUrl = this.product.imgUrl
     this.editPrice = this.product.price
     this.editStock = this.product.stock
+    this.EditCategoryId = this.product.Category.id
+  },
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
   }
 }
 </script>

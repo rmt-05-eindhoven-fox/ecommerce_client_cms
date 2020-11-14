@@ -9,6 +9,7 @@
           <th scope="col">No</th>
           <th scope="col">Image</th>
           <th scope="col">Name</th>
+          <th scope="col">Category</th>
           <th scope="col">Price</th>
           <th scope="col">Stock</th>
           <th scope="col">Action</th>
@@ -38,10 +39,18 @@ export default {
   methods: {
     fetchProducts () {
       this.$store.dispatch('fetchProducts')
+    },
+    fetchCategory () {
+      this.$store.dispatch('fetchCategory')
+    },
+    fetchBanner () {
+      this.$store.dispatch('fetchBanner')
     }
   },
   created () {
     this.fetchProducts()
+    this.fetchCategory()
+    this.fetchBanner()
   },
   computed: {
     products () {
