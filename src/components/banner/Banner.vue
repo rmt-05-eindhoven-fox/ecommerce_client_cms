@@ -33,7 +33,7 @@
                     <td><h5>{{ banner.name }}</h5></td>
                     <td>{{ formatDate(banner.start_date) }}</td>
                     <td>{{ formatDate(banner.end_date) }}</td>
-                    <td><strong><span :class="getColor(banner.is_active)">{{ getStatus(banner.is_active) }}</span></strong></td>
+                    <td><strong><span :class="getColor(banner.is_active)" style="font-size: 0.9rem; padding: 6px">{{ getStatus(banner.is_active) }}</span></strong></td>
                     <td><strong><span :class="getColorCategory(banner.Category)"> {{ getCategory(banner.Category) }} </span></strong></td>
                     <td>
                       <a href="javascript:void(0);"
@@ -61,6 +61,8 @@
 
 <script>
 import Loading from '@/components/loading/Loading.vue'
+import axios from '@/config/axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Banner',
@@ -92,13 +94,42 @@ export default {
       console.log(bannerId + 'Edited')
     },
     confirmDelete (bannerId) {
-      console.log(bannerId + 'Deleted')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.loading = true
+          axios({
+            url: 'banners/' + bannerId,
+            method: 'delete',
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          })
+            .then((result) => {
+              this.$store.dispatch('getBanners')
+              Swal.fire('Success', 'Success deleted banner!', 'success')
+            }).catch((error) => {
+              const message = error.response.data.message || 'Somthing error'
+              Swal.fire('Delete Failed', message, 'error')
+              console.log(error.response)
+            }).then(() => {
+              this.loading = false
+            })
+        }
+      })
     },
     getStatus (status) {
       return (status === 'true') ? 'Active' : 'Inactive'
     },
     getColor (status) {
-      return (status === 'true') ? 'col-green' : 'col-red'
+      return (status === 'true') ? 'badge badge-success' : 'badge badge-danger'
     },
     getColorCategory (category) {
       return (category === null) ? 'col-red' : 'text-dark'

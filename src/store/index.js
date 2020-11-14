@@ -12,7 +12,8 @@ export default new Vuex.Store({
     products: [],
     banners: [],
     product: {},
-    banner: {}
+    banner: {},
+    categories: []
   },
   // Mengubah data dstate
   mutations: {
@@ -26,6 +27,10 @@ export default new Vuex.Store({
 
     setBanners (state, payload) {
       state.banners = payload
+    },
+
+    setCategories (state, payload) {
+      state.categories = payload
     },
 
     changePageTitle (state, payload) {
@@ -73,6 +78,23 @@ export default new Vuex.Store({
         })
         const { banners } = data
         context.commit('setBanners', banners)
+        return
+      } catch (error) {
+        console.log(error.response)
+      }
+    },
+
+    async getCategories (context) {
+      try {
+        const { data } = await axios({
+          url: 'categories',
+          method: 'get',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        const { categories } = data
+        context.commit('setCategories', categories)
         return
       } catch (error) {
         console.log(error.response)

@@ -108,6 +108,7 @@ export default {
 
   created () {
     this.showButton()
+    this.$store.dispatch('getCategories')
   },
 
   updated () {

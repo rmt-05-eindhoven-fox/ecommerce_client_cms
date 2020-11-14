@@ -57,9 +57,8 @@
                     <div class="col-12">
                       <div class="form-group">
                         <select v-model="bannerCategory" class="form-control">
-                          <option value=""> --- Select Category --- </option>
-                          <option value="">Pakaian Pria</option>
-                          <option value="">Pakaian Wanita</option>
+                          <option value="">-- Select Category --</option>
+                          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
                         </select>
                       </div>
                     </div>
@@ -104,7 +103,7 @@ import axios from '@/config/axios'
 import Loading from '@/components/loading/Loading.vue'
 
 export default {
-  name: 'AddProduct',
+  name: 'AddBanner',
   components: {
     Loading
   },
@@ -128,6 +127,11 @@ export default {
       messageInfo: []
     }
   },
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
+  },
   methods: {
     async submitBanner () {
       const payload = {
@@ -149,7 +153,7 @@ export default {
           data: payload
         })
         console.log(data)
-        await this.$store.dispatch('getProducts')
+        await this.$store.dispatch('getBanners')
         this.clearForm()
       } catch (error) {
         let msg = [{ error: 'Connection Failed' }]
