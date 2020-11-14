@@ -76,9 +76,6 @@ export default {
     },
     cancel () {
       this.$router.push({ name: 'Products' })
-    },
-    created () {
-      console.log(this.data)
     }
   }
 }

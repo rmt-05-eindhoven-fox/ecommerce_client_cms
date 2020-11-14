@@ -10,6 +10,7 @@
           :key="product.id"
           :product="product"
           class="ml-3"
+          @fetchProducts=fetchProducts
         />
       </div>
     </div>
@@ -46,6 +47,7 @@ export default {
           this.products = data
         })
         .catch(err => console.log(err))
+        // this.$store.dispatch('fetchProducts')
     }
   },
   created () {

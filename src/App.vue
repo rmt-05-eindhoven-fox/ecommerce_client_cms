@@ -40,8 +40,19 @@
       </div>
     </nav> -->
     <router-view/>
+    <div class="text-center text-muted p-3"><small>{{ title }} © 2020 </small></div>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    title () {
+      return this.$store.state.title
+    }
+  }
+}
+</script>
 
 <style>
 #app {

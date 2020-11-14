@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-3">
+    <div class="col-4">
         <div class="card mt-5" style="width: 20rem;">
         <img :src="product.image" class="card-img-top mb-3" alt="image" style="width: 200px; height: 150px; margin-left:auto; margin-right: auto">
         <div class="card-body">
@@ -50,9 +50,10 @@ export default {
         headers: { access_token: token }
       })
         .then(() => {
-          this.$router.push({ name: 'Products' })
+          this.$emit('fetchProducts')
         })
         .catch((err) => console.log(err))
+        // this.$store.dispatch('erase', id)
     }
   }
 }

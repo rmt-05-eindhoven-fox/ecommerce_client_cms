@@ -63,6 +63,7 @@ export default {
         }
       })
         .then(() => {
+          this.$store.dispatch('fetchProducts')
           this.$router.push({ name: 'Products' })
         })
         .catch(err => console.log(err))
