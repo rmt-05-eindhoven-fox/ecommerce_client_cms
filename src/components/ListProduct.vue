@@ -11,11 +11,11 @@
       </tr>
       <div>
         <b-alert variant="danger" show dismissible v-if="deleteMessage">
-          {{deleteMessage}} <b>&rArr;</b>
+          {{deleteMessage}}
         </b-alert>
       </div>
     </thead>
-    <tbody class="tbody">
+    <tbody class="product-container">
 
       <tr v-for="(product, i) in products" :key="i">
         <th scope="row">{{ i+1}}</th>

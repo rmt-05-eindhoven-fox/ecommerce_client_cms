@@ -1,8 +1,7 @@
 <template>
-  <div class=" d-flex justify-content-center align-content-lg-center container">
+  <div class="formContainer">
  <Navbar/>
   <form @submit.prevent="editProduct">
-    <div class="body"></div>
      <div class="header">
       <div style="color: black">Edit Product</div>
     </div>
@@ -14,7 +13,6 @@
         <input type="submit" value="SUBMIT">
       </div>
     </form>
-
 </div>
 </template>
 
@@ -53,6 +51,12 @@ export default {
 </script>
 
 <style scoped>
+.formContainer{
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
 .header {
   position: absolute;
   top: calc(25% - 35px);
@@ -65,26 +69,11 @@ export default {
   font-family: "Exo", sans-serif;
   font-size: 40px;
   font-weight: 300;
-  /* background-color: black; */
 }
 
 .header div span {
   color:white !important;
 }
-.body {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  width: auto;
-  height: auto;
-  background-color:orange;
-  background-size: cover;
-  /* -webkit-filter: blur(1px); */
-  z-index: 0;
-}
-
 .editForm {
   position: absolute;
   top: calc(40% - 75px);

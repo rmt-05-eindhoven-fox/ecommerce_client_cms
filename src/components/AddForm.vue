@@ -1,8 +1,7 @@
 <template>
-  <div class="d-flex justify-content-space-around align-content-lg-center container">
+  <div class="form-container">
     <Navbar />
     <form @submit.prevent="addProduct">
-      <div class="body"></div>
       <div class="header">
         <div style="color: black">Add Product</div>
       </div>
@@ -15,7 +14,7 @@
         /><br />
         <input type="number" v-model="price" placeholder="Price" /><br />
         <input type="number" v-model="stock" placeholder="Stock" /><br />
-        <input type="submit" value="SUBMIT PRODUCT" />
+        <button type="submit">SUBMIT PRODUCT"</button>>
       </div>
     </form>
   </div>
@@ -56,6 +55,12 @@ export default {
 </script>
 
 <style scoped>
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: lightseagreen;;
+}
 .header {
   position: absolute;
   top: calc(25% - 35px);
@@ -67,18 +72,6 @@ export default {
   font-family: "Exo", sans-serif;
   font-size: 40px;
   font-weight: 300;
-}
-
-.body {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  width: auto;
-  height: auto;
-  background-color: lightseagreen;
-  background-size: cover;
 }
 
 .addForm {
