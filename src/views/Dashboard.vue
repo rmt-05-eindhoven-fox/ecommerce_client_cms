@@ -6,10 +6,10 @@
       <!-- LIST PRODUCT -->
       <div class="page-title">
         <h1>Dashboard</h1>
-        <p>Recent added product</p>
+        <p>Recently added product</p>
       </div>
       <SuccessMsg v-if="isShow" :successMsg="successMsg" />
-      <h3 class="text-center" v-if="!isLoad">Please Wait....</h3>
+      <h3 class="text-center text-muted" v-if="!isLoad">Please Wait....</h3>
       <div class="row list-product">
         <!-- PRODUCT CARD -->
         <ProductCard
@@ -57,7 +57,7 @@ export default {
           this.products = data
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err.message)
         })
         .finally(() => {
           this.isLoad = true

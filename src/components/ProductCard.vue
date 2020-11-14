@@ -3,13 +3,20 @@
     <div class="card">
       <div class="card-body">
         <img class="mb-2" :src="product.image_url" alt="" />
-        <h5>{{ product.name }}</h5>
+        <p class="product-title">{{ product.name }}</p>
         <p>Stock: {{ product.stock }}</p>
         <p class="font-weight-bold">{{ formatMoney }}</p>
-        <button class="btn btn-success">Update</button>
-        <button class="btn btn-danger ml-2" @click="deleteProduct(product.id)">
-          Delete
-        </button>
+        <div class="btn-section">
+          <button class="btn btn-success" @click="updateProduct(product.id)">
+            Update
+          </button>
+          <button
+            class="btn btn-danger ml-2"
+            @click="deleteProduct(product.id)"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -22,6 +29,10 @@ export default {
   methods: {
     deleteProduct (id) {
       this.$emit('deleteProduct', id)
+    },
+    updateProduct (id) {
+      console.log(id)
+      this.$router.push(`/edit-product/${id}`)
     }
   },
   computed: {

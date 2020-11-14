@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import AddForm from '../views/AddForm.vue'
+import UpdateProduct from '../views/UpdateForm.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [
     path: '/add-product',
     name: 'AddForm',
     component: AddForm
+  },
+  {
+    path: '/edit-product/:id',
+    name: 'UpdateProduct',
+    component: UpdateProduct
   }
 ]
 
