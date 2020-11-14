@@ -61,6 +61,7 @@
         <router-view />
       </div>
     </section>
+
     <AddProduct
     v-if="modalName === 'addProduct'"
     v-show="showModal"

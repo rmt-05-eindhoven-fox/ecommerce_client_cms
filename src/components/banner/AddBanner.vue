@@ -1,10 +1,10 @@
 <template>
-  <div id="add-product">
+  <div id="add-banner">
     <Loading :loading="loading" />
-    <div id="form-add-product" style="min-width: 300px">
+    <div id="form-add-banner" style="min-width: 300px">
       <div
         v-bind:class="[modal, fade, margin, isShow]"
-        id="modal-add-product"
+        id="modal-add-banner"
         tabindex="-1"
         role="dialog"
         style="display: block"
@@ -26,18 +26,17 @@
                 </ul>
               </div>
 
-              <form @submit.prevent="submitProduct" id="add-product">
+              <form @submit.prevent="submitBanner" id="add-banner">
                 <div class="modal-body">
                   <div class="row clearfix">
                     <div class="col-12">
                       <div class="form-group">
                         <input
-                          v-model="prodName"
+                          v-model="bannerName"
                           type="text"
-                          id="add-prodName"
                           class="form-control"
                           maxlength="100"
-                          placeholder="Product name.."
+                          placeholder="Banner name.."
                           required
                         />
                       </div>
@@ -45,40 +44,33 @@
                     <div class="col-12">
                       <div class="form-group">
                         <input
-                          v-model="prodImgURL"
+                          v-model="bannerUrl"
                           type="text"
-                          id="add-prodImgURL"
+                          id="add-bannerUrl"
                           class="form-control"
                           maxlength="255"
-                          placeholder="Image URL.."
+                          placeholder="Baner Image URL.."
                           required
                         />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <input
-                          v-model="prodPrice"
-                          type="number"
-                          id="add-prodPrice"
-                          class="form-control"
-                          maxlength="100"
-                          placeholder="Price.."
-                          required
-                        />
+                        <select v-model="bannerCategory" class="form-control">
+                          <option value=""> --- Select Category --- </option>
+                          <option value="">Pakaian Pria</option>
+                          <option value="">Pakaian Wanita</option>
+                        </select>
                       </div>
                     </div>
-                    <div class="col-12">
-                      <div class="form-group">
-                        <input
-                          v-model="prodStock"
-                          type="number"
-                          id="add-prodStock"
-                          class="form-control"
-                          maxlength="100"
-                          placeholder="Stock.."
-                          required
-                        />
+                    <div class="row m-l-5 m-r-5">
+                      <div class="form-group col-6">
+                        <label>Star Date</label>
+                        <input type="date" v-model="starDate" min="2020-11-14" class="form-control" placeholder="Star date">
+                      </div>
+                      <div class="form-group col-6">
+                        <label>End Date</label>
+                        <input type="date" v-model="endDate" min="2020-11-14" class="form-control" placeholder="Star date">
                       </div>
                     </div>
                   </div>
@@ -108,7 +100,7 @@
 </template>
 
 <script>
-import axios from '@/config/axios'
+// import axios from '@/config/axios'
 import Loading from '@/components/loading/Loading.vue'
 
 export default {
@@ -128,44 +120,47 @@ export default {
       ariaHidden: false,
 
       // Model
-      prodName: '',
-      prodImgURL: '',
-      prodPrice: '',
-      prodStock: '',
+      bannerName: '',
+      bannerUrl: '',
+      bannerCategory: '',
+      starDate: '',
+      endDate: '',
       messageInfo: []
     }
   },
   methods: {
-    async submitProduct () {
+    async submitBanner () {
       const payload = {
-        name: this.prodName,
-        image_url: this.prodImgURL,
-        price: this.prodPrice,
-        stock: this.prodStock
+        name: this.bannerName,
+        image_url: this.bannerUrl,
+        CategoryId: this.bannerCategory,
+        start_date: this.starDate,
+        end_date: this.endDate
       }
-
-      try {
-        this.loading = true
-        const { data } = await axios({
-          url: 'products',
-          method: 'post',
-          headers: {
-            access_token: localStorage.getItem('access_token')
-          },
-          data: payload
-        })
-        console.log(data)
-        await this.$store.dispatch('getProducts')
-        this.clearForm()
-      } catch (error) {
-        let msg = [{ error: 'Connection Failed' }]
-        if (error.response) {
-          msg = error.response.data.message
-        }
-        this.messageInfo = msg
-      } finally {
-        this.loading = false
-      }
+      console.log(payload)
+      this.clearForm()
+      // try {
+      //   this.loading = true
+      //   const { data } = await axios({
+      //     url: 'products',
+      //     method: 'post',
+      //     headers: {
+      //       access_token: localStorage.getItem('access_token')
+      //     },
+      //     data: payload
+      //   })
+      //   console.log(data)
+      //   await this.$store.dispatch('getProducts')
+      //   this.clearForm()
+      // } catch (error) {
+      //   let msg = [{ error: 'Connection Failed' }]
+      //   if (error.response) {
+      //     msg = error.response.data.message
+      //   }
+      //   this.messageInfo = msg
+      // } finally {
+      //   this.loading = false
+      // }
     },
 
     cancelTask () {
@@ -177,10 +172,11 @@ export default {
     },
 
     clearForm () {
-      this.prodName = ''
-      this.prodImgURL = ''
-      this.prodPrice = ''
-      this.prodStock = ''
+      this.bannerName = ''
+      this.bannerUrl = ''
+      this.bannerCategory = ''
+      this.starDate = ''
+      this.endDate = ''
     }
   }
 }
