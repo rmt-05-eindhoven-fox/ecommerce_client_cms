@@ -50,7 +50,6 @@ export default new Vuex.Store({
         })
     },
     addProduct (context, payload) {
-      // console.log(payload)
       return axios({
         url: '/products',
         method: 'POST',
@@ -130,7 +129,7 @@ export default new Vuex.Store({
         // .then(data1 => {
         //   this.$router.push('Product')
         // })
-        .catch(({ err }) => console.log(err))
+        .catch(err => console.log(err))
     },
     EditCategory (context, payload) {
       axios({

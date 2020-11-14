@@ -38,8 +38,6 @@ export default {
         name: this.inputCategoryName
       }
       this.$store.dispatch('AddCategory', payload)
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
     }
   }
 }
