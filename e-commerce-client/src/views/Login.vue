@@ -5,7 +5,7 @@
     <div class="col-5">
 
         <header class="mb-5">
-          <img class="mb-5" id="login-gif" src="../assets/38459-hello.gif" alt="Login">
+          <img class="mb-5" id="login-gif" src="https://deo-ecommerce-bucket.s3-ap-southeast-1.amazonaws.com/38459-hello.gif" alt="Login">
           <h1>Admin Login</h1>
         </header>
         <form>
@@ -51,6 +51,7 @@ export default {
       this.$store.dispatch('userLogin', payload)
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
+          this.$store.dispatch('successToast', 'Login Successful')
           this.$router.push({ name: 'Home' })
         })
         .catch(err => {

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light">
     <router-link class="router-link" to="/">
-      <img src="https://img.icons8.com/cute-clipart/64/000000/shop.png"/>
+      <img src="https://deo-ecommerce-bucket.s3-ap-southeast-1.amazonaws.com/favicon.png"/>
     </router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -30,6 +30,7 @@ export default {
   methods: {
     userLogout () {
       localStorage.clear()
+      this.$store.dispatch('successToast', 'You have been logged out')
       this.$router.push({ name: 'Login' })
     }
   }
