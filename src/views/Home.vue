@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home d-flex">
+      <Sidebar/>
+      <router-view></router-view>
+      <Error/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Error from '../components/Error'
+import { mapState } from 'vuex'
+import Sidebar from '@/components/Sidebar.vue'
 
 export default {
-  name: 'Home',
   components: {
-    HelloWorld
-  }
+    Sidebar, Error
+  },
+  computed: mapState(['error', 'errorMessage'])
 }
 </script>
+
+<style>
+</style>
