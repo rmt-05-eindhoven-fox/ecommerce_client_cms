@@ -1,18 +1,30 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <Login/>
+  <div class="Home">
+    <div id="content" class="container-fluid mt-5">
+        <Dashboard/>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Login from '@/components/Login.vue'
+import Dashboard from '@/components/Dashboard.vue'
 
 export default {
   name: 'Home',
   components: {
-    Login
+    Dashboard
+  },
+  methods: {
+    fetchProduct () {
+      this.$store.dispatch('fetchProduct')
+    }
+  },
+  created () {
+    this.fetchProduct()
   }
 }
 </script>
+
+<style>
+
+</style>
