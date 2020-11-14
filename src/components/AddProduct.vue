@@ -6,7 +6,7 @@
       </div>
       <div class="form-group text-left">
       <label for="productimage">Image</label>
-      <input v-model="image_url" type="text" class="form-control" id="productimage" placeholder="Product Image">
+      <input v-model="image_url" type="type" class="form-control" id="productimage" placeholder="Product Image">
       </div>
       <div class="form-group text-left">
       <label for="price">Price</label>

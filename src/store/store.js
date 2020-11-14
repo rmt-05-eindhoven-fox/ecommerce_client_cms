@@ -41,6 +41,19 @@ export const store = new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    deleteProduct ({ commit }, payload) {
+      axios({
+        method: 'DELETE',
+        url: `products/${payload.id}`,
+        headers: { access_token: payload.accessToken }
+      })
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   mutations: {
