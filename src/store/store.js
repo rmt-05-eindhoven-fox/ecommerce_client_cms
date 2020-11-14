@@ -19,7 +19,6 @@ export const store = new Vuex.Store({
   },
   actions: {
     fetchProducts ({ commit, state }, accessToken) {
-      Vue.swal.showLoading()
       axios({
         method: 'GET',
         url: '/products',

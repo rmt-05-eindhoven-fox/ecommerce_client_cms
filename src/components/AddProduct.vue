@@ -56,6 +56,7 @@ export default {
         accessToken: accessToken
       }
       this.$store.dispatch('addProduct', payload)
+      this.$store.dispatch('fetchProducts', accessToken)
       this.$emit('onsubmit')
     }
   }

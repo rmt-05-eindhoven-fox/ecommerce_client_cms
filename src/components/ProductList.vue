@@ -54,6 +54,11 @@
 <script>
 export default {
   name: 'productlist',
+  data () {
+    return {
+      prodData: this.products
+    }
+  },
   computed: {
     products () {
       return this.$store.state.products
@@ -70,7 +75,7 @@ export default {
         accessToken
       }
       this.$store.dispatch('deleteProduct', payload)
-      this.fetchProducts()
+      this.$store.dispatch('fetchProducts', accessToken)
     },
     fetchProducts () {
       const accessToken = localStorage.getItem('access_token')
@@ -79,6 +84,7 @@ export default {
     editProduct (id, payload) {
       payload.id = id
       this.$store.dispatch('bindEditForm', payload)
+      this.fetchProducts()
       this.$emit('showEditProduct')
     }
   },
@@ -88,7 +94,8 @@ export default {
   watch: {
     products: {
       handler: function (val, oldval) {
-        this.products()
+        this.prodData = this.products
+        this.fetchProducts()
       }
     }
   }
