@@ -32,7 +32,7 @@
                     <td>Rp {{ formatNumber(product.price) }}</td>
                     <td>{{ product.stock }}</td>
                     <td>
-                      <b><span :class="colorStatus(product.stock)">{{ cekStock(product.stock) }}</span></b>
+                      <b><span style="font-size: 0.8rem; padding: 6px" :class="colorStatus(product.stock)">{{ cekStock(product.stock) }}</span></b>
                     </td>
                     <td>
                       <a href="javascript:void(0);"
@@ -154,11 +154,11 @@ export default {
     },
 
     colorStatus (stock) {
-      let color = 'col-green'
+      let color = 'badge badge-success'
       if (stock < 1) {
-        color = 'col-red'
+        color = 'badge badge-danger'
       } else if (stock <= 5) {
-        color = 'col-orange'
+        color = 'badge badge-warning'
       }
       return color
     },

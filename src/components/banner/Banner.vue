@@ -15,7 +15,7 @@
                     <th>Name</th>
                     <th data-breakpoints="xs md">Star Date</th>
                     <th data-breakpoints="xs md">End Date</th>
-                    <th data-breakpoints="xs">Is Active</th>
+                    <th data-breakpoints="xs">Status</th>
                     <th data-breakpoints="xs md">Category</th>
                     <th data-breakpoints="sm xs md">Action</th>
                   </tr>
