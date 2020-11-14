@@ -17,7 +17,8 @@
         <br>
         <label for="stock">{{product.stock}}</label>
         <br>
-        <button @click="editProduct" type="submit" class="btn btn-primary mt-3">Edit Product</button>
+        <button @click="editProduct" type="submit" class="btn btn-primary mt-3">Edit</button>
+        <button @click.prevent="deleteProduct(product.id)" class="btn btn-primary mt-3">Delete</button>
       </div>
     </div>
   </div>
@@ -62,6 +63,16 @@ export default {
     },
     fetchProducts () {
       this.$store.dispatch('fetchProducts')
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteCeleb', id)
+        .then(({ data }) => {
+          this.fetchProducts()
+          // console.log('sudah keapus')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   created () {

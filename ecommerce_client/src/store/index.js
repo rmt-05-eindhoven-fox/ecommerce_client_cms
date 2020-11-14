@@ -65,6 +65,15 @@ export default new Vuex.Store({
           stock: payload.stock
         }
       })
+    },
+    deleteCeleb (context, id) {
+      return axios({
+        url: `/products/${id}`,
+        method: 'DELETE',
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
     }
   },
   modules: {
