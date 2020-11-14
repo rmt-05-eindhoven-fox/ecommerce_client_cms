@@ -13,15 +13,19 @@
         Navigation
       </p>
       <li class="nav-item">
-        <router-link to="/dashboard" class="nav-link"> Dashboard </router-link>
+        <router-link to="/dashboard" class="nav-link"
+          ><i class="fa fa-columns"></i> Dashboard
+        </router-link>
       </li>
       <li class="nav-item">
         <router-link to="/add-product" class="nav-link">
-          Add Products
+          <i class="fa fa-plus"></i> Add Products
         </router-link>
       </li>
       <li class="nav-item mt-5">
-        <a class="nav-link" href="" @click.prevent="logOut"> Logout </a>
+        <a class="nav-link logout" href="" @click.prevent="logOut"
+          ><i class="fa fa-power-off"></i> Logout
+        </a>
       </li>
     </ul>
   </div>

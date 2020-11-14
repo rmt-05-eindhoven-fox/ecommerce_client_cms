@@ -8,6 +8,7 @@
         <h1>Dashboard</h1>
         <p>Recent added product</p>
       </div>
+      <SuccessMsg v-if="isShow" :successMsg="successMsg" />
       <h3 class="text-center" v-if="!isLoad">Please Wait....</h3>
       <div class="row list-product">
         <!-- PRODUCT CARD -->
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import SuccessMsg from '@/components/SuccessMsg.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import Sidebar from '@/components/Sidebar.vue'
 import axios from '@/axios/axios.js'
@@ -30,13 +32,15 @@ export default {
   name: 'Dashboard',
   components: {
     ProductCard,
-    Sidebar
+    Sidebar,
+    SuccessMsg
   },
   data () {
     return {
       isShow: false,
       products: [],
-      isLoad: false
+      isLoad: false,
+      successMsg: ''
     }
   },
   methods: {
@@ -69,7 +73,8 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data.message)
+          this.successMsg = data.message
+          this.isShow = true
           this.getProduct()
         })
         .catch(err => {

@@ -1,20 +1,15 @@
 <template>
-  <div class="col-lg-4">
+  <div class="col-12 col-md-4">
     <div class="card">
       <div class="card-body">
-        <img
-          class="mb-2"
-          :src="product.image_url"
-          alt=""
-        />
+        <img class="mb-2" :src="product.image_url" alt="" />
         <h5>{{ product.name }}</h5>
         <p>Stock: {{ product.stock }}</p>
-        <p class="font-weight-bold">{{ product.price }}</p>
+        <p class="font-weight-bold">{{ formatMoney }}</p>
         <button class="btn btn-success">Update</button>
-        <button
-          class="btn btn-danger ml-2"
-          @click="deleteProduct(product.id)"
-        >Delete</button>
+        <button class="btn btn-danger ml-2" @click="deleteProduct(product.id)">
+          Delete
+        </button>
       </div>
     </div>
   </div>
@@ -27,6 +22,12 @@ export default {
   methods: {
     deleteProduct (id) {
       this.$emit('deleteProduct', id)
+    }
+  },
+  computed: {
+    formatMoney () {
+      const price = this.product.price
+      return price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
     }
   }
 }

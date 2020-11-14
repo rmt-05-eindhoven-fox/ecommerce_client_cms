@@ -58,6 +58,12 @@
 .sidebar-sticky .nav a:hover {
   background-color: #191961;
 }
+.sidebar-sticky .nav .logout {
+  color: #ffffff;
+}
+.sidebar-sticky .nav .logout:hover {
+  background-color: #ff0000;
+}
 
 .dashboard {
   display: flex;
@@ -65,10 +71,9 @@
 .dashboard .main-dash {
   font-family: "Roboto Mono", monospace;
   font-weight: 300;
-  padding-top: 50px;
-  padding-left: 95px;
-  margin-left: 200px;
-  min-height: 100vh;
+  margin-top: 59px;
+  margin-left: 311px;
+  min-height: 50vh;
 }
 .dashboard .main-dash .page-title {
   margin-bottom: 50px;
@@ -83,7 +88,6 @@
   border: 1px solid #000000;
   border-radius: 10px;
   margin-bottom: 20px;
-  margin-right: 150px;
 }
 .dashboard .list-product .card .card-body {
   display: inline-block;
@@ -116,12 +120,12 @@
   font-size: 48px;
   font-weight: bold;
 }
-.product-form .btn {
+.product-form .btn-custom {
   background-color: #333399;
   color: #ffffff;
   border-radius: 8px;
 }
-.product-form .btn:hover {
+.product-form .btn-custom:hover {
   background-color: #191961;
   color: #ffffff;
 }

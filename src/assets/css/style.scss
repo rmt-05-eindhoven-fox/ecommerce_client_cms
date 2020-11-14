@@ -70,6 +70,15 @@
         background-color: #191961;
       }
     }
+
+    .logout {
+      color: #ffffff;
+
+      &:hover {
+        background-color: #ff0000;
+      }
+    }
+
   }
 }
 
@@ -81,10 +90,9 @@
     font-family: "Roboto Mono",
       monospace;
     font-weight: 300;
-    padding-top: 50px;
-    padding-left: 95px;
-    margin-left: 200px;
-    min-height: 100vh;
+    margin-top: 59px;
+    margin-left: 311px;
+    min-height: 50vh;
 
 
     .page-title {
@@ -106,7 +114,7 @@
       border: 1px solid #000000;
       border-radius: 10px;
       margin-bottom: 20px;
-      margin-right: 150px;
+      // margin-right: 150px;
 
 
       .card-body {
@@ -151,7 +159,7 @@
     }
   }
 
-  .btn {
+  .btn-custom {
     background-color: #333399;
     color: #ffffff;
     border-radius: 8px;
