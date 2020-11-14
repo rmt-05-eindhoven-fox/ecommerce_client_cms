@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../config/axios.js'
@@ -7,11 +8,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    userInfo: {
+      isLoggedIn: false,
+      name: ''
+    }
   },
   mutations: {
     productFetch (state, payload) {
       state.products = payload
+    },
+    isUserLoggedIn: (state, isUserLoggedIn) => {
+      state.userInfo.isLoggedIn = isUserLoggedIn
+    },
+    setUserName: (state, name) => {
+      state.userInfo.name = name
     }
   },
   actions: {
@@ -27,9 +38,14 @@ export default new Vuex.Store({
       }).then(res => {
         const token = res.data.token
         localStorage.setItem('token', token)
-        router.push('/')
+        router.push('/dashboard/Product')
       }).catch(err => {
-        console.log(err.response.data)
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err.json
+        })
       })
     },
     fetchProduct (context) {
@@ -46,25 +62,76 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
-    logout () {
-      localStorage.removeItem('token')
-      router.push('/login')
+    editProduct (context, payload) {
+      const token = localStorage.getItem('token')
+      return axios({
+        url: `/products/${payload.id}`,
+        method: 'PUT',
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        },
+        headers: {
+          token
+        }
+      }).then(({ data }) => {
+        console.log('data', data)
+        context.dispatch('fetchProduct')
+      }).catch((err) => {
+        console.log(err)
+      })
     },
-    deleteData () {
+    addProduct (context, payload) {
+      const token = localStorage.getItem('token')
+      return axios({
+        url: '/products',
+        method: 'POST',
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        },
+        headers: {
+          token
+        }
+      }).then(({ data }) => {
+        console.log(data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    deleteProduct (context, id) {
       const token = localStorage.getItem('token')
       axios({
-        url: '/products/1',
+        url: `/products/${id}`,
         method: 'DELETE',
         headers: {
           token
         }
       }).then(({ data }) => {
-        router.push('/')
+        context.dispatch('fetchProduct')
       }).catch(err => {
-        console.log(err)
+        console.log(err.responseJSOn.message, '<<<errr')
       })
+    },
+    logout () {
+      localStorage.removeItem('token')
+      router.push({ name: 'Dashboard' })
     }
   },
   modules: {
   }
 })
+
+export const getters = {
+  isUserLoggedIn: state => {
+    return state.userInfo.isLoggedIn
+  },
+
+  getUserName: state => {
+    return state.userInfo.name
+  }
+}
