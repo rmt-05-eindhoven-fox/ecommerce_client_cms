@@ -4,22 +4,7 @@
     <!-- <router-view></router-view> -->
 
     <ProductList />
-
-    <!-- <div class="content">
-      <form>
-        <div class="form-group">
-          <input v-model="searchInput" type="text" class="form-control" placeholder="Filter by Name" aria-describedby="emailHelp">
-        </div>
-      </form>
-      <ul class="list-group list-group-flush">
-        <ProductCard
-          v-for="product in productsFilter"
-          :key="product.id"
-          :productDetail="product"
-        ></ProductCard>
-      </ul>
-
-    </div> -->
+    <button @click='toastTest("hello")'>Toast test</button>
   </div>
 </template>
 
@@ -33,6 +18,12 @@ export default {
   components: {
     Navbar,
     ProductList
+  },
+  methods: {
+    toastTest () {
+      // this.$vToastify.info('Easy as that')
+      this.$store.dispatch('errToast', 'hello there!')
+    }
   }
 }
 </script>

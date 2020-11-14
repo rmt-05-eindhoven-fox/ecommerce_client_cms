@@ -14,9 +14,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    successToast (state, message) {
+      Vue.$vToastify.success(message)
+    },
+    errToast (state, message) {
+      Vue.$vToastify.error(message)
+    },
     userLogin (context, payload) {
       const { email, password } = payload
-
       return axios({
         method: 'post',
         url: '/user/login',
