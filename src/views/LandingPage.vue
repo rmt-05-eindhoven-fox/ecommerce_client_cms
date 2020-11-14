@@ -5,9 +5,8 @@
       <header class="masthead">
           <div class="container d-flex h-100 align-items-center">
               <div class="mx-auto text-center">
-                  <h1 class="mx-auto my-0 text-uppercase text-white-50" >Grayscale</h1>
-                  <h2 class="text-white-50 mx-auto mt-2 mb-5">A free, responsive, one page Bootstrap theme created by Start Bootstrap.</h2>
-                  <router-link to="/login" class="btn btn-primary">Login</router-link>
+                  <h1 class="mx-auto my-0 text-uppercase text-white-50" >Ecommerce CMS</h1>
+                  <router-link to="/login" class="btn btn-primary mt-5">Login</router-link>
               </div>
           </div>
       </header>
@@ -21,8 +20,6 @@ export default {
   created () {
     if (localStorage.getItem('token')) {
       this.$router.push('/dashboard')
-    } else {
-      this.$router.push('/')
     }
   }
 }

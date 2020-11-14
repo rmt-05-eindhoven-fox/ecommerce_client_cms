@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LandingPage from '../views/LandingPage.vue'
 import NotFound from '../views/NotFound.vue'
+import VueLoading from 'vuejs-loading-plugin'
+
+Vue.use(VueLoading)
 
 Vue.use(VueRouter)
 
@@ -30,11 +33,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "addProduct" */ '../views/AddPage.vue')
   },
   {
-    path: '/editProduct/:id',
-    name: 'EditPage',
-    component: () => import(/* webpackChunkName: "addProduct" */ '../views/EditPage.vue')
-  },
-  {
     path: '/addBanner',
     name: 'AddBanner',
     component: () => import(/* webpackChunkName: "addBanner" */ '../views/AddBanner.vue')
@@ -43,6 +41,16 @@ const routes = [
     path: '/banner',
     name: 'BannerPage',
     component: () => import(/* webpackChunkName: "banner" */ '../views/BannerPage.vue')
+  },
+  {
+    path: '/editProduct/:id',
+    name: 'EditPage',
+    component: () => import(/* webpackChunkName: "addProduct" */ '../views/EditPage.vue')
+  },
+  {
+    path: '/editBanner/:id',
+    name: 'EditBanner',
+    component: () => import(/* webpackChunkName: "editBanner" */ '../views/EditBannerPage.vue')
   },
   {
     path: '/404',

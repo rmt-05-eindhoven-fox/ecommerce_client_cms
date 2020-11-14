@@ -1,10 +1,11 @@
 <template>
   <div class="addPage">
     <div class="row nav">
-      <div style="padding-left: 15px" class="col-1">
+      <div class="col-1">
         <div class="nav flex-column nav-pills navpil" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <h1><i class="fas fa-user-circle text-light"></i></h1>
           <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
-          <a class="nav-link active" id="v-pills-addProduct-tab" data-toggle="pill" href="#v-pills-addProduct" role="tab" aria-controls="v-pills-addProduct" aria-selected="false">Add Product</a>
+          <a style="background: #ededed" class="nav-link active text-secondary" id="v-pills-addProduct-tab" data-toggle="pill" href="#v-pills-addProduct" role="tab" aria-controls="v-pills-addProduct" aria-selected="false">Add Product</a>
           <router-link to="/banner" class="nav-link">Banner</router-link>
           <router-link to="/addBanner" class="nav-link">Add Banner</router-link>
         </div>
@@ -38,11 +39,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+h1 {
+  text-align: center;
+  font-size: 3em;
+}
 .nav {
   background: #2c393f;
 }
 .col-1 {
-  margin-top: 4em;
+  padding: 5px 0 0 30px;
 }
 </style>

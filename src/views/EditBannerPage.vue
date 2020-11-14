@@ -1,19 +1,19 @@
 <template>
-  <div class="home">
+  <div class="banner">
     <div class="row nav">
       <div class="col-1">
         <div class="nav flex-column nav-pills navpil" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <h1><i class="fas fa-user-circle text-light"></i></h1>
-          <a style="background: #ededed" class="nav-link active text-secondary" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">Dashboard</a>
+          <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
           <router-link to="/addProduct" class="nav-link">Add Product</router-link>
-          <router-link to="/banner" class="nav-link">Banner</router-link>
+          <a style="background: #ededed" class="nav-link active" id="v-pills-banner-tab" data-toggle="pill" href="#v-pills-banner" role="tab" aria-controls="v-pills-banner" aria-selected="false">Banner</a>
           <router-link to="/addBanner" class="nav-link">Add Banner</router-link>
         </div>
       </div>
       <div style="padding: 0px" class="col-11">
         <div class="tab-content" id="v-pills-tabContent">
           <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
-            <EditProduct/>
+            <EditBanner/>
           </div>
         </div>
       </div>
@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import EditProduct from '@/components/EditProduct.vue'
+import EditBanner from '@/components/EditBanner.vue'
 export default {
-  name: 'EditPage',
+  name: 'EditBannerPage',
   components: {
-    EditProduct
+    EditBanner
   },
   methods: {
     isLogin () {

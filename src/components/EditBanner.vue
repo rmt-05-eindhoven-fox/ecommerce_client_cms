@@ -1,22 +1,22 @@
 <template>
-  <div class="addBanner">
+  <div class="editBanner">
     <div class="d-flex justify-content-around navbar">
       <div></div>
       <p class="navbar-title">
-        ADD BANNER
+        EDIT BANNER
       </p>
       <button @click="logout" class="btn btn-danger">Logout</button>
     </div>
 
-    <div class="container mt-5">
+    <div class="container">
       <div class="wrapper">
         <div id="formContent">
           <!-- Icon -->
-          <h1><i class="far fa-image text-secondary"></i></h1>
+          <img :src="image_url" alt="Banner Image">
 
           <!-- Login Form -->
-          <form @submit.prevent="addBanner">
-            <div class="input-group flex-nowrap">
+          <form @submit.prevent="editBanner">
+            <div class="input-group flex-nowrap mt-5">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="fas fa-tags"></i></span>
               </div>
@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  name: 'AddBanner',
+  name: 'EditBanner',
   data () {
     return {
       title: '',
@@ -56,31 +56,58 @@ export default {
     }
   },
   methods: {
-    addBanner () {
+    editBanner () {
+      this.$loading(true)
       const payload = {
         title: this.title,
         image_url: this.image_url,
-        status: this.status
+        status: this.status,
+        id: this.$route.params.id
       }
-      this.$store.dispatch('addBanner', payload)
+      this.$store.dispatch('putBanner', payload)
         .then(({ data }) => {
-          this.$router.push('/dashboard')
+          this.$loading(false)
+          this.$router.push('/banner')
         })
         .catch(err => (
           console.log(err)
         ))
     },
+    fetchBannerById () {
+      const id = this.$route.params.id
+      this.$store.dispatch('fetchBannerById', id)
+        .then(({ data }) => {
+          console.log(data)
+          if (!data) {
+            this.$router.push('/404')
+          } else {
+            this.title = data.title
+            this.image_url = data.image_url
+            this.status = data.status
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            this.$router.push('/404')
+          } else {
+            console.log(err)
+          }
+        })
+    },
     logout () {
       localStorage.clear()
       this.$router.push('/')
     }
+  },
+  created () {
+    this.fetchBannerById()
   }
 }
 </script>
 
 <style scoped>
-h1{
-  font-size: 5em;
+.text-left {
+  padding-left: 20px;
 }
 .navbar {
   background: #2c393f;
@@ -91,7 +118,7 @@ h1{
   font-size: 20px;
   margin: auto;
 }
-.addBanner {
+.editBanner {
   background: #ededed;
   height: 100vh;
 }
@@ -103,6 +130,12 @@ h1{
   width: 100%;
   min-height: 100%;
   padding: 20px;
+}
+img {
+  max-width: 400px;
+}
+.card {
+  width: 40%;
 }
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;

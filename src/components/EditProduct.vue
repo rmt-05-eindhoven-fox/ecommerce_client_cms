@@ -1,17 +1,22 @@
 <template>
   <div class="editProduct">
-    <div class="d-flex justify-content-center navbar">
+    <div class="d-flex justify-content-around navbar">
+      <div></div>
       <p class="navbar-title">
         EDIT PRODUCT
       </p>
+      <button @click="logout" class="btn btn-danger">Logout</button>
     </div>
 
-    <div class="container">
-      <div class="card">
-        <img :src="image_url" class="card-img-top" alt="...">
-        <div class="card-body">
+    <div class="container mt-5">
+      <div class="wrapper">
+        <div id="formContent">
+          <!-- Icon -->
+          <img :src="image_url" alt="Product Image">
+
+          <!-- Login Form -->
           <form @submit.prevent="editProduct">
-            <div class="input-group flex-nowrap">
+            <div class="input-group flex-nowrap mt-5">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="fas fa-tags"></i></span>
               </div>
@@ -27,7 +32,13 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="fas fa-dollar-sign"></i>.</span>
               </div>
-              <input v-model.number="price" type="number" class="form-control" placeholder="Price" aria-describedby="addon-wrapping">
+              <input v-model="price" type="number" class="form-control" placeholder="http://" aria-describedby="addon-wrapping">
+            </div>
+            <div class="input-group flex-nowrap mt-5">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping"><i class="fas fa-cubes"></i></span>
+              </div>
+              <input v-model="stock" type="number" class="form-control" placeholder="http://" aria-describedby="addon-wrapping">
             </div>
             <input class="mt-5" type="submit" value="Submit" />
           </form>
@@ -44,19 +55,23 @@ export default {
     return {
       name: '',
       image_url: '',
-      price: ''
+      price: '',
+      stock: ''
     }
   },
   methods: {
     editProduct () {
+      this.$loading(true)
       const payload = {
         name: this.name,
         image_url: this.image_url,
         price: this.price,
+        stock: this.stock,
         id: this.$route.params.id
       }
       this.$store.dispatch('putProduct', payload)
         .then(({ data }) => {
+          this.$loading(false)
           this.$router.push('/dashboard')
         })
         .catch(err => (
@@ -73,11 +88,20 @@ export default {
             this.name = data[0].name
             this.image_url = data[0].image_url
             this.price = data[0].price
+            this.stock = data[0].stock
           }
         })
-        .catch(() => {
-          this.$router.push('/404')
+        .catch((err) => {
+          if (err.response.status === 404) {
+            this.$router.push('/404')
+          } else {
+            console.log(err)
+          }
         })
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push('/')
     }
   },
   created () {

@@ -9,7 +9,9 @@
 
         <!-- Login Form -->
         <form @submit.prevent="login">
+          <h5 v-if="isError" class="text-danger">Couldn't find your Account</h5>
           <input
+            required
             v-model="email"
             type="email"
             id="login"
@@ -17,6 +19,7 @@
             placeholder="email"
           />
           <input
+            required
             v-model="password"
             type="password"
             id="password"
@@ -28,7 +31,7 @@
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-          <a class="underlineHover" href="#">Forgot Password?</a>
+          <a style="text-decoration: none" class="underlineHover" href="#">Did you customers?</a>
         </div>
       </div>
     </div>
@@ -43,27 +46,42 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      isError: false
     }
   },
   methods: {
     login () {
-      axios({
-        url: '/login',
-        method: 'POST',
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
-        .then(({ data }) => {
-          const token = data.access_token
-          localStorage.setItem('token', token)
-          this.$router.push('/dashboard')
+      this.$loading(true)
+      setTimeout(() => {
+        axios({
+          url: '/login',
+          method: 'POST',
+          data: {
+            email: this.email,
+            password: this.password
+          }
         })
-        .catch(err => {
-          console.log(err)
-        })
+          .then(({ data }) => {
+            this.$loading(false)
+            const token = data.access_token
+            localStorage.setItem('token', token)
+            this.$router.push('/dashboard')
+          })
+          .catch(err => {
+            this.$loading(false)
+            if (err.response.status === 401) {
+              this.isError = true
+              this.email = ''
+              this.password = ''
+            }
+          })
+      }, 1000)
+    }
+  },
+  created () {
+    if (localStorage.getItem('token')) {
+      this.$router.push('/dashboard')
     }
   }
 }

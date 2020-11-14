@@ -1,32 +1,32 @@
 <template>
-  <div class="card mt-2" col>
+  <div class="card mt-2">
     <div class="card-body row">
-      <div class="col-5">
-        <img :src="product.image_url" alt="Product Image">
+      <div class="col-6 text-center">
+        <img :src="banner.image_url" alt="Product Image">
       </div>
-      <div class="col-7">
-        <h3 class="card-title">{{ product.name }}</h3>
-        <p class="card-text">Price  : {{ product.price }}</p>
-        <p class="card-text">Stock  : {{ product.stock }}</p>
-        <button @click="editProduct" class="btn btn-primary">Edit</button>
-        <button style="margin-left: 15px" @click="willDelete(product.id)" class="btn btn-danger">Delete</button>
+      <div class="col-6">
+        <h2 class="card-title">{{ banner.title }}</h2>
+        <h5 v-if="banner.status === true" class="card-text">Status  : Active</h5>
+        <h5 v-else class="card-text">Status  : Inactive</h5>
+        <button @click="editBanner" class="btn btn-primary">Edit</button>
+        <button style="margin-left: 15px" @click="willDelete(banner.id)" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>
 </template>
 
-<script scoped>
+<script>
 import swal from 'sweetalert'
 export default {
-  name: 'Product',
-  props: ['product'],
+  name: 'ContentBanner',
+  props: ['banner'],
   methods: {
-    editProduct () {
-      const id = this.product.id
+    editBanner () {
+      const id = this.banner.id
       this.$loading(true)
       setTimeout(() => {
         this.$loading(false)
-        this.$router.push(`editProduct/${id}`)
+        this.$router.push(`editBanner/${id}`)
       }, 500)
     },
     willDelete (id) {
@@ -44,15 +44,15 @@ export default {
               timer: 1000,
               icon: 'success'
             })
-            this.deleteProduct(id)
+            this.deleteBanner(id)
           }
         })
     },
-    deleteProduct () {
-      const id = this.product.id
-      this.$store.dispatch('deleteProduct', id)
+    deleteBanner () {
+      const id = this.banner.id
+      this.$store.dispatch('deleteBanner', id)
         .then(data => {
-          this.$store.dispatch('fetchProducts')
+          this.$store.dispatch('fetchBanners')
         })
         .catch(err => {
           console.log(err)

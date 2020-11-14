@@ -1,12 +1,14 @@
 <template>
   <div class="dashboard">
-    <div class="d-flex justify-content-center navbar">
+    <div class="d-flex justify-content-around navbar">
+      <div></div>
       <p class="navbar-title">
         DASHBOARD
       </p>
+      <button @click="logout" class="btn btn-danger">Logout</button>
     </div>
     <div class="container mt-5">
-      <div class="mt-4 row row-cols-3">
+      <div class="mt-4 row row-cols-2">
         <ContentProduct
           v-for="product in products"
           :key="product.id"
@@ -32,7 +34,15 @@ export default {
   },
   methods: {
     fetchProducts () {
-      this.$store.dispatch('fetchProducts')
+      this.$loading(true)
+      setTimeout(() => {
+        this.$store.dispatch('fetchProducts')
+        this.$loading(false)
+      }, 500)
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push('/')
     }
   },
   created () {
@@ -42,6 +52,11 @@ export default {
 </script>
 
 <style scoped>
+.row {
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .navbar {
   background: #2c393f;
   color: white;
@@ -55,5 +70,10 @@ export default {
   background: #ededed;
   height: 100vh;
 }
-
+.container {
+  width: 70vw;
+}
+img {
+  width: 50px;
+}
 </style>
