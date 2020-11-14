@@ -72,11 +72,11 @@ export default {
     this.fetchProducts()
   },
   watch: {
-    // products: {
-    //   handler: function (val, oldval) {
-    //     this.fetchProducts()
-    //   }
-    // }
+    products: {
+      handler: function (val, oldval) {
+        this.fetchProducts()
+      }
+    }
   }
 }
 </script>
