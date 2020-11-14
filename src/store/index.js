@@ -14,7 +14,7 @@ export default new Vuex.Store({
     },
     products: [],
     categories: [],
-    productsHeader: 'visible',
+    productsHeader: 'visible'
   },
   mutations: {
     setUserDetail (state, payload) {

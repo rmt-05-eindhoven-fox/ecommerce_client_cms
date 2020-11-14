@@ -1,7 +1,7 @@
 <template>
   <div class="products">
     <div class="d-flex justify-content-between mx-4" :style="{ visibility: productsHeader }">
-<button 
+<button
 @click="goToAddForm"
 class="btn btn-primary mx-4"><i class="far fa-plus-square"></i> Add Product</button>
 <button class="btn-primary-outline" data-toggle="tooltip" data-placement="top" title="Click trash to select all category">
@@ -17,7 +17,7 @@ v-model="category"
 
     </div>
   <div class="container-fluid pt-5">
-<table 
+<table
 v-if="this.$route.path === '/home/products'"
 class="table table-striped table-hover table-borderless">
   <thead class="thead-dark">
@@ -56,7 +56,7 @@ export default {
   name: 'Products',
   data () {
     return {
-      category: '',
+      category: ''
     }
   },
   components: {

@@ -15,13 +15,13 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="name">Name</label>
-      <input 
+      <input
       v-model="form.name"
       type="text" class="form-control" id="name" placeholder="Product Name">
     </div>
     <div class="form-group col-md-6">
       <label for="category">Category</label>
-      <input 
+      <input
       v-model="form.category"
       class="form-control" list="categories" name="category" id="category" placeholder="Pick or create a category">
       <datalist id="categories">
@@ -35,13 +35,13 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="price">Price</label>
-      <input 
+      <input
       v-model="form.price"
       type="number" class="form-control" id="price" placeholder="Price">
     </div>
     <div class="form-group col-md-6">
       <label for="stock">Stock</label>
-      <input 
+      <input
       v-model="form.stock"
       type="number" class="form-control" id="stock" placeholder="Stock">
     </div>
@@ -49,13 +49,13 @@
   <div class="form-row" style="min-height: 300px">
     <div class="form-group col-md-6 d-flex flex-column justify-content-center">
       <label for="image">Image URL</label>
-      <input 
+      <input
       v-model="form.image_url"
       type="text" class="form-control" id="image">
-      <button 
+      <button
       type="submit" class="btn btn-primary my-4">Submit</button>
       <button
-      @click="goBack" 
+      @click="goBack"
       type="button" class="btn btn-danger">Cancel</button>
     </div>
     <div class="col-md-6 d-flex flex-column justify-content-center align-items-center form-group">
@@ -81,7 +81,7 @@ export default {
         image_url: '',
         price: '',
         stock: '',
-        category: '',
+        category: ''
       }
     }
   },
@@ -95,7 +95,7 @@ export default {
         image_url: this.form.image_url,
         price: this.form.price,
         stock: this.form.stock,
-        category: this.form.category,
+        category: this.form.category
       }
       if (this.$route.params.id) {
         payload.id = this.$route.params.id
@@ -129,7 +129,7 @@ export default {
   computed: {
     getCategories () {
       return this.$store.state.categories
-    },
+    }
   },
   created () {
     if (this.$route.params.id) {

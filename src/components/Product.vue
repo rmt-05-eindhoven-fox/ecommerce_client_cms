@@ -30,16 +30,14 @@ export default {
     },
     deleteProduct (id) {
       this.$vToastify.prompt({
-        body: "Are you sure you want to delete this product?",
+        body: 'Are you sure you want to delete this product?',
         answers: { Yes: true, No: false }
       })
         .then((val) => {
           if (val) {
             return this.$store.dispatch('deleteProduct', id)
           } else {
-            throw {
-              msg: 'Cancel delete'
-            }
+            throw new Error('Cancel delete')
           }
         })
         .then(({ data }) => {
@@ -47,7 +45,7 @@ export default {
           this.$store.commit('filterDeleteProduct', id)
         })
         .catch(err => {
-          console.log(err.msg)
+          console.log(err.message)
         })
     }
   }

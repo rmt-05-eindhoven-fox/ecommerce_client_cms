@@ -49,7 +49,7 @@
       </h6>
     </div>
   </div>
-  <button 
+  <button
   @click="logout"
   class="btn btn-danger ml-5 mt-4"><i class="fas fa-sign-out-alt"></i> Logout</button>
 </div>
@@ -83,9 +83,9 @@ export default {
     },
     logout () {
       this.$vToastify.prompt({
-        body: "Are you sure?",
-        position: "center-center",
-        answers: { Yes: true, No: false },
+        body: 'Are you sure?',
+        position: 'center-center',
+        answers: { Yes: true, No: false }
       })
         .then(val => {
           if (val) {
