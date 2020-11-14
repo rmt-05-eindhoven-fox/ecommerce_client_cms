@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     count: 0,
-    products: ''
+    products: []
   },
   actions: {
     fetchProducts ({ commit }, accessToken) {
@@ -18,6 +18,28 @@ export const store = new Vuex.Store({
       })
         .then(response => {
           commit('SET_PRODUCTS', response.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    addProduct ({ commit }, payload) {
+      axios({
+        method: 'POST',
+        url: '/products',
+        headers: { access_token: payload.accessToken },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        }
+      })
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   },

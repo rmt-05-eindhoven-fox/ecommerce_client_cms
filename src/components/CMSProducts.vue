@@ -9,41 +9,19 @@
           </b-list-group>
         </div>
         <div class="col-md-10 pt-2 pl-5 pr-5 product-body">
-          <div class="products">
-            <h4 class="pt-3 text-left font-weight-bold m-4"> Products <b-button class="font-weight-bold float-right" variant="warning">Create New <font-awesome-icon :icon="['fas', 'plus-square']" /></b-button></h4>
-            <table cellspacing="0" cellpadding="0" class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Stock</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center">
-                  <th scope="row">1</th>
-                  <td><p class="text-center"><img src="https://images-na.ssl-images-amazon.com/images/I/71h6PpGaz9L._AC_SL1500_.jpg"
-                      style="max-width: 10rem; max-height: 5rem;"
-                      class=" ml-auto mr-auto bg-light" /></p></td>
-                  <td><p class="d-inline">MDL-072 TPA3116D2 XH-M543 2x120W CLASS D</p>
-                  </td>
-                  <td class="font-weight-bold text-center" ><p style="font-size: 16px;">Rp. 8.999.999</p></td>
-                  <td class=" text-center"><b-badge variant="warning" style="color: white; font-size: 13px;">10 Items left</b-badge></td>
-                </tr>
-                <tr class="text-center" v-for="product in products" :key="product.id">
-                  <th scope="row">{{product.id}}</th>
-                  <td><p class="text-center"><img src="https://images-na.ssl-images-amazon.com/images/I/71h6PpGaz9L._AC_SL1500_.jpg"
-                    style="max-width: 10rem; max-height: 5rem;"
-                    class=" ml-auto mr-auto bg-light" /></p></td>
-                  <td><p class="d-inline">{{product.name}}</p>
-                  </td>
-                   <td class="font-weight-bold text-center" ><p style="font-size: 16px;">Rp. {{product.price}}</p></td>
-                  <td class=" text-center"><b-badge variant="warning" style="color: white; font-size: 13px;">{{product.stock}} Items left</b-badge></td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="products p-4 mt-3">
+            <h4 class="pt-3 text-left font-weight-bold">
+              Products
+                <b-button @click="showAddProduct" v-if="displayProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="warning">
+                Create New <font-awesome-icon :icon="['fas', 'plus-square']" />
+                </b-button>
+                <b-button @click="showProducts" v-if="!displayProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
+                Back
+                </b-button>
+              </h4>
+            <hr>
+            <AddProduct @onsubmit="showProducts" v-if="displayAdd" />
+            <ProductList v-if="displayProducts" />
           </div>
         </div>
       </div>
@@ -51,11 +29,17 @@
 </template>
 
 <script>
+import AddProduct from '@/components/AddProduct.vue'
+import ProductList from './ProductList.vue'
 export default {
   name: 'CMSProducts',
   data () {
     return {
-      selected: ''
+      selected: '',
+      footer: true,
+      displayAdd: false,
+      displayProducts: true,
+      displayEdit: false
     }
   },
   created () {
@@ -73,24 +57,29 @@ export default {
         }
       }
     },
+    showProducts () {
+      this.displayAdd = false
+      this.displayProducts = true
+    },
+    showAddProduct () {
+      this.displayAdd = true
+      this.displayProducts = false
+    },
     increment () {
       this.$store.commit('increment')
       console.log(this.$store.state.count)
+    },
+    editProduct () {
     }
   },
-  computed: {
-    products () {
-      return this.$store.state.products
-    }
-  },
-  mounted () {
-    const accessToken = localStorage.getItem('access_token')
-    this.$store.dispatch('fetchProducts', accessToken)
+  components: {
+    AddProduct,
+    ProductList
   }
 }
 </script>
 
-<style>
+<style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300&display=swap');
   * {
     font-family: 'Hind Madurai', sans-serif;
