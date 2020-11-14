@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from '../axios/axiosInstance'
 
 export default {
   name: 'Login',
@@ -48,14 +47,11 @@ export default {
       this.$router.push({ name: 'Home' })
     },
     userLogin () {
-      axios({
-        method: 'post',
-        url: '/user/login',
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
+      const payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('userLogin', payload)
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
           this.$router.push({ name: 'Home' })

@@ -22,7 +22,7 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import ProductCard from '@/components/ProductCard.vue'
-import axios from '@/axios/axiosInstance'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -32,11 +32,14 @@ export default {
   },
   data () {
     return {
-      products: [],
+      // products: [],
       searchInput: ''
     }
   },
   computed: {
+    products () {
+      return this.$store.state.products
+    },
     productsFilter () {
       if (this.searchInput) {
         return this.products.filter(el => el.name.toLowerCase().includes(this.searchInput.toLowerCase()))
@@ -46,19 +49,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      storeFetchProducts: 'fetchProducts'
+    }),
     fetchProducts () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        url: '/product',
-        method: 'get',
-        headers: {
-          access_token: accessToken
-        }
-
-      })
+      this.storeFetchProducts()
         .then(({ data }) => {
-          // console.log(data)
-          this.products = data
+          this.$store.commit('setProducts', data)
+          // this.products = data
         })
         .catch(error => {
           console.log(error.response.status)
