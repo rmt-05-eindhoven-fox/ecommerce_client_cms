@@ -29,6 +29,11 @@ export default new Vuex.Store({
       state.banners = payload
     },
 
+    setBanner (state, payload) {
+      state.banner = payload
+      console.log(payload)
+    },
+
     setCategories (state, payload) {
       state.categories = payload
     },
@@ -79,6 +84,23 @@ export default new Vuex.Store({
         const { banners } = data
         context.commit('setBanners', banners)
         return
+      } catch (error) {
+        console.log(error.response)
+      }
+    },
+
+    async getBannerById (context, bannerId) {
+      try {
+        const { data } = await axios({
+          url: 'banners/' + bannerId,
+          method: 'get',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        const { banner } = data
+        context.commit('setBanner', banner)
+        return banner
       } catch (error) {
         console.log(error.response)
       }

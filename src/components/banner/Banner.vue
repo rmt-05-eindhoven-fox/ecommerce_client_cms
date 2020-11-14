@@ -56,6 +56,11 @@
         </div>
       </div>
     </div>
+    <EditBanner
+    v-if="showModal"
+    v-show="showModal"
+    @isDisplayModal="isDisplayModal"
+    />
   </div>
 </template>
 
@@ -63,16 +68,19 @@
 import Loading from '@/components/loading/Loading.vue'
 import axios from '@/config/axios'
 import Swal from 'sweetalert2'
+import EditBanner from '@/components/banner/EditBanner.vue'
 
 export default {
   name: 'Banner',
   data () {
     return {
-      loading: false
+      loading: false,
+      showModal: false,
+      banner: {}
     }
   },
   components: {
-    Loading
+    Loading, EditBanner
   },
   computed: {
     banners () {
@@ -90,8 +98,17 @@ export default {
       await this.$store.dispatch('getBanners')
       this.loading = false
     },
-    editBanner (bannerId) {
-      console.log(bannerId + 'Edited')
+    async editBanner (bannerId) {
+      try {
+        this.loading = true
+        const result = await this.$store.dispatch('getBannerById', bannerId)
+        this.banner = result
+        this.showModal = true
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loading = false
+      }
     },
     confirmDelete (bannerId) {
       Swal.fire({
@@ -125,11 +142,14 @@ export default {
         }
       })
     },
+    isDisplayModal (params) {
+      this.showModal = false
+    },
     getStatus (status) {
       return (status === 'true') ? 'Active' : 'Inactive'
     },
     getColor (status) {
-      return (status === 'true') ? 'badge badge-success' : 'badge badge-danger'
+      return (status === 'true') ? 'badge badge-success' : 'badge badge-default'
     },
     getColorCategory (category) {
       return (category === null) ? 'col-red' : 'text-dark'
