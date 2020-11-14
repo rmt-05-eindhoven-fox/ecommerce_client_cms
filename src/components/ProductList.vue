@@ -84,7 +84,6 @@ export default {
     editProduct (id, payload) {
       payload.id = id
       this.$store.dispatch('bindEditForm', payload)
-      this.fetchProducts()
       this.$emit('showEditProduct')
     }
   },

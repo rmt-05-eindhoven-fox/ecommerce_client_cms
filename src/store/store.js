@@ -79,6 +79,9 @@ export const store = new Vuex.Store({
     bindEditForm ({ commit }, payload) {
       commit('EDIT_PRODUCT', payload)
     },
+    bindLastProduct ({ commit }, products) {
+      commit('LAST_PRODUCT', products)
+    },
     editProduct ({ commit, state }, payload) {
       Vue.swal.showLoading()
       axios({
@@ -108,11 +111,6 @@ export const store = new Vuex.Store({
   mutations: {
     SET_PRODUCTS (state, products) {
       state.products = products
-      const lastProduct = products[products.length - 1]
-      state.name = lastProduct.name
-      state.image_url = lastProduct.image_url
-      state.price = lastProduct.price
-      state.stock = lastProduct.stock
     },
     EDIT_PRODUCT (state, payload) {
       state.id = payload.id
@@ -120,6 +118,13 @@ export const store = new Vuex.Store({
       state.image_url = payload.image_url
       state.price = payload.price
       state.stock = payload.stock
+    },
+    LAST_PRODUCT (state, products) {
+      const lastProduct = products[products.length - 1]
+      state.name = lastProduct.name
+      state.image_url = lastProduct.image_url
+      state.price = lastProduct.price
+      state.stock = lastProduct.stock
     }
   }
 })

@@ -45,12 +45,22 @@ export default {
     fetchProducts () {
       const accessToken = localStorage.getItem('access_token')
       this.$store.dispatch('fetchProducts', accessToken)
+    },
+    bindLastProduct () {
+      console.log(this.products)
+      this.$store.dispatch('bindLastProduct', this.products)
     }
   },
   mounted () {
     this.fetchProducts()
+    this.bindLastProduct()
   },
   computed: {
+    products: {
+      get () {
+        return this.$store.state.products
+      }
+    },
     productsLength: {
       get () {
         return this.$store.state.products.length
