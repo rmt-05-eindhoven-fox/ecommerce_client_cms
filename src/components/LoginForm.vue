@@ -1,28 +1,21 @@
 <template>
-  <div id="login-form">
-    <form @submit.prevent="login" class="login-form">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          v-model="user.email"
-          type="text"
-          class="form-control"
-          id="email"
-          placeholder="Enter email"
-        />
+  <div class="container">
+    <div class="card bg-light" id="login-card">
+      <div class="card-body">
+        <h2 class="text-center">CMS Login</h2><br>
+        <form @submit.prevent="login">
+          <div class="form-group">
+            <input v-model="user.email" type="email" class="form-control" name="" id="email" placeholder="Enter email">
+          </div>
+
+          <div class="form-group">
+            <input v-model="user.password" type="password" class="form-control" name="" id="email" placeholder="Enter password">
+          </div><br>
+
+          <button type="submit" id="button" class="btn btn-primary deep-purple btn-block">Login</button><br>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="product-category">Password</label>
-        <input
-          v-model="user.password"
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="Enter password"
-        />
-      </div>
-      <button type="submit" class="login-btn btn btn-light">Login</button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -46,23 +39,45 @@ export default {
 </script>
 
 <style scoped>
-  #login-form {
+  .container {
     display: flex;
-    justify-content: center;
     width: 100%;
+    justify-content: center;
     padding: 20px;
-    padding-top: 300px;
   }
-
-  .login-form{
-    background-color: #e1b12c;
-    width: 500px;
-    padding: 30px;
-    border-radius: 0.3em;
-    color: #fff;
+  #login-card {
+      width:350px;
+      border-radius: 25px;
+      margin:150px auto;
+      background: white;
   }
-
-  .login-btn {
+  #email {
+      border-radius:30px;
+      background-color: #ebf0fc;
+      border-color: #ebf0fc;
+      color: #9da3b0;
+  }
+  #button {
+      border-radius:30px;
+  }
+  #btn {
+    position: absolute;
+    bottom: -35px;
+    padding: 5px;
+    margin: 0px 55px;
     align-items: center;
+    border-radius: 5px;
+  }
+  #container {
+      margin-top:25px;
+  }
+  .btn-circle.btn-sm {
+    width: 40px;
+    height: 40px;
+    padding: 2px 0px;
+    border-radius: 25px;
+    font-size: 14px;
+    text-align: center;
+    margin: 8px;
   }
 </style>

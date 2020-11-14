@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="body">
     <LoginForm/>
   </div>
 </template>
@@ -16,5 +16,10 @@ export default {
 </script>
 
 <style>
+ #body {
+  font-family: 'Nunito';
+  background-color:  #5d8fc9;
+  height: 100vh;
+ }
 
 </style>

@@ -1,57 +1,48 @@
 <template>
-  <div id="add-form">
-    <form @submit.prevent="addProduct" class="add-form">
-      <div class="form-group">
-        <label for="product-name">Name of Product</label>
-        <input
-          v-model="product.name"
-          type="text"
-          class="form-control"
-          id="product-name"
-          placeholder="Enter name of product"
-        />
-      </div>
-      <div class="form-group">
-        <label for="product-category">Category of Product</label>
-        <input
-          v-model="product.category"
-          type="text"
-          class="form-control"
-          id="product-category"
-          placeholder="Enter category of product"
-        />
-      </div>
-      <div class="form-group">
-        <label for="product-image-url">Image URL</label>
-        <input
-          v-model="product.image_url"
-          type="url"
-          class="form-control"
-          placeholder="Enter image url"
-        />
-      </div>
-      <div class="form-group">
-        <label for="product-price">Price of Product</label>
-        <input
-          v-model="product.price"
-          type="number"
-          class="form-control"
-          id="product-price"
-          placeholder="Enter price of product"
-        />
-      </div>
-      <div class="form-group">
-        <label for="product-price">Stock of Product</label>
-        <input
-          v-model="product.stock"
-          type="number"
-          class="form-control"
-          id="product-stock"
-          placeholder="Enter stock of product"
-        />
-      </div>
-      <button type="submit" class="add-btn btn btn-light">Add Product</button>
-    </form>
+  <div class="container">
+    <div class="card bg-light" id="form">
+        <div class="card-body">
+          <div class="close">
+            <router-link to="/homepage">
+            <a>
+               <svg width="30px" height="30px" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                     d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                  <path fill-rule="evenodd"
+                     d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+               </svg>
+              </a>
+            </router-link>
+        </div>
+          <h2 class="text-center" style="color: black;">Add Product</h2><br>
+          <form @submit.prevent="addProduct">
+            <div class="form-group">
+              <input v-model="product.name" type="text" class="form-control" name="name" placeholder="Enter product name" aria-describedby="nameHelp">
+            </div>
+
+            <div class="form-group">
+              <input v-model="product.category" type="text" class="form-control" name="category" placeholder="Enter product category">
+            </div>
+
+            <div class="form-group">
+              <input v-model="product.image_url" type="url" class="form-control" name="url" placeholder="Enter product image">
+              <small id="emailHelp" class="form-text text-muted" style="text-align: left;">Example: http://linktoanimage.com/image01.jpg</small>
+            </div>
+
+            <div class="form-group">
+              <input v-model="product.stock" type="number" class="form-control" name="stock" placeholder="Enter product stock">
+              <small id="emailHelp" class="form-text text-muted" style="text-align: left;">Product stock must be in number format.</small>
+            </div>
+
+            <div class="form-group">
+              <input v-model="product.price" type="number" class="form-control" name="price" placeholder="Enter product price">
+              <small id="emailHelp" class="form-text text-muted" style="text-align: left;">Product price must be in number format.</small>
+            </div><br>
+            <button type="submit" id="button" class="btn btn-primary deep-purple btn-block">Add Product</button><br>
+          </form>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -80,34 +71,22 @@ export default {
       }
 
       this.$store.dispatch('addProduct', payload)
-        .then(() => {
-          this.$router.push({ name: 'Home' })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     }
   }
 }
 </script>
 
 <style scoped>
-  #add-form {
+  .container {
     display: flex;
-    justify-content: center;
     width: 100%;
+    justify-content: center;
     padding: 20px;
   }
 
-  .add-form{
-    background-color: #e1b12c;
-    width: 500px;
-    padding: 30px;
-    border-radius: 0.3em;
-    color: #fff;
-  }
-
-  .add-btn {
-    align-items: center;
+  #form {
+      width: 450px;
+      border-radius: 25px;
+      background: white;
   }
 </style>

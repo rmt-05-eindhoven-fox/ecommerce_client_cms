@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 import axios from '@/config/axios.js'
 import router from '../router'
 
-Vue.use(Vuex)
+import Swal from 'sweetalert2'
 
-// const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnYWJyaWVsQGFkbWluLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTYwNTA1MTI0M30.fXMXsH_59jP9OsOTQuaYFOk6bdxqH24JYJ3eYG0HqT4'
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -34,7 +34,7 @@ export default new Vuex.Store({
     },
     addProduct (context, payload) {
       const accessToken = localStorage.getItem('access_token')
-      return axios({
+      axios({
         url: 'products',
         method: 'POST',
         data: {
@@ -48,6 +48,13 @@ export default new Vuex.Store({
           access_token: accessToken
         }
       })
+        .then(() => {
+          router.push({ name: 'Home' })
+        })
+        .catch(err => {
+          const error = { error: err.response.data.error }
+          Swal.fire('Oops...', `${error.error}`, 'error')
+        })
     },
     getProductById (context, id) {
       const accessToken = localStorage.getItem('access_token')
@@ -63,7 +70,7 @@ export default new Vuex.Store({
       const accessToken = localStorage.getItem('access_token')
       return axios({
         url: `products/${payload.id}`,
-        method: 'POST',
+        method: 'PUT',
         data: {
           name: payload.name,
           image_url: payload.image_url,
@@ -75,6 +82,14 @@ export default new Vuex.Store({
           access_token: accessToken
         }
       })
+        .then(() => {
+          // this.$store.dispatch('fetchAllProducts')
+          // this.$router.push({ name: 'Home' })
+        })
+        .catch(err => {
+          const error = { error: err.response.data.error }
+          Swal.fire('Oops...', `${error.error}`, 'error')
+        })
     },
     deleteProduct (context, id) {
       const accessToken = localStorage.getItem('access_token')
@@ -96,16 +111,22 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           const accessToken = data.access_token
+          const email = data.userEmail
           localStorage.setItem('access_token', accessToken)
+          localStorage.setItem('email', email)
           router.push({ name: 'Home' })
         })
         .catch(err => {
           console.log(err)
+          Swal.fire('Oops...', 'Wrong email/password', 'error')
         })
     },
     logout (context) {
+      // router.push({ name: 'Login' })
+      //   .catch(error => {
+      //     console.info(error.message)
+      //   })
       localStorage.removeItem('access_token')
-      router.push({ name: 'Login' })
     }
   },
   modules: {
