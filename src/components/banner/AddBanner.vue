@@ -20,7 +20,7 @@
                 </h6>
               </div>
 
-              <div v-if="messageInfo.length > 0" class="alert alert-danger alert-dismissible fade show m-3 p-1">
+              <div v-if="showError" class="alert alert-danger alert-dismissible fade show m-3 p-1">
                 <ul class="m-b-0">
                   <li v-for="(msg, i) in messageInfo" :key="i" class="p-l-1 m-b-0">{{ msg.error }}</li>
                 </ul>
@@ -124,12 +124,13 @@ export default {
       bannerCategory: '',
       starDate: '',
       endDate: '',
-      messageInfo: []
+      messageInfo: [],
+      showError: false
     }
   },
   computed: {
     categories () {
-      return this.$store.state.categories
+      return this.$store.state.bannerCategories
     }
   },
   methods: {
@@ -161,12 +162,14 @@ export default {
           msg = error.response.data.message
         }
         this.messageInfo = msg
+        this.showError = true
       } finally {
         this.loading = false
       }
     },
 
     cancelTask () {
+      this.showError = false
       this.isShow = ''
       this.ariaModal = false
       this.ariaHidden = !this.ariaModal

@@ -153,7 +153,7 @@ export default {
   },
   computed: {
     categories () {
-      return this.$store.state.categories
+      return this.$store.state.bannerCategories
     },
     banner () {
       return this.$store.state.banner

@@ -13,7 +13,8 @@ export default new Vuex.Store({
     banners: [],
     product: {},
     banner: {},
-    categories: []
+    bannerCategories: [],
+    productCategories: []
   },
   // Mengubah data dstate
   mutations: {
@@ -35,7 +36,8 @@ export default new Vuex.Store({
     },
 
     setCategories (state, payload) {
-      state.categories = payload
+      state.productCategories = payload.product
+      state.bannerCategories = payload.banner
     },
 
     changePageTitle (state, payload) {
@@ -115,8 +117,11 @@ export default new Vuex.Store({
             access_token: localStorage.getItem('access_token')
           }
         })
-        const { categories } = data || [{ name: 'No many categories', id: '' }]
-        context.commit('setCategories', categories)
+        const { categories } = data
+        const product = categories.filter(category => category.type === 'product')
+        const banner = categories.filter(category => category.type === 'banner')
+        const payload = { product, banner }
+        context.commit('setCategories', payload)
         return
       } catch (error) {
         console.log(error.response)
