@@ -1,65 +1,66 @@
 <template>
-  <div>
-    <div id="nav">
-      <div>E-commerce CMS</div>
-      <router-link to="/">Home</router-link>
-    </div>
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title text-purple">Edit Product</h4>
-          <button id="close-add" type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
 
-        <div class="modal-body">
-          <form @submit.prevent="editProduct">
+  <div class="container" style="position: relative; overflow:hidden">
+    <div id="nav">
+      <div class="text-small">E-commerce CMS</div>
+        <a class="text-decoration-none text-grey text-small" @click.prevent="changePage(``)" href=""> Home</a>
+    </div>
+
+    <img class="img-left" src="../assets/surr-681.png">
+    <img  class="img-right" src="../assets/surr-675.png">
+
+    <div class="row justify-content-center">
+      <div>
+        <div>
+          <form class="p-3 border shadow" @submit.prevent='editProduct' style="width: 25vw; background-color: white">
+              <div>
+                <h4 class="text-brown py-1" style="color: #f66483">Edit Product</h4>
+              </div>
               <div class="form-group ">
-                  <label>
+                  <label class="text-small">
                       Name
                   </label>
                   <input
                       v-model="name"
-                      class="form-control text-purple"
+                      class="form-control text-pink text-center"
                       type="text"
                   >
               </div>
 
               <div class="form-group">
-                  <label>
+                  <label class="text-small">
                     Image URL
                   </label>
                   <input
                     v-model="image_url"
-                    class="form-control text-purple"
+                    class="form-control text-pink text-center"
                     type="text"
                   >
               </div>
 
               <div class="form-group">
-                  <label>
+                  <label class="text-small">
                     Price
                   </label>
                   <input
                     v-model="price"
-                    class="form-control text-purple"
+                    class="form-control text-pink text-center"
                     type="number"
                   >
               </div>
 
               <div class="form-group">
-                  <label>
+                  <label class="text-small">
                     Stock
                   </label>
                   <input
                     v-model="stock"
-                    class="form-control text-purple"
+                    class="form-control text-pink text-center"
                     type="number"
                   >
               </div>
 
-              <button type="submit" class="btn btn-purple btn-block">Edit</button>
+              <button type="submit" class="btn-brown btn-block">Edit</button>
           </form>
         </div>
       </div>
@@ -111,6 +112,27 @@ export default {
         id: id
       }
       this.$store.dispatch('editProduct', payload)
+        .then(({ data }) => {
+          this.$router.push('/')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Product has been updated',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+        .catch(err => {
+          console.log(err.response.data)
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.response.data.msg
+          })
+        })
+    },
+    changePage (path) {
+      this.$store.dispatch('changePage', path)
     }
   },
   created () {
@@ -119,6 +141,27 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .border {
+    outline: 10px solid #f66483 !important;
+    outline-offset: -10px;
+  }
 
+  .img-left {
+    height: 450px; position: absolute; z-index: 999; left: -70px; top: 60px;
+    transition: all .5s;
+  }
+  .img-left:hover {
+    left: 30px
+    /* background-color: aqua; */
+  }
+
+  .img-right {
+    height: 420px; position: absolute; z-index: 999; right: -30px; top: 80px;
+    transition: all .5s;
+  }
+  .img-right:hover {
+    right: 70px
+    /* background-color: aqua; */
+  }
 </style>

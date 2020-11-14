@@ -32,7 +32,7 @@ export default new Vuex.Store({
         })
     },
     addProduct (context, payload) {
-      axios({
+      return axios({
         url: '/products',
         method: 'POST',
         data: {
@@ -45,15 +45,9 @@ export default new Vuex.Store({
           access_token: localStorage.getItem('access_token')
         }
       })
-        .then(({ data }) => {
-          router.push('/')
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
     },
     editProduct (context, payload) {
-      axios({
+      return axios({
         url: `/products/${payload.id}`,
         method: 'PUT',
         data: {
@@ -66,12 +60,6 @@ export default new Vuex.Store({
           access_token: localStorage.getItem('access_token')
         }
       })
-        .then(({ data }) => {
-          router.push('/')
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
     },
     fetchProductId (context, id) {
       // console.log(id)
@@ -97,7 +85,7 @@ export default new Vuex.Store({
       router.push(`/${path}`)
     },
     login (context, payload) {
-      axios({
+      return axios({
         url: '/login',
         method: 'POST',
         data: {
@@ -105,14 +93,14 @@ export default new Vuex.Store({
           password: payload.password
         }
       })
-        .then(({ data }) => {
-          console.log(data)
-          localStorage.setItem('access_token', data.access_token)
-          router.push('/')
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
+      // .then(({ data }) => {
+      //   console.log(data)
+      //   localStorage.setItem('access_token', data.access_token)
+      //   router.push('/')
+      // })
+      // .catch(err => {
+      //   console.log(err.response.data)
+      // })
     },
     logout (context) {
       localStorage.removeItem('access_token')
