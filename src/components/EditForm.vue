@@ -7,10 +7,10 @@
       <div style="color: black">Edit Product</div>
     </div>
       <div class="editForm">
-        <input type="text" v-model="dataEdit.name" placeholder="name"><br>
-        <input type="text" v-model="dataEdit.image_url" placeholder="imager_Url"><br>
-        <input type="number" v-model="dataEdit.price" placeholder="Price" ><br>
-        <input type="number" v-model="dataEdit.stock" placeholder="Stock"><br>
+        <input type="text" v-model="dataProduct.name" placeholder="name"><br>
+        <input type="text" v-model="dataProduct.image_url" placeholder="imager_Url"><br>
+        <input type="number" v-model="dataProduct.price" placeholder="Price" ><br>
+        <input type="number" v-model="dataProduct.stock" placeholder="Stock"><br>
         <input type="submit" value="SUBMIT">
       </div>
     </form>
@@ -26,22 +26,22 @@ export default {
     Navbar
   },
   computed: {
-    dataEdit () {
-      return this.$store.state.dataEdit
+    dataProduct () {
+      return this.$store.state.dataProduct
     }
   },
   methods: {
     editProduct () {
       const payload = {
         id: this.$route.params.id,
-        name: this.dataEdit.name,
-        image_url: this.dataEdit.image_url,
-        price: this.dataEdit.price,
-        stock: this.dataEdit.stock
+        name: this.dataProduct.name,
+        image_url: this.dataProduct.image_url,
+        price: this.dataProduct.price,
+        stock: this.dataProduct.stock
       }
       this.$store.dispatch('editPage', payload)
         .then(({ data }) => {
-          this.$router.push({ path: '/Products' })
+          this.$router.push({ path: '/products' })
         })
         .catch(err => {
           // const msg = err.response.data.errors

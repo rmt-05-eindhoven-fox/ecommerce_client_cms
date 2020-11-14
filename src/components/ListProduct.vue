@@ -59,7 +59,7 @@ export default {
     deleteProduct (id, nameProduct) {
       Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: `Delete ${nameProduct}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -90,16 +90,12 @@ export default {
 
 <style scoped>
 .nameProduct {
-  text-align: center !important;
+  text-align: center ;
 }
 .image_url {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
-}
-.tbody {
-  position: relative;
-  margin-top: 50px !important;
+  width: 40px;
 }
 </style>

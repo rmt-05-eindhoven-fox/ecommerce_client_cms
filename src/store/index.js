@@ -8,17 +8,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     fetchProduct: '',
-    dataEdit: {}
+    dataProduct: {}
   },
   mutations: {
-    FETCHPRODUCT (state, data) {
+    FETCH_PRODUCT (state, data) {
       state.fetchProduct = data
     },
     ADDPRODUCT (state, data) {
       state.fetchProduct.push(data)
     },
     EDITPAGE (state, data) {
-      state.dataEdit = data
+      state.dataProduct = data
     }
   },
   actions: {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          context.commit('FETCHPRODUCT', data)
+          context.commit('FETCH_PRODUCT', data)
         })
         .catch(err => {
           console.log(err)

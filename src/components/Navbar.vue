@@ -5,7 +5,7 @@
         <i class="fas fa-boxes">MY SHOP</i>
         <b-navbar-nav class="ml-auto">
           <div class="mr-4">
-            <router-link to="/Products">
+            <router-link to="/products">
               <b-button variant="outline-primary">
               <i class="fas fa-store-alt">Home</i>
                </b-button>

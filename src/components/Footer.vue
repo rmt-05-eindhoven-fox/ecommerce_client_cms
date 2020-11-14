@@ -20,7 +20,10 @@ export default {
 </script>
 
 <style scopped>
-    .footer {
+li {
+    list-style: none;
+}
+.footer {
     width: 100%;
     background-color: lightgray;
     color:black;
@@ -28,7 +31,7 @@ export default {
     height: 100px;
     justify-content: space-between;
     align-items: center;
-  }
+}
 .footer-logo {
     padding-left: 50px;
     font-size: 32px;
