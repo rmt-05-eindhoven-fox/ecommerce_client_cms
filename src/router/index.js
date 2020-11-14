@@ -5,8 +5,9 @@ import Detail from '../views/Detail.vue'
 import NotFound from '../views/NotFound.vue'
 import AddProduct from '../views/AddProduct.vue'
 import LandingPage from '../views/LandingPage.vue'
-import Data from '@/components/Data.vue'
-import Edit from '@/components/Edit.vue'
+import DataProduct from '@/components/DataProduct.vue'
+import EditProduct from '@/components/EditProduct.vue'
+import DeleteProduct from '@/components/DeleteProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -32,9 +33,6 @@ const routes = [
   {
     path: '/products',
     name: 'Products',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "product" */ '../views/Products.vue')
   },
   {
@@ -43,12 +41,16 @@ const routes = [
     component: Detail,
     children: [
       {
-        path: 'data',
-        component: Data
+        path: 'data-product',
+        component: DataProduct
       },
       {
-        path: 'edit',
-        component: Edit
+        path: 'edit-product',
+        component: EditProduct
+      },
+      {
+        path: 'delete-product',
+        component: DeleteProduct
       }
     ]
   },

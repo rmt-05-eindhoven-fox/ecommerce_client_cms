@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     product: {},
-    access_token: ''
+    errorMessage: ''
   },
   mutations: {
     getProducts (state, payload) {
@@ -19,21 +19,24 @@ export default new Vuex.Store({
     },
     addProduct (state, payload) {
       state.products.push(payload)
+    },
+    deleteProduct (state, id) {
+      state.products = state.products.map(el => {
+        console.log('PRODUCT', el.id)
+        if (el.id !== id) {
+          console.log('PRODUCT', el.id)
+          return el
+        }
+      })
+    },
+    errorMessage (state, msg) {
+      state.errorMessage = msg
+      setTimeout(() => {
+        state.errorMessage = ''
+      }, 5000)
     }
   },
   actions: {
-    login (context, payload) {
-      axios({
-        url: '/login',
-        method: 'POST',
-        data: payload
-      })
-        .then(({ data }) => {
-          localStorage.setItem('access_token', data.access_token)
-          this.$router.push('/products')
-        })
-        .catch(err => console.log('=====ERROR======', err))
-    },
     fetchProducts (context) {
       axios
         .get('/products')
@@ -47,24 +50,55 @@ export default new Vuex.Store({
       axios
         .get(`/products/${id}`)
         .then(({ data }) => {
-          console.log('fetchOne', data)
+          // console.log('fetchOne', data)
           context.commit('getOneProduct', data)
         })
         .catch(err => console.log(err))
     },
     addProduct (context, payload) {
-      console.log(payload)
+      // console.log(payload)
       axios({
         url: '/add',
         method: 'POST',
         data: payload,
-        headers: { access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoienhjQG1haWwuY29tIiwiaWF0IjoxNjA1MDc4OTU4fQ.n0qivWM0DwGJ7kvcs3njleobnibR3lIppkshlIVLHGQ' }
+        headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
           console.log(data)
           context.commit('addProduct', data)
         })
-        .catch(err => console.log('=====ERROR======', err))
+        .catch(err => {
+          context.commit('errorMessage', err.response.data.msg)
+        })
+    },
+    deleteProduct (context, id) {
+      axios({
+        url: `/delete/${id}`,
+        method: 'DELETE',
+        headers: { access_token: localStorage.getItem('access_token') }
+      })
+        .then(({ data }) => {
+          console.log('RETURNING DELETE', data)
+          this.fetchProducts()
+        })
+        .catch(err => {
+          context.commit('errorMessage', err.response.data.msg)
+        })
+    },
+    updateProduct (context, payload) {
+      axios({
+        url: `/update/${payload.id}`,
+        method: 'PUT',
+        data: payload,
+        headers: { access_token: localStorage.getItem('access_token') }
+      })
+        .then((data) => {
+          context.commit('addProduct', data)
+        })
+        .catch(err => {
+          // console.log('=====ERROR Update======', err.response.data)
+          context.commit('errorMessage', err.response.data.msg)
+        })
     }
   },
   modules: {

@@ -1,32 +1,39 @@
 <template>
   <div id="app">
-    <div v-if="access_token">
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/products">Products</router-link> |
-        <router-link to="/add">Add Products</router-link>
-      </div>
-      <router-view/>
+    <div v-if="pageName === 'main-page'">
+      <MainPage
+        @logout="logout"
+      />
     </div>
-    <div v-else>
-      <LandingPage/>
-      <!-- <router-link to="/login">Login</router-link> |
-      <router-view/> -->
+    <div v-else-if="pageName === 'landing-page'">
+      <LandingPage
+        @login="login"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import LandingPage from './views/LandingPage.vue'
+import MainPage from './views/MainPage.vue'
 
 export default {
+  name: 'App',
   data () {
     return {
-      access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoienhjQG1haWwuY29tIiwiaWF0IjoxNjA1MDgzODAxfQ.9Rw1sHZPNxJ1FVplWffWsmWmulZL3-hNnmCuUke7lwI'
+      pageName: localStorage.getItem('access_token') ? 'main-page' : 'landing-page'
     }
   },
   components: {
-    LandingPage
+    LandingPage, MainPage
+  },
+  methods: {
+    login () {
+      this.pageName = 'main-page'
+    },
+    logout () {
+      this.pageName = 'landing-page'
+    }
   }
 }
 </script>
@@ -38,6 +45,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: lightgreen;
+  height: 100vh;
 }
 
 #nav {
@@ -45,6 +54,11 @@ export default {
 }
 
 #nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav button {
   font-weight: bold;
   color: #2c3e50;
 }
