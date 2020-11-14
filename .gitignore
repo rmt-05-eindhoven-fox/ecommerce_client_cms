@@ -2,9 +2,6 @@
 node_modules
 /dist
 
-Login.vue
-HelloWorld.vue
-
 # local env files
 .env.local
 .env.*.local
