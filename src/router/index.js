@@ -23,6 +23,11 @@ const routes = [
     path: '/homepage',
     name: 'Home',
     component: () => import('../views/Home.vue')
+  },
+  {
+    path: '*',
+    name: 'NotFoundError',
+    component: () => import('../views/NotFoundError.vue')
   }
 ]
 
