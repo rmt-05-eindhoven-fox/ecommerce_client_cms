@@ -70,6 +70,7 @@ export default {
         accessToken
       }
       this.$store.dispatch('deleteProduct', payload)
+      this.fetchProducts()
     },
     fetchProducts () {
       const accessToken = localStorage.getItem('access_token')
@@ -83,14 +84,14 @@ export default {
   },
   mounted () {
     this.fetchProducts()
+  },
+  watch: {
+    products: {
+      handler: function (val, oldval) {
+        this.products()
+      }
+    }
   }
-  // watch: {
-  //   products: {
-  //     handler: function (val, oldval) {
-  //       this.fetchProducts()
-  //     }
-  //   }
-  // }
 }
 </script>
 
