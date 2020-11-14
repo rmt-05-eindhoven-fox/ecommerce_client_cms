@@ -1,5 +1,6 @@
 <template>
   <div id="category" class="row">
+    <Loading :loading="loading" />
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="card">
         <div class="header">
@@ -124,7 +125,7 @@
 
 <script>
 import axios from '@/config/axios'
-// import Loading from '@/components/loading/Loading.vue'
+import Loading from '@/components/loading/Loading.vue'
 import Swal from 'sweetalert2'
 
 export default {
@@ -143,8 +144,12 @@ export default {
 
       // General
       categoryId: '',
-      messageInfoProdCat: []
+      messageInfoProdCat: [],
+      loading: false
     }
+  },
+  components: {
+    Loading
   },
   watch: {
     modelProductCategory () {
@@ -173,6 +178,7 @@ export default {
         type: type
       }
       try {
+        this.loading = true
         await axios({
           url: 'categories/' + id,
           method: method,
@@ -197,6 +203,8 @@ export default {
           this.showErrorBannerCat = true
         }
         this.messageInfoProdCat = msg
+      } finally {
+        this.loading = false
       }
     },
 
@@ -211,6 +219,7 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.loading = true
           axios({
             url: 'categories/' + id,
             method: 'delete',
@@ -223,6 +232,8 @@ export default {
           }).catch((error) => {
             const message = error.response.data.message || 'Somthing error'
             Swal.fire('Delete Failed', message, 'error')
+          }).then(() => {
+            this.loading = false
           })
         }
       })
