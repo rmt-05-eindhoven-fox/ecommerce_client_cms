@@ -1,10 +1,8 @@
 <template>
   <div class="bg-blue-500 flex h-full w-full">
       <Navigation class="w-1/6 bg-blue-500 h-full"/>
-      <div v-for="(product, i) in products" :key="i" class="flex-wrap bg-yellow-500 h-full">
-        <div class="bg-red-500 mb-16">
+      <div v-for="(product, i) in products" :key="i" class="flex-wrap h-auto">
           <ProductCard :product="product"/>
-        </div>
       </div>
   </div>
 </template>

@@ -12,7 +12,6 @@ export default new Vuex.Store({
   },
   mutations: {
     setProducts (state, payload) {
-      console.log(payload, '<< set')
       state.products = payload
     }
   },
@@ -24,7 +23,7 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           console.log(data)
-          commit('setProducts', data)
+          commit('setProducts', data.product)
         })
         .catch(err => {
           console.log(err)
