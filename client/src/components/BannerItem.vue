@@ -4,7 +4,7 @@
       <img
         :src="banner.image_url"
         alt="iphone"
-        style="height: 500px; width: 650px"
+        style="height: 250px; width: 400px"
       />
     </div>
     <div class="banner-detail row">

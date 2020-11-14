@@ -1,6 +1,6 @@
 <template>
   <div id="edit-product">
-    <h1 class="page-title">Edit Product Page</h1>
+    <h1 class="page-title">Edit Product</h1>
     <EditProductForm />
   </div>
 </template>

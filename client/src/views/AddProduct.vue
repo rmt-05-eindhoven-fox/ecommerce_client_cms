@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="page-title">Add Product Page</h1>
+    <h1 class="page-title">Add Product</h1>
     <AddProductForm />
   </div>
 </template>

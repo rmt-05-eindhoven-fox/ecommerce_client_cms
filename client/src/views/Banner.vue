@@ -7,7 +7,7 @@
           display: flex;
           justify-content: space-between;
           width: 330px;
-          margin-left: 970px;
+          margin-left: 650px;
           font-size: 26px;
           font-weight: bold;
           margin-bottom: 50px;
