@@ -16,6 +16,7 @@
 
           <!-- Login Form -->
           <form @submit.prevent="addBanner">
+          <h5 v-if="isError" class="text-danger">{{isError}}</h5>
             <div class="input-group flex-nowrap">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="fas fa-tags"></i></span>
@@ -26,7 +27,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="fas fa-link"></i></span>
               </div>
-              <input v-model="image_url" type="url" class="form-control" placeholder="http://" aria-describedby="addon-wrapping">
+              <input required v-model="image_url" type="url" class="form-control" placeholder="http://" aria-describedby="addon-wrapping">
             </div>
             <div class="input-group mb-3 mt-5">
               <div class="input-group-prepend">
@@ -52,11 +53,13 @@ export default {
     return {
       title: '',
       image_url: '',
-      status: ''
+      status: '',
+      isError: ''
     }
   },
   methods: {
     addBanner () {
+      this.$loading(true)
       const payload = {
         title: this.title,
         image_url: this.image_url,
@@ -65,10 +68,16 @@ export default {
       this.$store.dispatch('addBanner', payload)
         .then(({ data }) => {
           this.$router.push('/dashboard')
+          this.$loading(false)
         })
-        .catch(err => (
-          console.log(err)
-        ))
+        .catch(err => {
+          if (err.response.data.error) {
+            this.isError = err.response.data.error
+            this.$loading(false)
+          } else {
+            this.$loading(false)
+          }
+        })
     },
     logout () {
       localStorage.clear()

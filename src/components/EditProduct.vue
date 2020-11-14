@@ -16,6 +16,7 @@
 
           <!-- Login Form -->
           <form @submit.prevent="editProduct">
+            <h5 v-if="isError" class="text-danger">{{isError}}</h5>
             <div class="input-group flex-nowrap mt-5">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="fas fa-tags"></i></span>
@@ -56,7 +57,8 @@ export default {
       name: '',
       image_url: '',
       price: '',
-      stock: ''
+      stock: '',
+      isError: ''
     }
   },
   methods: {
@@ -74,9 +76,14 @@ export default {
           this.$loading(false)
           this.$router.push('/dashboard')
         })
-        .catch(err => (
-          console.log(err)
-        ))
+        .catch(err => {
+          if (err.response.data.error) {
+            this.isError = err.response.data.error
+            this.$loading(false)
+          } else {
+            this.$loading(false)
+          }
+        })
     },
     fetchProductById () {
       const id = this.$route.params.id
