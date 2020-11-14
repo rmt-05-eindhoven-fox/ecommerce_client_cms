@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <Navbar></Navbar>
+    <!-- <router-view></router-view> -->
+
     <div class="content">
       <form>
         <div class="form-group">
@@ -12,7 +15,7 @@
           :key="product.id"
           :productDetail="product"
         ></ProductCard>
-    </ul>
+      </ul>
 
     </div>
   </div>
@@ -20,15 +23,15 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import Navbar from '../components/Navbar'
 import ProductCard from '@/components/ProductCard.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
-    // HelloWorld
-    ProductCard
+    ProductCard,
+    Navbar
   },
   data () {
     return {

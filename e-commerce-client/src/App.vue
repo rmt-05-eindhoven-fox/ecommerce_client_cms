@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Navbar></Navbar>
       <!-- <router-link to="/login">Login</router-link> |
       <router-link to="/">Home</router-link> |
       <router-link to="/product-add">Add Product</router-link> -->
@@ -12,7 +11,6 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar'
 export default {
   data () {
     return {
@@ -20,7 +18,6 @@ export default {
     }
   },
   components: {
-    Navbar
   },
   created () {
     // const accessToken = localStorage.getItem('access_token')
