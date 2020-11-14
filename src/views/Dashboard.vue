@@ -38,7 +38,7 @@
               </button>
               <button
                 v-if="buttonAdd === 'product'"
-                @click.prevent="showAddProduct"
+                @click.prevent="displayModal(true, 'addProduct')"
                 class="btn btn-success btn-icon float-right"
                 type="button"
                 title="Add New Product"
@@ -47,7 +47,7 @@
               </button>
               <button
                 v-if="buttonAdd === 'banner'"
-                @click.prevent="showAddProduct"
+                @click.prevent="displayModal(true, 'addBanner')"
                 class="btn btn-success btn-icon float-right"
                 type="button"
                 title="Add New Banner"
@@ -62,7 +62,12 @@
       </div>
     </section>
     <AddProduct
-    v-if="showModal"
+    v-if="modalName === 'addProduct'"
+    v-show="showModal"
+    @isDisplayModal="isDisplayModal" />
+
+    <AddBanner
+    v-else-if="modalName === 'addBanner'"
     v-show="showModal"
     @isDisplayModal="isDisplayModal" />
   </div>
@@ -72,12 +77,14 @@
 // @ is an alias to /src
 import Sidebar from '@/components/dashboard/Sidebar.vue'
 import AddProduct from '@/components/product/AddProduct.vue'
+import AddBanner from '@/components/banner/AddBanner.vue'
 
 export default {
   name: 'Dashboard',
   components: {
     Sidebar,
-    AddProduct
+    AddProduct,
+    AddBanner
   },
   computed: {
     title () {
@@ -93,6 +100,7 @@ export default {
     return {
       buttonAdd: '',
       showModal: false,
+      modalName: '',
       loading: false
     }
   },
@@ -108,10 +116,12 @@ export default {
   methods: {
     isDisplayModal (params) {
       this.showModal = params
+      this.modalName = ''
     },
 
-    showAddProduct () {
-      this.isDisplayModal(true)
+    displayModal (show, modalName) {
+      this.showModal = true
+      this.modalName = modalName
     },
 
     showButton () {
