@@ -17,7 +17,7 @@
         <br>
         <label for="stock">{{product.stock}}</label>
         <br>
-        <button @click="editProduct" type="submit" class="btn btn-primary mt-3">Edit</button>
+        <button @click.prevent="editProduct(product.id)" class="btn btn-primary mt-3">Edit</button>
         <button @click.prevent="deleteProduct(product.id)" class="btn btn-primary mt-3">Delete</button>
       </div>
     </div>
@@ -58,8 +58,8 @@ export default {
     addProduct () {
       this.$router.push('addProduct')
     },
-    editProduct () {
-      this.$store.dispatch('editProduct')
+    editProduct (id) {
+      this.$router.push(`editProduct/${id}`)
     },
     fetchProducts () {
       this.$store.dispatch('fetchProducts')

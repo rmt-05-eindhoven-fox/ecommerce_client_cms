@@ -48,9 +48,6 @@ export default new Vuex.Store({
       localStorage.clear()
       router.push('/')
     },
-    editProduct () {
-      router.push('/editProduct')
-    },
     addCeleb (context, payload) {
       return axios({
         url: '/products',
@@ -72,6 +69,22 @@ export default new Vuex.Store({
         method: 'DELETE',
         headers: {
           token: localStorage.getItem('token')
+        }
+      })
+    },
+    editCeleb (context, payload) {
+      // console.log(payload)
+      return axios({
+        url: `/products/${payload.id}`,
+        method: 'PUT',
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
         }
       })
     }
