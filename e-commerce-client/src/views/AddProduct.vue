@@ -7,7 +7,7 @@
 
       <div class="addProduct-container mb-5">
         <header class="header-add w-100">
-          <img src="https://img.icons8.com/dusk/64/000000/product.png"/>
+          <img src="https://deo-ecommerce-bucket.s3-ap-southeast-1.amazonaws.com/product.png"/>
           <h3 class="mt-3">Add a New Product</h3>
         </header>
         <form
