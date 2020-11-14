@@ -2,9 +2,8 @@
   <div class="container">
     <Navbar></Navbar>
     <!-- <router-view></router-view> -->
-
     <ProductList />
-    <button @click='toastTest("hello")'>Toast test</button>
+
   </div>
 </template>
 

@@ -6,11 +6,21 @@
     </div>
   </form>
   <ul class="list-group list-group-flush">
-    <ProductCard
-      v-for="product in productsFilter"
-      :key="product.id"
-      :productDetail="product"
-    ></ProductCard>
+    <div
+      v-if="loadComplete"
+    >
+      <ProductCard
+        v-for="product in productsFilter"
+        :key="product.id"
+        :productDetail="product"
+      ></ProductCard>
+    </div>
+
+    <div
+      v-else
+    >
+      <BounceLoader class="mx-auto mt-5"/>
+    </div>
   </ul>
 
 </div>
@@ -19,16 +29,19 @@
 <script>
 import ProductCard from '@/components/ProductCard.vue'
 import { mapActions } from 'vuex'
+import { BounceLoader } from '@saeris/vue-spinners'
 
 export default {
   name: 'ProductList',
   components: {
-    ProductCard
+    ProductCard,
+    BounceLoader
   },
   data () {
     return {
       // products: [],
-      searchInput: ''
+      searchInput: '',
+      loadComplete: false
     }
   },
   computed: {
@@ -51,7 +64,7 @@ export default {
       this.storeFetchProducts()
         .then(({ data }) => {
           this.$store.commit('setProducts', data)
-          // this.products = data
+          this.loadComplete = true
         })
         .catch(error => {
           console.log(error.response.status)

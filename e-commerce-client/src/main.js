@@ -4,6 +4,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueToastify from 'vue-toastify'
+import { VueSpinners } from '@saeris/vue-spinners'
+
+Vue.use(VueSpinners)
 
 Vue.use(VueToastify, {
   position: 'top-center',
