@@ -1,5 +1,5 @@
 <template>
-  <md-card md-with-hover>
+  <md-card @click.native="showProduct" md-with-hover>
     <md-ripple>
       <div class="md-layout md-gutter md-alignment-center-center">
         <div class="md-layout-item md-size-25">
@@ -56,6 +56,13 @@ export default {
       const num = Number(this.product.price).toLocaleString('id-ID')
       const price = 'Rp. ' + num + ',-'
       return price
+    }
+  },
+  methods: {
+    showProduct () {
+      const id = this.product.id
+      this.$store.dispatch('productDetail', id)
+      this.$router.push({ name: 'EditProduct', params: { id: id } })
     }
   }
 }

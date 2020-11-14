@@ -37,6 +37,21 @@ const routes = [
         name: 'EditProduct',
         path: '/products/edit/:id',
         component: () => import(/* webpackChunkName: "about" */ '../views/EditProduct.vue')
+      },
+      {
+        name: 'Banner',
+        path: '/banners',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Banner.vue')
+      },
+      {
+        name: 'AddBanner',
+        path: '/banners/add',
+        component: () => import(/* webpackChunkName: "about" */ '../views/AddBanner.vue')
+      },
+      {
+        name: 'EditBanner',
+        path: '/banners/edit/:id',
+        component: () => import(/* webpackChunkName: "about" */ '../views/EditBanner.vue')
       }
     ]
   },

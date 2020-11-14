@@ -9,7 +9,17 @@
             <div class="md-layout-item md-size-70">
               <div class="md-layout md-gutter md-alignment-top-center">
                 <div class="md-layout-item md-size-40">
-                  <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+                  <div v-if="!isImageShow">
+                    <md-field>
+                      <label>Image URL</label>
+                      <md-input v-model="image_url"></md-input>
+                    </md-field>
+                    <md-button @click="addImage" class="md-raised md-accent">Add Image</md-button>
+                  </div>
+                  <div v-else>
+                    <img :src="image_url" alt="product-image" class="product-image">
+                    <md-button @click="addImage" class="md-raised md-accent">Change image</md-button>
+                  </div>
                 </div>
                 <div class="md-layout-item">
                   <md-field>
@@ -76,30 +86,19 @@
 </template>
 
 <script>
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
-
 export default {
   name: 'AddProduct',
   data () {
     return {
-      dropzoneOptions: {
-        url: 'https://httpbin.org/post',
-        thumbnailWidth: 500,
-        maxFilesize: 0.5,
-        dictDefaultMessage: 'Drop image here to upload'
-      },
       name: '',
       price: '',
       stock: '',
       description: '',
-      image_url: 'https://cdn.arstechnica.net/wp-content/uploads/2018/09/Mojave-Day.jpg',
+      image_url: '',
       selected_categories: [],
-      catName: ''
+      catName: '',
+      isImageShow: false
     }
-  },
-  components: {
-    vueDropzone: vue2Dropzone
   },
   computed: {
     categories () {
@@ -154,6 +153,9 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    addImage () {
+      this.isImageShow = !this.isImageShow
     }
   },
   created () {
@@ -167,11 +169,6 @@ export default {
   margin-top: 16px;
   background-color: #fff;
   border-radius: 20px;
-}
-
-#dropzone {
-  height: 25vh;
-  width: 15vw;
 }
 
 .category-chip {
@@ -193,6 +190,6 @@ export default {
 }
 
 .md-checkbox {
-    display: flex;
-  }
+  display: flex;
+}
 </style>

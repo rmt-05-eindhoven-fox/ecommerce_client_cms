@@ -7,12 +7,12 @@
       </md-speed-dial-target>
 
       <md-speed-dial-content>
-        <md-button class="md-icon-button">
+        <md-button @click="goToAddBanner" class="md-icon-button">
           <md-icon>view_carousel</md-icon>
           <md-tooltip md-direction="left">Banner</md-tooltip>
         </md-button>
 
-        <md-button class="md-icon-button">
+        <md-button @click="goToCategory" class="md-icon-button">
           <md-icon>category</md-icon>
           <md-tooltip md-direction="left">Category</md-tooltip>
         </md-button>
@@ -31,7 +31,13 @@ export default {
   name: 'SpeedDial',
   methods: {
     goToAdd () {
-      this.$router.push('products/add')
+      this.$router.push('/products/add')
+    },
+    goToAddBanner () {
+      this.$router.push('/banners/add')
+    },
+    goToCategory () {
+      this.$router.push('/categories')
     }
   }
 }
