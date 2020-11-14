@@ -29,6 +29,8 @@ export default {
 <style scoped>
 .landingPage {
   background-image: url("https://searchengineland.com/figz/wp-content/seloads/2015/02/ecommerce-shopping-cart-keyboard-ss-1920.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .page-top {
   height: 100vh;

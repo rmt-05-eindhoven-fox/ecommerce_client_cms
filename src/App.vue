@@ -8,7 +8,4 @@
 * {
   font-family: 'Ubuntu', sans-serif;
 }
-#app {
-  margin-right: 15px;
-}
 </style>
