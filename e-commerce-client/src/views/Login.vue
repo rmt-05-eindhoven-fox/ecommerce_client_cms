@@ -54,7 +54,8 @@ export default {
           this.$router.push({ name: 'Home' })
         })
         .catch(err => {
-          console.log(err.response)
+          // console.log(err.response)
+          this.$store.dispatch('errToast', err.response.data.message)
         })
     }
   }

@@ -20,10 +20,6 @@ export default {
     ProductList
   },
   methods: {
-    toastTest () {
-      // this.$vToastify.info('Easy as that')
-      this.$store.dispatch('errToast', 'hello there!')
-    }
   }
 }
 </script>

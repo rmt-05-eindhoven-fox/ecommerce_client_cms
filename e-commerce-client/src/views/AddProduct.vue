@@ -10,7 +10,9 @@
           <img src="https://img.icons8.com/dusk/64/000000/product.png"/>
           <h3 class="mt-3">Add a New Product</h3>
         </header>
-        <form>
+        <form
+          @submit.prevent="addProduct"
+        >
             <div class="form-group">
               <input
                 v-model="name"
@@ -80,10 +82,15 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log('add success!')
+          this.$store.dispatch('successToast', 'Add Product Successful')
+          this.name = ''
+          this.image_url = ''
+          this.price = ''
+          this.stock = ''
+          this.$router.push({ name: 'Home' })
         })
-        .catch(error => {
-          console.log(error.response)
+        .catch(err => {
+          this.$store.dispatch('errToast', err.response.data.message)
         })
     }
   }
