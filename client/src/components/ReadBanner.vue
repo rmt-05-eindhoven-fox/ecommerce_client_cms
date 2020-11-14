@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-center" v-for="(banner, index) in banners" :key="banner.id">
+          <tr class="text-center table-warning" v-for="(banner, index) in banners" :key="banner.id">
             <td>{{ index + 1 }}.</td>
             <td>{{ banner.title }}</td>
             <td><img :src="banner.image_url" width="200"/></td>

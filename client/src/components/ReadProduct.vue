@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-center" v-for="(product, index) in products" :key="product.id">
+          <tr class="text-center table-warning" v-for="(product, index) in products" :key="product.id">
             <td>{{ index + 1 }}.</td>
             <td>{{ product.name }}</td>
             <td><img :src="product.image_url" width="80"/></td>

@@ -25,7 +25,7 @@
                 <i class="fas fa-layer-group"></i>
                 Choose a category:
             </label><br>
-            <select name="category" id="category" v-model="banner.category">
+            <select class="form-control" name="category" id="category" v-model="banner.category">
                 <option value="">---Select one---</option>
                 <option value="SmartWatch">SmartWatch</option>
                 <option value="Laptop">Laptop</option>
@@ -37,12 +37,12 @@
             </select>
         </div>
         <div>
-          <button class="btn btn-success" type="submit">Edit</button>
+          <button class="btn btn-success btn-block" type="submit">Edit</button>
         </div>
       </form>
     </div>
     <div class="cancel mt-2 mb-5">
-      <button @click.prevent="toBanner" class="btn btn-danger">Cancel</button>
+      <button @click.prevent="toBanner" class="btn btn-danger btn-block">Cancel</button>
     </div>
   </div>
 </template>
