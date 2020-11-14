@@ -4,16 +4,16 @@
     <div class="navbar container-fluid d-flex">
       <div class="logo">
         <nav>
-          <a class="navbar-brand" href="#">
-            E-Commerce CMS
-          </a>
+          <h1 class="navbar-brand">
+            <i class="fab fa-envira"></i> IKEHA
+          </h1>
         </nav>
       </div>
       <div class="d-flex align-items-center logout">
         <div id="user-login" class="mr-4">
-          <span class="rainbow">Hello! {{login_user}}</span>
+          <span>Hello! {{login_user}}</span>
         </div>
-        <button @click.prevent="logout()" type="button" class="btn btn-danger">Logout</button>
+        <button @click.prevent="logout()" type="button" class="btn btn-danger text-light">Logout</button>
       </div>
     </div>
   </section>
@@ -25,8 +25,8 @@ export default {
   name: 'NavbarDashboard',
   methods: {
     logout () {
-      this.$router.push({ name: 'LandingPage' })
       localStorage.clear()
+      this.$router.push({ name: 'LandingPage' })
     }
   },
   computed: {

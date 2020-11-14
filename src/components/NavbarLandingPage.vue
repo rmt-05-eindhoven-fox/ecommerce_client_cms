@@ -4,9 +4,9 @@
     <div class="navbar container-fluid d-flex">
       <div class="logo">
         <nav>
-          <a class="navbar-brand" href="#">
-            E-Commerce CMS
-          </a>
+          <h1 class="navbar-brand">
+            <i class="fab fa-envira"></i> IKEHA
+          </h1>
         </nav>
       </div>
     </div>

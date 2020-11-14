@@ -1,12 +1,12 @@
 <template>
-  <div class="card-hover row mb-3">
-    <div class="col-md-auto border">
-      <img :src="product.image_url" height="200" alt="" srcset="">
+  <div class="row mb-3">
+    <div class="col-md-auto">
+      <img :src="product.image_url" height="222" alt="" srcset="">
     </div>
     <div class="col-md">
-      <div class="card-header border">
-        <div class="row px-3 d-flex justify-content-between">
-          <div class="pt-1">
+      <div class="card-header">
+        <div class="row d-flex justify-content-between">
+          <div class="pt-1 ml-3">
             <h5>{{product.name}}</h5>
           </div>
           <div>
@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body border">
+      <div class="card-body">
         <p class="card-text">{{product.description}}</p>
         <h6 class="card-title"><i class="fas fa-tags"></i> : {{product.moneyFormat}}</h6>
         <h6 class="card-title"><i class="fas fa-layer-group mr-1"></i> : {{product.stock}} Items</h6>

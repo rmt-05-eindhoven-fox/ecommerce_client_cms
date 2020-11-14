@@ -5,9 +5,9 @@
     <!-- NAVBAR DASHBOARD -->
 
     <!-- CREATE PRODUCT FORM -->
-    <section id="create-product" class="container mt-5 pt-5">
+    <section id="create-product" class="container my-4 mb-5">
       <div class="row">
-        <div class="col m-auto">
+        <div class="col-auto col-md-6 m-auto">
           <div class="card">
             <div class="card-body shadow">
               <h5 class="card-title text-center">CREATE PRODUCT</h5>
@@ -40,8 +40,8 @@
                   </select>
                 </div>
                 <hr class="bg-light">
-                <button class="btn btn-lg btn-primary btn-block mt-4 p-2 rounded-pill" type="submit">CREATE</button>
-                <a @click.prevent="cancel()" class="btn btn-lg btn-danger btn-block mt-4 p-2 rounded-pill">CANCEL</a>
+                <button class="btn btn-sm btn-primary btn-block mt-4 p-2 rounded-pill" type="submit">CREATE</button>
+                <a @click.prevent="cancel()" class="btn btn-sm btn-cancel btn-danger btn-block mt-4 p-2 rounded-pill">CANCEL</a>
                 <hr class="bg-light">
               </form>
             </div>

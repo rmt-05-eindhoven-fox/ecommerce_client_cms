@@ -10,10 +10,47 @@ body {
   font-size: 15px;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
+  background-color: #f0ece2;
+  background-image: url('https://img.wallpapersafari.com/desktop/1280/1024/66/51/tiZFJ7.png');
+  background-attachment: fixed;
 }
 
 .navbar {
   font-family: 'Russo One', 'Montserrat', sans-serif;
+}
+
+.navbar-brand {
+  color: #772f1a;
+  font-size: 2.5rem;
+}
+
+#user-login {
+  font-size: 20px;
+}
+
+#login-page {
+  margin-top: 20vh;
+}
+
+.card-login {
+  background-color: #e8c99b;
+  background-image: linear-gradient(315deg, #e8c99b 0%, #e8bc85 74%);
+}
+
+.card-header {
+  background-color: #c7b198;
+}
+
+.card-body {
+  background-color: #f0ece2;
+}
+
+.btn-cancel {
+  background-color: #596e79;
+}
+
+#login-page .btn {
+  background-color: #596e79;
 }
 
 /* NOT FOUND */
@@ -102,4 +139,19 @@ body {
   .notfound .notfound-404 h1 {
     font-size: 120px;
   }
+}
+
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hover:hover{
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }

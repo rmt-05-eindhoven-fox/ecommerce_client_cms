@@ -260,7 +260,7 @@ export default new Vuex.Store({
       const accessToken = localStorage.getItem('access_token')
       Vue.swal({
         title: 'Are you sure?',
-        text: "All related products will be deleted! You won't be able to revert this!",
+        text: "All related products will be deleted too! You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
