@@ -37,12 +37,9 @@
           </router-link>
         </li>
         <li>
-          <a href="javascript:void(0);" class="menu-toggle"
-            ><i class="zmdi zmdi-apps"></i><span>Other</span></a
-          >
-          <ul class="ml-menu">
-            <li><a href="#">Live Banner</a></li>
-          </ul>
+          <router-link :to="{ name: 'Banner' }">
+            <i class="zmdi zmdi-apps"></i><span>Live Banner</span>
+          </router-link>
         </li>
       </ul>
     </div>

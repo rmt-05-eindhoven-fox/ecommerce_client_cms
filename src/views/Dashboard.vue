@@ -32,14 +32,25 @@
                 @click.prevent="logout"
                 class="btn btn-danger btn-icon float-right"
                 type="button"
+                title="Logout"
               >
                 <i class="zmdi zmdi-power"></i>
               </button>
               <button
-                v-if="buttonAdd"
+                v-if="buttonAdd === 'product'"
                 @click.prevent="showAddProduct"
                 class="btn btn-success btn-icon float-right"
                 type="button"
+                title="Add New Product"
+              >
+                <i class="zmdi zmdi-plus"></i>
+              </button>
+              <button
+                v-if="buttonAdd === 'banner'"
+                @click.prevent="showAddProduct"
+                class="btn btn-success btn-icon float-right"
+                type="button"
+                title="Add New Banner"
               >
                 <i class="zmdi zmdi-plus"></i>
               </button>
@@ -80,7 +91,7 @@ export default {
 
   data () {
     return {
-      buttonAdd: false,
+      buttonAdd: '',
       showModal: false,
       loading: false
     }
@@ -105,9 +116,11 @@ export default {
 
     showButton () {
       if (this.$route.name === 'Product') {
-        this.buttonAdd = true
+        this.buttonAdd = 'product'
+      } else if (this.$route.name === 'Banner') {
+        this.buttonAdd = 'banner'
       } else {
-        this.buttonAdd = false
+        this.buttonAdd = ''
       }
     },
 
