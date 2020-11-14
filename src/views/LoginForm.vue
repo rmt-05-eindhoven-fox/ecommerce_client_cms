@@ -51,6 +51,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Exo:100,200,400");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300");
 @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+
 * {
   margin: 0;
   padding: 0;
