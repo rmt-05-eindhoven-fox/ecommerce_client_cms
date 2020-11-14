@@ -40,9 +40,6 @@ export default {
       localStorage.clear()
       this.$router.push('Login')
     },
-    toProduct () {
-      this.$router.push('Product')
-    },
     changePage (payload) {
       this.page = payload
     }
