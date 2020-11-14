@@ -1,23 +1,34 @@
 <template>
-  <form>
-      <div class="form-group text-left">
-      <label for="productname">Product Name</label>
-      <input v-model="name" type="text" class="form-control" id="productname" placeholder="Enter Product Name">
-      </div>
-      <div class="form-group text-left">
-      <label for="productimage">Image</label>
-      <input v-model="image_url" type="type" class="form-control" id="productimage" placeholder="Product Image">
-      </div>
-      <div class="form-group text-left">
-      <label for="price">Price</label>
-      <input v-model="price" type="number" class="form-control" id="price" placeholder="Rp.">
-      </div>
-      <div class="form-group text-left">
-      <label for="stock">Stock</label>
-      <input v-model="stock" type="number" class="form-control" id="stock" placeholder="Stock">
-      </div>
-      <button @click.prevent="addProduct" type="submit" class="btn btn-warning btn-block">Submit</button>
-  </form>
+  <div class="products p-4 mt-3">
+    <h4 class="pt-3 text-left font-weight-bold">
+      Add Product
+      <transition name="fade">
+        <b-button @click="showProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
+        Back
+        </b-button>
+      </transition>
+    </h4>
+    <hr>
+    <form>
+        <div class="form-group text-left">
+        <label for="productname">Product Name</label>
+        <input v-model="name" type="text" class="form-control" id="productname" placeholder="Enter Product Name">
+        </div>
+        <div class="form-group text-left">
+        <label for="productimage">Image</label>
+        <input v-model="image_url" type="type" class="form-control" id="productimage" placeholder="Product Image">
+        </div>
+        <div class="form-group text-left">
+        <label for="price">Price</label>
+        <input v-model="price" type="number" class="form-control" id="price" placeholder="Rp.">
+        </div>
+        <div class="form-group text-left">
+        <label for="stock">Stock</label>
+        <input v-model="stock" type="number" class="form-control" id="stock" placeholder="Stock">
+        </div>
+        <button @click.prevent="addProduct" type="submit" class="btn btn-warning btn-block">Submit</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -32,6 +43,9 @@ export default {
     }
   },
   methods: {
+    showProducts () {
+      this.$emit('showProducts')
+    },
     addProduct () {
       const accessToken = localStorage.getItem('access_token')
       const payload = {

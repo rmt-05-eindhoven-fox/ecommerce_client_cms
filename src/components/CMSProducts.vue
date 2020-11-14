@@ -1,29 +1,19 @@
 <template>
   <div>
-      <div class="row mt-2 no-gutters">
+      <div class="row no-gutters">
         <div class="col-md-2 bg-light" style="height: 1000px;">
-          <b-list-group class="list-group list-group-flush pt-2 p-2" style="text-align: left;">
-            <b-list-group-item @click="increment" style="border-radius: 50px;" class="bg-warning mb-2"><font-awesome-icon :icon="['fas', 'tachometer-alt']" size="1x" /> Dashboard</b-list-group-item>
+          <b-list-group class="list-group list-group-flush pt-2 p-2 mt-3" style="text-align: left;">
+            <b-list-group-item style="border-radius: 50px;" class="bg-warning mb-2"><font-awesome-icon :icon="['fas', 'tachometer-alt']" size="1x" /> Dashboard</b-list-group-item>
             <b-list-group-item style="border-radius: 50px;" class="bg-warning mb-2"><font-awesome-icon :icon="['fas', 'archive']" size="1x" /> Products</b-list-group-item>
             <b-list-group-item style="border-radius: 50px;" class="bg-warning mb-2"><font-awesome-icon :icon="['fas', 'list']" size="1x" /> Categories</b-list-group-item>
           </b-list-group>
         </div>
         <div class="col-md-10 pt-2 pl-5 pr-5 product-body">
-          <div class="products p-4 mt-3">
-            <h4 class="pt-3 text-left font-weight-bold">
-              Products
-                <b-button @click="showAddProduct" v-if="displayProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="warning">
-                Create New <font-awesome-icon :icon="['fas', 'plus-square']" />
-                </b-button>
-                <b-button @click="showProducts" v-if="!displayProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
-                Back
-                </b-button>
-              </h4>
-            <hr>
-            <AddProduct @onsubmit="showProducts" v-if="displayAdd" />
-            <ProductList @showEditProduct="showEditProduct" v-if="displayProducts" />
-            <EditProduct @onsubmit="showProducts" v-if="displayEdit" />
-          </div>
+          <transition name="fade">
+            <AddProduct @showProducts="showProducts" @onsubmit="showProducts" v-if="displayAdd" />
+            <ProductList @displayAdd="showAddProduct" @showEditProduct="showEditProduct" v-if="displayProducts" />
+            <EditProduct @showProducts="showProducts" @onsubmit="showProducts" v-if="displayEdit" />
+          </transition>
         </div>
       </div>
   </div>
@@ -73,12 +63,6 @@ export default {
       this.displayAdd = false
       this.displayProducts = false
       this.displayEdit = true
-    },
-    increment () {
-      this.$store.commit('increment')
-      console.log(this.$store.state.count)
-    },
-    editProduct () {
     }
   },
   components: {
@@ -97,6 +81,11 @@ export default {
 
   body {
      background-color: #ffffff;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    opacity: 0;
+    transition: opacity .5s;
   }
 
   table {
