@@ -1,6 +1,9 @@
 <template>
     <div class="d-flex flex-column bg-secondary shadow-lg" v-b-hover="sidebarRoute" style="justify-content: space-evenly; height: 100vh;">
-      <p class="h5 mt-0" v-if="sidebarLink" style="align-self: flex-start">E-commerce Content Management System</p>
+      <div style="position: absolute; top: 0vh; width: 11%;" class="">
+        <p class="mt-0 mb-0 text-light" v-if="sidebarLink" style="font-size: 12px;">E-commerce Content Management System</p>
+        <p class="mt-0 text-monospace text-light" v-if="sidebarLink" style="font-size: 11px;"><small>Agung Setya Pratama</small></p>
+      </div>
 
       <b-button href="#" size="sm" class="d-flex text-decoration-none bg-dark w-100 rounded shadow-lg p-1" @click="dashboard">
         <b-icon class="" variant="light" icon="shop" style="height: 2em; width: 2em;">
@@ -17,7 +20,7 @@
         <b-collapse id="collapse-1" v-model="productLink" class="mt-1" style="width: 100%;">
           <b-list-group>
             <b-list-group-item to="/products" variant="dark">Products List</b-list-group-item>
-            <b-list-group-item to="#" variant="dark">Add Product</b-list-group-item>
+            <b-list-group-item to="/add/product" variant="dark">Add Product</b-list-group-item>
           </b-list-group>
         </b-collapse>
       </div>

@@ -41,7 +41,7 @@
       :hide-footer="true"
       :id="'confirm'+product.id"
     >
-      <div class="h4 text-center m-2">Are you sure want to delete product with name {{ product.name }}?</div>
+      <div class="h4 text-center m-2">Are you sure want to delete product with name "{{ product.name }}"?</div>
       <div class="row mt-5" style="justify-content: space-around">
         <b-button class="btn-dark" @click="$bvModal.hide('confirm'+product.id)">Cancel</b-button>
         <b-button class="btn-danger" @click="delProduct(product.id)">Confirm</b-button>

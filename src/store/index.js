@@ -14,7 +14,8 @@ export default new Vuex.Store({
   mutations: {
     error (state, data) {
       state.error = true
-      state.errorMessage = [data]
+      if (typeof (data) === 'string') state.errorMessage = [data]
+      else state.errorMessage = data
     },
     hideError (state) {
       state.error = false
@@ -40,8 +41,22 @@ export default new Vuex.Store({
           route.push('/dashboard')
         })
         .catch(err => {
-          context.commit('error', err.response.data.msg)
+          context.commit('error', [err.response.data.msg])
         })
+    },
+    addProduct (context, data) {
+      const headers = { access_token: localStorage.getItem('access_token') }
+      axios({
+        url: '/products',
+        headers,
+        data,
+        method: 'post'
+      }).then(({ data, status }) => {
+        alert(JSON.stringify(data))
+        route.push('/products')
+      }).catch(({ response }) => {
+        context.commit('error', response.data.msg)
+      })
     },
     products (context) {
       const headers = { access_token: localStorage.getItem('access_token') }
@@ -67,14 +82,13 @@ export default new Vuex.Store({
       const { id, name, category, stock, price } = data
       const imageUrl = data.image_url
       const headers = { access_token: localStorage.getItem('access_token') }
-      alert(JSON.stringify(headers))
       axios({
         url: '/products/' + id,
         headers,
         data: { image_url: imageUrl, name, category, stock, price },
         method: 'patch'
       }).then(({ data, status }) => {
-        alert(data)
+        route.push({ name: 'Product list' })
       }).catch(err => {
         context.commit('error', err.response.data.msg)
       })

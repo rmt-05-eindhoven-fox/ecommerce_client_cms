@@ -5,6 +5,7 @@ import Login from '@/views/Login.vue'
 import Products from '@/components/Products.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import EditProduct from '@/components/EditProduct.vue'
+import AddProduct from '@/components/AddProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -25,7 +26,12 @@ const routes = [
         component: Products
       },
       {
-        path: '/:id/product',
+        path: 'add/product',
+        name: 'Add product',
+        component: AddProduct
+      },
+      {
+        path: ':id/product',
         name: 'Edit Product',
         component: EditProduct
       },
@@ -36,14 +42,14 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
+  // {
+  //   path: '/about',
+  //   name: 'About',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // },
   {
     path: '/login',
     name: 'Login',
