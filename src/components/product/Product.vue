@@ -138,7 +138,10 @@ export default {
     },
 
     getCategory (category) {
-      return (category !== null) ? category.name : 'No Category'
+      if (category) {
+        return category.name
+      }
+      return 'No categories'
     },
 
     isDisplayModal (params) {

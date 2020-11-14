@@ -115,7 +115,7 @@ export default new Vuex.Store({
             access_token: localStorage.getItem('access_token')
           }
         })
-        const { categories } = data
+        const { categories } = data || [{ name: 'No many categories', id: '' }]
         context.commit('setCategories', categories)
         return
       } catch (error) {

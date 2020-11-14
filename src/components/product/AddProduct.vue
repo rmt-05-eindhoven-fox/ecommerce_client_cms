@@ -21,7 +21,7 @@
                 </h6>
               </div>
 
-              <div v-if="messageInfo.length > 0" class="alert alert-danger alert-dismissible fade show m-3 p-1">
+              <div v-if="showError" class="alert alert-danger alert-dismissible fade show m-3 p-1">
                 <ul class="m-b-0">
                   <li v-for="(msg, i) in messageInfo" :key="i" class="p-l-1 m-b-0">{{ msg.error }}</li>
                 </ul>
@@ -142,7 +142,8 @@ export default {
       prodPrice: '',
       prodStock: '',
       productCategory: '',
-      messageInfo: []
+      messageInfo: [],
+      showError: false
     }
   },
 
@@ -180,6 +181,7 @@ export default {
         if (error.response) {
           msg = error.response.data.message
         }
+        this.showError = true
         this.messageInfo = msg
       } finally {
         this.loading = false
@@ -195,6 +197,7 @@ export default {
     },
 
     clearForm () {
+      this.showError = false
       this.prodName = ''
       this.prodImgURL = ''
       this.prodPrice = ''
