@@ -63,7 +63,7 @@ export default {
 
   .login-card {
     margin-right: 180px;
-    background-color: #E8ECF8;
+    background-color: #FFFFFF;
     border: 5px solid #e2e2e2;
   }
 
