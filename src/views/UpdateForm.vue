@@ -2,7 +2,7 @@
   <div>
     <Sidebar />
     <div class="product-form">
-      <div class="page-title">
+      <div class="page-title col-12">
         <h1>Update Product</h1>
         <p>Update selected product</p>
       </div>
@@ -52,8 +52,8 @@
               autocomplete="off"
             />
           </div>
-          <button class="btn btn-custom">Update Product</button>
-          <button type="button" class="btn btn-dark ml-2" @click="backToDash">
+          <button type="submit" class="btn btn-custom">Update Product</button>
+          <button type="button" class="btn btn-dark" @click="backToDash">
             Cancel
           </button>
         </form>
@@ -66,7 +66,7 @@
 import Sidebar from '@/components/Sidebar.vue'
 import SuccessMsg from '@/components/SuccessMsg.vue'
 import ErrorMsg from '@/components/ErrorMsg.vue'
-// import axios from '@/axios/axios.js'
+import axios from '@/axios/axios.js'
 export default {
   name: 'UpdateProduct',
   components: {
@@ -76,6 +76,7 @@ export default {
   },
   data () {
     return {
+      products: [],
       name: '',
       image_url: '',
       price: '',
@@ -89,7 +90,62 @@ export default {
   methods: {
     backToDash () {
       this.$router.push('/dashboard')
+    },
+    getProductById () {
+      const id = this.$route.params.id
+      const token = localStorage.getItem('token')
+      axios({
+        url: `/product/${id}`,
+        method: 'get',
+        headers: {
+          token
+        }
+      })
+        .then(({ data }) => {
+          this.name = data.name
+          this.image_url = data.image_url
+          this.stock = data.stock
+          this.price = data.price
+          this.products.push(data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    updateProduct () {
+      const id = this.$route.params.id
+      const token = localStorage.getItem('token')
+      axios({
+        url: `product/${id}`,
+        method: 'put',
+        data: {
+          name: this.name,
+          image_url: this.image_url,
+          stock: this.stock,
+          price: this.price
+        },
+        headers: {
+          token
+        }
+      })
+        .then(({ data }) => {
+          this.isSuccess = true
+          this.isError = false
+          this.successMsg = data.message
+          this.name = ''
+          this.image_url = ''
+          this.stock = ''
+          this.price = ''
+        })
+        .catch(err => {
+          this.isError = true
+          this.isSuccess = false
+          this.errorMsg = err.response.data.message
+        })
     }
+  },
+  created () {
+    this.getProductById()
   }
 }
 </script>

@@ -13,6 +13,14 @@ export default {
     LoginCard
   },
   methods: {
+  },
+  beforeRouteEnter (to, from, next) {
+    const token = localStorage.getItem('token')
+    if (token) {
+      next('/dashboard')
+    } else {
+      next()
+    }
   }
 }
 </script>

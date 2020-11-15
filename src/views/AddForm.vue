@@ -1,7 +1,7 @@
 <template>
   <div>
     <Sidebar />
-    <div class="product-form">
+    <div class="product-form col-12">
       <div class="page-title">
         <h1>Add Product</h1>
         <p>Add new product</p>
