@@ -96,6 +96,6 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 40px;
+  width: 40%;
 }
 </style>
