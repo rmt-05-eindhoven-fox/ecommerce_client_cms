@@ -2,6 +2,9 @@
   <div class="card-login">
     <div class="card">
       <div class="card-body">
+        <h1 class="text-center text-muted">
+          <i class="fa fa-lock"></i>
+        </h1>
         <h3>CMS E-commerce</h3>
         <small id="emailHelp" class="form-text text-center text-muted mb-2"
           >Login with admin account to access CMS</small
