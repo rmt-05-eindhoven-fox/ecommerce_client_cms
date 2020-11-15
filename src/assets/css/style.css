@@ -132,5 +132,9 @@
   background-color: #191961;
   color: #ffffff;
 }
+.product-form .btn-dark {
+  border-radius: 8px;
+  margin-left: 10px;
+}
 
 /*# sourceMappingURL=style.css.map */

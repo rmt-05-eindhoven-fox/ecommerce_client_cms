@@ -31,7 +31,6 @@ export default {
       this.$emit('deleteProduct', id)
     },
     updateProduct (id) {
-      console.log(id)
       this.$router.push(`/edit-product/${id}`)
     }
   },
