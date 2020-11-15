@@ -6,10 +6,10 @@
       <div style="color: black">Edit Product</div>
     </div>
       <div class="editForm">
-        <input type="text" v-model="dataProduct.name" placeholder="name"><br>
-        <input type="text" v-model="dataProduct.image_url" placeholder="imager_Url"><br>
-        <input type="number" v-model="dataProduct.price" placeholder="Price" ><br>
-        <input type="number" v-model="dataProduct.stock" placeholder="Stock"><br>
+        name<input type="text" v-model="dataProduct.name" placeholder="name"><br>
+        image<input type="text" v-model="dataProduct.image_url" placeholder="imager_Url"><br>
+        price<input type="number" v-model="dataProduct.price" placeholder="Price" ><br>
+        stock<input type="number" v-model="dataProduct.stock" placeholder="Stock"><br>
         <input type="submit" value="SUBMIT">
       </div>
     </form>
