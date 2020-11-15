@@ -86,6 +86,8 @@ export default {
   },
   methods: {
     addProduct () {
+      this.isSuccess = false
+      this.isError = false
       const token = localStorage.getItem('token')
       axios({
         url: '/product',

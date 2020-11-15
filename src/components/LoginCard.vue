@@ -67,6 +67,7 @@ export default {
   methods: {
     userLogin () {
       this.isLoad = true
+      this.isError = false
       axios({
         url: '/login',
         method: 'post',

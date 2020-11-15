@@ -113,6 +113,8 @@ export default {
         })
     },
     updateProduct () {
+      this.isSuccess = false
+      this.isError = false
       const id = this.$route.params.id
       const token = localStorage.getItem('token')
       axios({
