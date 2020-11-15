@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Account from '../views/Account.vue';
-import AdminRegister from '../views/AdminRegister.vue';
-import AdminPage from '../views/AdminPage.vue';
-import AdminView from '../views/AdminView.vue';
-import MainPage from '../views/MainPage.vue';
-import ErrorPage from '../views/ErrorPage.vue';
-import cardDetail from '../components/cardDetail.vue';
+import Login from '../views/Login.vue'
+import List from '../views/List.vue'
+import Product from '../components/Product.vue'
+import AddProduct from '../views/AddProduct.vue'
+import DeleteProduct from '../components/DeleteProduct.vue'
+import DetailProduct from '../components/ProductDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -16,71 +15,58 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    children: [
-      {
-        path: '',
-        name: 'MainPage',
-        component: MainPage
-      },
-   
-      {
-        path: 'product/:id',
-        name: 'cardDetail',
-        component: cardDetail
-      },
-    ]
   },
   {
-    path: '/account',
-    name: 'account',
-    component: Account,
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
   {
-    path: '/adminRegister',
-    name: 'adminRegister',
-    component: AdminRegister,
+    path: '/addProduct',
+    name: 'AddProduct',
+    component: AddProduct,
   },
   {
-    path: '/seller',
-    name: 'adminView',
-    component: AdminView,
-    meta: { requiresAuth: true },
-    children: [
-      {
-        path: '',
-        name: 'AdminPage',
-        component: AdminPage
-      },
-      {
-        path: 'transaction',
-        name: 'tableeTransaction',
-        component: tableTransaction
-      }
-    ]
+    path: '/list/ProductDelete/:id',
+    name: 'DeleteProduct',
+    component: DeleteProduct,
   },
   {
-    path: '*',
-    name: 'ErrorPage',
-    component: ErrorPage
-  }
+    path: '/list/ProductDetail/:id',
+    name: 'DetailProduct',
+    component: DetailProduct,
+  },
+  {
+    path: '/list',
+    name: 'List',
+    component: List,
+  },
+  {
+    path: '/product',
+    name: 'Product',
+    component: Product,
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!localStorage.getItem('token') || localStorage.getItem('role') === "customer") {
-      router.push('/adminRegister')
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
+  if (to.name !== 'Login' && !localStorage.access_token) next({ name: 'Login' })
+  else next();
+})
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Login' && localStorage.access_token) next({ name: 'List' })
+  else next()
 })
 
 export default router
+
