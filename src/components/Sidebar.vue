@@ -22,6 +22,11 @@
           <i class="fa fa-plus"></i> Add Products
         </router-link>
       </li>
+      <li class="nav-item">
+        <a to="/add-banner" class="nav-link text-muted" aria-disabled="true">
+          <i class="fa fa-plus"></i> Add Banner
+        </a>
+      </li>
       <li class="nav-item mt-5">
         <a class="nav-link logout" href="" @click.prevent="logOut"
           ><i class="fa fa-power-off"></i> Logout
