@@ -15,11 +15,9 @@ Vue.use(vSelectMenu, {
 })
 
 Vue.use(VueToastify, {
-  customNotifications: {
-    err: {
-      canTimeout: false
-    }
-  }
+  errorDuration: 4000,
+  successDuration: 2000,
+  canPause: false
 })
 
 new Vue({

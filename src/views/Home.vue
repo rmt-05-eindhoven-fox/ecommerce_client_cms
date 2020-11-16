@@ -12,7 +12,9 @@
       </a>
     </li> -->
     <li>
-      <a href="#">
+      <a 
+      @click.prevent="goToHome"
+      href="#">
         <i class="fas fa-tachometer-alt" aria-hidden="true"></i> Dashboard
       </a>
     </li>
@@ -28,12 +30,14 @@
       <a href="#">
         <i class="fa fa-cog" aria-hidden="true"></i> Settings
       </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Information
-      </a>
     </li> -->
+    <li>
+      <a 
+      @click.prevent="goToBanners"
+      href="#">
+        <i class="fab fa-font-awesome-flag" aria-hidden="true"></i> Banners
+      </a>
+    </li>
   </ul>
   <div class="card bg-light w-75 ml-4 mt-4">
     <div class="card-body text-dark d-flex flex-column align-items-center">
@@ -61,10 +65,10 @@
   <h1 class="display-4">We're sorry</h1>
   <p class="lead">This page is under construction.</p>
   <hr class="my-4">
-  <p>Click products on the sidebar to see our available content.</p>
+  <p>Click products or banners on the sidebar to see our available content.</p>
     </div>
     <div class="col-6 d-flex justify-content-center">
-  <img class="img-fluid w-50" src="../assets/under-construction.jpg" alt="under-construction">
+  <img class="img-responsive w-75" src="../assets/under-construction.jpg" alt="under-construction">
     </div>
 </div>
   </div>
@@ -80,6 +84,12 @@ export default {
   methods: {
     goToProducts () {
       this.$router.push('/home/products')
+    },
+    goToBanners () {
+      this.$router.push('/home/banners')
+    },
+    goToHome () {
+      this.$router.push('/home')
     },
     logout () {
       this.$vToastify.prompt({

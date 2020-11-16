@@ -13,8 +13,10 @@ export default new Vuex.Store({
       role: localStorage.role
     },
     products: [],
+    banners: [],
     categories: [],
-    productsHeader: 'visible'
+    productsHeader: 'visible',
+    bannersHeader: 'visible'
   },
   mutations: {
     setUserDetail (state, payload) {
@@ -27,6 +29,9 @@ export default new Vuex.Store({
     setProducts (state, payload) {
       state.products = payload
     },
+    setBanners (state, payload) {
+      state.banners = payload
+    },
     setCategories (state, payload) {
       state.categories = payload
     },
@@ -38,6 +43,18 @@ export default new Vuex.Store({
     },
     filterDeleteProduct (state, payload) {
       state.products = state.products.filter(product => product.id !== payload)
+    },
+    pushBanners (state, payload) {
+      state.banners.push(payload)
+    },
+    spliceEditBanner (state, payload) {
+      state.banners.splice(state.banners.findIndex(banner => banner.id === payload.id), 1, payload)
+    },
+    filterDeleteBanner (state, payload) {
+      state.banners = state.banners.filter(banner => banner.id !== payload)
+    },
+    setBannersHeader (state, payload) {
+      state.bannersHeader = payload
     }
   },
   actions: {
@@ -52,6 +69,17 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('setProducts', data)
+        })
+        .catch(err => console.log(err))
+    },
+    fetchAllBanners (context) {
+      axios.get('/banners', {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('setBanners', data)
         })
         .catch(err => console.log(err))
     },
@@ -93,6 +121,34 @@ export default new Vuex.Store({
           access_token: localStorage.access_token
         }
       })
+    },
+    fetchBannerById (context, payload) {
+      return axios.get(`/banners/${payload}`, {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+    },
+    addBanner (context, payload) {
+      return axios.post('/banners', payload, {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+    },
+    editBanner (context, payload) {
+      return axios.put(`/banners/${payload.id}`, payload, {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+    },
+    deleteBanner (context, payload) {
+      return axios.delete(`/banners/${payload}`, {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
     }
   },
   modules: {
@@ -107,6 +163,10 @@ export default new Vuex.Store({
     getProductsByCategoryId: (state) => (id) => {
       if (!id) return state.products
       else return state.products.filter(product => product.CategoryId === +id)
+    },
+    getBannersByCategoryId: (state) => (id) => {
+      if (!id) return state.banners
+      else return state.banners.filter(banner => banner.CategoryId === +id)
     }
   }
 })
