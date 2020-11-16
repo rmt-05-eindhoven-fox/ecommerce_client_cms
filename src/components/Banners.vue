@@ -19,7 +19,7 @@
       </button>
   </div>
   <div class="container-fluid pt-5">
-    <table 
+    <table
     v-if="this.$route.path === '/home/banners'"
     class="table table-borderless table-striped table-hover">
     <tbody>

@@ -12,7 +12,7 @@
       </a>
     </li> -->
     <li>
-      <a 
+      <a
       @click.prevent="goToHome"
       href="#">
         <i class="fas fa-tachometer-alt" aria-hidden="true"></i> Dashboard
@@ -32,7 +32,7 @@
       </a>
     </li> -->
     <li>
-      <a 
+      <a
       @click.prevent="goToBanners"
       href="#">
         <i class="fab fa-font-awesome-flag" aria-hidden="true"></i> Banners
@@ -83,13 +83,13 @@ export default {
   name: 'Home',
   methods: {
     goToProducts () {
-      this.$router.push('/home/products')
+      this.$router.push('/home/products', () => {})
     },
     goToBanners () {
-      this.$router.push('/home/banners')
+      this.$router.push('/home/banners', () => {})
     },
     goToHome () {
-      this.$router.push('/home')
+      this.$router.push('/home', () => {})
     },
     logout () {
       this.$vToastify.prompt({

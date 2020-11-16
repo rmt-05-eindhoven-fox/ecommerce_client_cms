@@ -16,13 +16,13 @@
     <div class="col-md-12 d-flex justify-content-end">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="status btn btn-outline-success mx-2" :class="form.status ? `active`:``">
-        <input 
+        <input
         v-model="form.status"
         :value="true"
         type="radio" name="status" id="true" autocomplete="off" > Active
         </label>
         <label class="status btn btn-outline-danger mx-2" :class="!form.status ? `active`:``">
-        <input 
+        <input
         v-model="form.status"
         :value="false"
         type="radio" name="status" id="false" autocomplete="off"> Inactive
