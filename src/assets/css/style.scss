@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0
+}
+
+
+.login-page {
+  min-height: 100vh;
+  background-color: #333399;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto Mono',
+    monospace;
+}
+
+.card-login {
+  margin-left: auto;
+  margin-right: auto;
+
+
+  .card {
+    width: 300px;
+    border-radius: 10px;
+  }
+
+  h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #989797;
+  }
+
+  form input {
+    border: 1px solid #000000;
+  }
+
+  .btn {
+    background-color: #333399;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #191961;
+      color: #ffffff;
+    }
+  }
+}
+
+.sidebar-sticky {
+  background-color: #333399;
+  max-width: 200px;
+  min-height: 100vh;
+  font-family: "Roboto Mono",
+    monospace;
+  font-weight: 300;
+  position: fixed;
+
+  .user-login {
+    padding: 10px;
+    color: #ffffff;
+    font-size: 24px;
+  }
+
+  .nav {
+    margin-top: 50px;
+
+    a {
+      color: #ffffff;
+
+
+      &:hover {
+        background-color: #191961;
+      }
+    }
+
+    .logout {
+      color: #ffffff;
+
+      &:hover {
+        background-color: #ff0000;
+      }
+    }
+
+  }
+}
+
+
+.dashboard {
+  display: flex;
+
+  .main-dash {
+    font-family: "Roboto Mono",
+      monospace;
+    font-weight: 300;
+    margin-top: 59px;
+    margin-left: 311px;
+    min-height: 50vh;
+
+
+    .page-title {
+      margin-bottom: 50px;
+
+      h1 {
+        font-size: 48px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .list-product {
+
+
+    .card {
+      width: 320px;
+      border: 1px solid #000000;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      // margin-right: 150px;
+
+
+      .card-body {
+
+        img {
+          width: 100%;
+          height: 280px;
+          border: 1px solid #000000
+        }
+
+        .product-title {
+          font-size: 16px;
+          font-weight: bold;
+          height: 50px;
+        }
+      }
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+  }
+}
+
+.product-form {
+  font-family: "Roboto Mono",
+    monospace;
+  font-weight: 300;
+  padding-top: 50px;
+  padding-left: 95px;
+  margin-left: 200px;
+
+  input {
+    width: 500px;
+    border: #000000 1px solid;
+    border-radius: 8px
+  }
+
+  .page-title {
+    margin-bottom: 50px;
+    margin-left: 10px;
+
+    h1 {
+      font-size: 48px;
+      font-weight: bold;
+    }
+  }
+
+  .btn-custom {
+    background-color: #333399;
+    color: #ffffff;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #191961;
+      color: #ffffff;
+    }
+  }
+
+  .btn-dark {
+    border-radius: 8px;
+    margin-left: 10px;
+  }
+}
