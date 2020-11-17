@@ -10,12 +10,12 @@
         <input type="password" class="form-control" id="login-password">
     </div>
     <button type="submit" class="btn btn-primary">Go</button>
-    </form>    
+    </form>
 </template>
 
 <script>
 export default {
-  
+
 }
 </script>
 
