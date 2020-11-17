@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-sticky pt-3 sb">
     <div class="user-login">
-      <h1 class="mb-5"><i class="fa fa-laptop"></i> CMS</h1>
+      <h1 class="mb-5"><i class="fa fa-laptop"></i> {{ appName }}</h1>
       <p>
         Welcome,<br /><strong>{{ loggedInUser }}</strong>
       </p>
@@ -49,6 +49,11 @@ export default {
     logOut () {
       localStorage.clear()
       this.$router.push('/')
+    }
+  },
+  computed: {
+    appName () {
+      return this.$store.state.app
     }
   }
 }

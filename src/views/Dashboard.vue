@@ -9,7 +9,7 @@
         <p>Recently added product</p>
       </div>
       <SuccessMsg v-if="isShow" :successMsg="successMsg" />
-      <h3 class="text-center text-muted" v-if="!isLoad">Please Wait....</h3>
+      <h3 class="text-center text-muted" v-if="!doneLoad">Please Wait....</h3>
       <div class="row list-product">
         <!-- PRODUCT CARD -->
         <ProductCard
@@ -27,7 +27,6 @@
 import SuccessMsg from '@/components/SuccessMsg.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import Sidebar from '@/components/Sidebar.vue'
-import axios from '@/axios/axios.js'
 export default {
   name: 'Dashboard',
   components: {
@@ -38,40 +37,27 @@ export default {
   data () {
     return {
       isShow: false,
-      products: [],
-      isLoad: false,
       successMsg: ''
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    },
+    doneLoad () {
+      return this.$store.state.isLoad
     }
   },
   methods: {
     getProduct () {
-      const token = localStorage.getItem('token')
-      axios({
-        url: '/product',
-        method: 'get',
-        headers: {
-          token
-        }
-      })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
-        .finally(() => {
-          this.isLoad = true
-        })
+      this.$store.dispatch('getProduct')
     },
     deleteProduct (id) {
-      const token = localStorage.getItem('token')
-      axios({
-        url: `/product/${id}`,
-        method: 'delete',
-        headers: {
-          token
-        }
-      })
+      const payload = {
+        token: localStorage.getItem('token'),
+        id
+      }
+      this.$store.dispatch('deleteProduct', payload)
         .then(({ data }) => {
           this.successMsg = data.message
           this.isShow = true

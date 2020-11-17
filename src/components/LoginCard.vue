@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import axios from '../axios/axios.js'
 import ErrorMsg from '@/components/ErrorMsg.vue'
 export default {
   name: 'LoginCard',
@@ -71,14 +70,11 @@ export default {
     userLogin () {
       this.isLoad = true
       this.isError = false
-      axios({
-        url: '/login',
-        method: 'post',
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
+      const payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('userLogin', payload)
         .then(({ data }) => {
           localStorage.setItem('token', data.access_token)
           localStorage.setItem('full_name', data.full_name)
