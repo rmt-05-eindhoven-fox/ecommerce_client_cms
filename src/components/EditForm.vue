@@ -76,13 +76,6 @@ export default {
       }
 
       this.$store.dispatch('editProduct', payload)
-        .then(() => {
-          this.$store.dispatch('fetchAllProducts')
-          this.$router.push({ name: 'Home' })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     }
   },
   created () {

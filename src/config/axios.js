@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/'
+  baseURL: 'https://limitless-falls-19883.herokuapp.com/'
 })
-
 export default instance

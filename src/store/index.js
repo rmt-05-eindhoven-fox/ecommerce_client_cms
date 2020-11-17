@@ -83,8 +83,8 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
-          // this.$store.dispatch('fetchAllProducts')
-          // this.$router.push({ name: 'Home' })
+          this.$store.dispatch('fetchAllProducts')
+          this.router.push({ name: 'Home' })
         })
         .catch(err => {
           const error = { error: err.response.data.error }
