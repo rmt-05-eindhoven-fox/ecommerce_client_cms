@@ -1,15 +1,14 @@
 <template>
     <div class="list-products">
-        <h1>{{ msg }}</h1><br><br>
         <div class="container">
             <div class="row">
                 <div class="col-sm">
                     <div class="card" style="width: 18rem;">
-                    <img src="https://ygoprodeck.com/pics/62873545.jpg" class="card-img-top" >
+                    <img :src="product.images_url" class="card-img-top" >
                     <div class="card-body">
-                        <h5 class="card-title">Dragon Master Knight</h5>
-                        <p class="card-text">Price : Rp. 100000</p>
-                        <p class="card-text">Stock : Available</p>
+                        <h5 class="card-title"><strong>{{ product.name }}</strong></h5>
+                        <p class="card-text">Price : Rp. {{ product.price }}</p>
+                        <p class="card-text">Stock : {{ product.stock }}</p>
                     </div>
                     <div class="card-body">
                         <a href="#" class="card-link">Edit</a>
@@ -23,36 +22,14 @@
 </template>
 
 <script>
-import axios from '../axios/axios'
-
 export default {
   name: 'ListProducts',
-  data () {
-    return {
-      cards: []
-    }
-  },
-  methods: {
-    fetchCards () {
-      axios
-        .get('/products')
-        .then(({ data }) => {
-          this.cards = data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  },
-  created () {
-    this.fetchCards()
-  },
-  props: {
-    msg: String
+  props: ['product'],
   }
-}
 </script>
 
 <style scoped>
-
+.container{
+    padding: 25px;
+}
 </style>

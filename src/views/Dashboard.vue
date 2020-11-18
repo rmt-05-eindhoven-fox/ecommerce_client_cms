@@ -1,6 +1,10 @@
 <template>
   <div class="dashboard">
-    <ListProducts msg="Cards Catalogue"/>
+    <h1 class="page-title">Dashboard</h1>
+      <div class="container">
+        <ListProducts v-for="product in $store.state.products.data" :key="product.id" :product="product"></ListProducts>
+      </div>
+      
   </div>
 </template>
 
@@ -12,6 +16,18 @@ export default {
   name: 'Dashboard',
   components: {
     ListProducts
+  },
+  created() {
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>
+
+<style scoped>
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+</style>
