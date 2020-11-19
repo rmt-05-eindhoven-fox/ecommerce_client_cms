@@ -4,9 +4,9 @@
       <label class="btn btn-secondary active">
          <router-link type="radio" to="/login">OrangeChenka</router-link>
       </label>
-      <!-- <label class="btn btn-secondary">
+      <label class="btn btn-secondary">
          <router-link type="radio" to="/register">Register</router-link>
-      </label> -->
+      </label>
     </div>
   </div>
 </template>
