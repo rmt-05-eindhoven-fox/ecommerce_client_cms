@@ -19,6 +19,15 @@
       <input v-model="image" type="type" class="form-control" id="productimage">
       </div>
       <div class="form-group text-left">
+      <label for="category">Category</label>
+      <select v-model="category" class="form-control">
+        <option value="SOFA & CHAIRS">SOFA & CHAIRS</option>
+        <option value="LAPTOP & COMPUTERS">LAPTOP & COMPUTERS</option>
+        <option value="APPLIANCES">APPLIANCES</option>
+        <option value="HOME ELECTRONICS">HOME ELECTRONICS</option>
+      </select>
+      </div>
+      <div class="form-group text-left">
       <label for="price">Price</label>
       <input v-model="price" type="number" class="form-control" id="price">
       </div>
@@ -50,6 +59,7 @@ export default {
         image_url: this.image,
         price: this.price,
         stock: this.stock,
+        category: this.category,
         accessToken
       }
       this.$store.dispatch('editProduct', payload)
@@ -92,6 +102,14 @@ export default {
       },
       set (newValue) {
         this.$store.state.stock = newValue
+      }
+    },
+    category: {
+      get () {
+        return this.$store.state.category
+      },
+      set (newValue) {
+        this.$store.state.category = newValue
       }
     }
   }

@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
     name: '',
     image_url: '',
     price: 0,
-    stock: 0
+    stock: 0,
+    category: ''
   },
   actions: {
     fetchProducts ({ commit, state }, accessToken) {
@@ -42,7 +43,8 @@ export const store = new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           price: payload.price,
-          stock: payload.stock
+          stock: payload.stock,
+          category: payload.category
         }
       })
         .then(response => {
@@ -92,7 +94,8 @@ export const store = new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           price: payload.price,
-          stock: payload.stock
+          stock: payload.stock,
+          category: payload.category
         }
       })
         .then(response => {
@@ -118,6 +121,7 @@ export const store = new Vuex.Store({
       state.image_url = payload.image_url
       state.price = payload.price
       state.stock = payload.stock
+      state.category = payload.category
     },
     LAST_PRODUCT (state, products) {
       const lastProduct = products[products.length - 1]
@@ -125,6 +129,7 @@ export const store = new Vuex.Store({
       state.image_url = lastProduct.image_url
       state.price = lastProduct.price
       state.stock = lastProduct.stock
+      state.category = lastProduct.category
     }
   }
 })
