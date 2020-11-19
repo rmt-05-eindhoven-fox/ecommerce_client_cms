@@ -1,59 +1,68 @@
 <template>
-  <div>
-  
-    <h1> ChocoChenka</h1>
-    <div class="d-flex mx-auto animated slideInDown" style="min-height: 100%">
-    <img src="../assets/store.gif"  alt="login-page" style="margin-left:600px; width:400px;height:400px;">
-       </div>
-    <form @submit.prevent="processLogin" >
-      <div class="container animated slideInDown" style="width: 30%">
-      <p class="text-danger"> {{this.$store.state.errMsg}}</p>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1"><i class="far fa-envelope"></i> Email address</span>
+  <div class="container">
+    <!-- <NavbarLogin/> -->
+     <Loading v-if="$store.state.loadingStatus"/>
+      <div class="row mt-5 animated slideInDown">
+          <div class="col-6 animated slideInDown">
+            <img src="../assets/store.gif" class="card-img-top" alt="Login Image">
           </div>
-          <input v-model="email" type="text" class="form-control" placeholder="Your email"
-          aria-label="Email" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i>  Password </span>
+          <div class="col-6 animated slideInDown">
+            <img src="../assets/b97dc288d71e7938c1ce8b7faacdc9ac.gif" class="card-img-top" alt="Login Image" style="width: 40%; height:auto;">
+            <form @submit.prevent ="login"
+              style="color:rgb(236 173 60);; font-weight: bold; font-size:1.2em;">
+                <div class="form-group row animated slideInDown">
+                    <label for="exampleInputEmail1" class="col-sm-2 col-form-label"><i class="far fa-envelope"></i> Email</label>
+                    <div class="col-sm-10">
+                    <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  placeholder="Your email">
+                    </div>
+                </div>
+                <div class="form-group row animated slideInDown">
+                    <label for="inputPassword" class="col-sm-2 col-form-label"><i class="fas fa-lock"></i>  Password</label>
+                    <div class="col-sm-10">
+                    <input type="password" v-model="password" class="form-control" id="inputPassword" placeholder="Your password">
+                    </div>
+                </div>
+                <div class="btn-group btn-group-toggle ml-5 mt-2" data-toggle="buttons">
+                    <button type="submit" class="btn btn-secondary" id="loginbtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                </div>
+
+            </form>
+
           </div>
-          <input v-model="password" type="password" class="form-control" placeholder="Your password"
-          aria-label="Password" aria-describedby="basic-addon1">
-        </div>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login </button>
       </div>
-      
-    </form>
-    <hr>
   </div>
 </template>
 
 <script>
+import Loading from '../components/Loading.vue'
 export default {
   name: 'Login',
-  data() {
+  components: {
+    Loading
+    // NavbarLogin
+  },
+  data () {
     return {
       email: '',
-      password: '',
+      password: ''
     }
   },
   methods: {
-    processLogin() {
-      const loginData = {
+    login () {
+      const payload = {
         email: this.email,
-        password: this.password,
+        password: this.password
       }
-      this.$store.dispatch('processLogin', loginData);
-    },
-  },
+      this.$store.dispatch('login', payload)
+    }
+  }
 }
 </script>
 
 <style>
-  h1{
-    font-family: 'Lobster', cursive;
-    font-size: 40pt;
-  }
+#loginbtn {
+  color: rgb(236 173 60);
+  font-weight: bold;
+  width: 200px;
+}
 </style>

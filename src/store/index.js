@@ -1,198 +1,194 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
-import router from '../router';
-
-Vue.use(Vuex);
+import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from '../config/axios.js'
+import router from '../router'
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 0,
+    company: 'hacktiv8',
     products: [],
-    selectedProduct: {},
-    showUpdateForm: false,
-    errMsg: '',
-    isLogin: false,
+    banners: [],
+    email: '',
+    selectedData: {},
+    role: localStorage.role,
+    user: localStorage.email,
+    name: '',
+    loadingStatus: false
   },
   mutations: {
-    SET_PRODUCTS(state, payload) {
-      state.products = payload;
+    setProducts (state, payload) {
+      state.products = payload
     },
-    SET_SELECTED_PRODUCT(state, payload) {
-      state.selectedProduct = payload;
-      console.log(this.state.selectedProduct, 'this.state.selectedProduct');
+    setUserEmail (state, email) {
+      state.email = email
     },
-    SHOW_FORM_UPDATE(state, id) {
-      state.showUpdateForm = true;
-      console.log('masuk show form update')
-      router.push({ path: `/list/ProductDetail/${id}` })
+    setSelectedData (state, payload) {
+      state.selectedData = payload
     },
-    INCREMENT(state) {
-      state.count += 1;
+    setCurrentPage (state, payload) {
+      state.currentPage = payload
     },
-    DELETE_PRODUCT(state, payload) {
-      state.products = state.products.filter((product) => product.id !== payload.id)
+    setBanners (state, payload) {
+      state.banners = payload
     },
-    BACK_HOME() {
-      router.push({ path: '/list' })
+    setName (state, payload) {
+      state.name = payload
     },
-    SET_ERRMSG(state, err) {
-      state.errMsg = err
-    },
-    RESET_ERRMSG(state) {
-      state.errMsg = ''
-    },
-    SET_ISLOGIN(state) {
-      state.isLogin = true
-    },
-    RESET_ISLOGIN(state) {
-      state.isLogin = false
-    },
+    setLoadingStatus (state, payload) {
+      state.loadingStatus = payload
+    }
   },
   actions: {
-    getProducts(context) {
+    fetchProducts ({ commit }) {
+      commit('setLoadingStatus', true)
       axios({
-        method: 'get',
-        url: 'https://ecommerce-chocochenka-joanne.herokuapp.com/products',
+        url: '/products',
+        method: 'GET',
         headers: {
-          access_token: localStorage.access_token,
-        },
+          access_token: localStorage.access_token
+        }
       })
-        .then((result) => {
-          console.log(result.data, 'result');
-          context.commit('SET_PRODUCTS', result.data)
-          context.commit('RESET_ERRMSG')
+        .then(({ data }) => {
+          commit('setProducts', data)
         })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          context.commit('SET_ERRMSG', err.response.data.message)
+        .finally(() => {
+          commit('setLoadingStatus', false)
         })
     },
-    getProductByPk(context, data) {
-      console.log('data.action', data.action)
+    deleteProduct ({ commit }, id) {
       axios({
-        method: 'get',
-        url: `https://ecommerce-chocochenka-joanne.herokuapp.com/products/${data.id}`,
-        headers: {
-          access_token: localStorage.access_token,
-        },
-      })
-        .then((result) => {
-          console.log(result.data);
-          context.commit('SET_SELECTED_PRODUCT', result.data)
-          if (data.action === 'update') {
-            console.log('masuk atas1')
-            router.push({ path: `/list/ProductDetail/${data.id}` })
-          } else {
-            console.log('masuk bawah');
-            router.push({ path: `/list/ProductDelete/${data.id}` })
-          }
-          context.commit('RESET_ERRMSG')
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          context.commit('SET_ERRMSG', err.response.data.message)
-        })
-    },
-    processLogin(context, loginData) {
-      console.log(context)
-      return axios({
-        method: 'POST',
-        url: 'https://ecommerce-chocochenka-joanne.herokuapp.com/login',
-        data: {
-          email: loginData.email,
-          password: loginData.password,
-        },
-      })
-        .then((result) => {
-          console.log(result.data)
-          localStorage.access_token = result.data.access_token
-          router.push({ name: 'List' })
-          context.commit('SET_ISLOGIN')
-          context.commit('RESET_ERRMSG')
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          context.commit('SET_ERRMSG', err.response.data.message)
-        })
-    },
-    processAddProduct(context, newData) {
-      console.log(context)
-      return axios({
-        method: 'POST',
-        url: 'https://ecommerce-chocochenka-joanne.herokuapp.com/products',
-        data: {
-          name: newData.name,
-          image_url: newData.image_url,
-          price: +newData.price,
-          stock: +newData.stock,
-        },
-        headers: {
-          access_token: localStorage.access_token,
-        },
-      })
-        .then((result) => {
-          console.log(result.data);
-          router.push({ name: 'List' })
-          context.commit('RESET_ERRMSG')
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          context.commit('SET_ERRMSG', err.response.data.message)
-        })
-    },
-    processUpdateProduct(context, updatedData) {
-      console.log(updatedData, 'updatedData')
-      return axios({
-        method: 'put',
-        url: `https://ecommerce-chocochenka-joanne.herokuapp.com/products/${updatedData.id}`,
-        data: {
-          name: updatedData.name,
-          image_url: updatedData.image_url,
-          price: +updatedData.price,
-          stock: +updatedData.stock,
-        },
-        headers: {
-          access_token: localStorage.access_token,
-        },
-      })
-        .then((result) => {
-          console.log(result, 'result.data')
-          router.push({ name: 'List' })
-          context.commit('RESET_ERRMSG')
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          context.commit('SET_ERRMSG', err.response.data.message)
-        })
-    },
-    processDeleteProduct(context, id) {
-      console.log(context)
-      return axios({
+        url: `/products/${id}`,
         method: 'DELETE',
-        url: `https://ecommerce-chocochenka-joanne.herokuapp.com/products/${id}`,
         headers: {
-          access_token: localStorage.access_token,
-        },
+          access_token: localStorage.getItem('access_token')
+        }
       })
-        .then((result) => {
-          console.log(result.data)
-          context.commit('DELETE_PRODUCT', result.data.id)
-          router.push({ name: 'List' })
-          context.commit('RESET_ERRMSG')
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          context.commit('SET_ERRMSG', err.response.data.message)
+        .then(({ data }) => {
         })
     },
-    moveToPage() {
-      router.push({ name: 'AddProduct' })
+    login ({ commit }, payload) {
+      axios({
+        url: '/login',
+        method: 'POST',
+        data: payload
+      })
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+          localStorage.setItem('email', data.email)
+          localStorage.setItem('role', data.role)
+          commit('setUserEmail', data.email)
+          router.push('/')
+        })
     },
-    processLogout(context) {
-      context.commit('RESET_ISLOGIN')
+    createProduct ({ commit }, payload) {
+      axios({
+        url: '/products',
+        method: 'POST',
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          router.push('/')
+        })
     },
+    getProduct ({ commit }, payload) {
+      axios({
+        url: `/products/${payload}`,
+        method: 'GET',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          commit('setSelectedData', data)
+        })
+    },
+    editProduct ({ commit }, payload) {
+      axios({
+        url: `/products/${payload.id}`,
+        method: 'PUT',
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          router.push('/')
+        })
+    },
+    logout ({ commit }) {
+      commit('setCurrentPage', 'loginPage')
+      localStorage.clear()
+    },
+    fetchBanners ({ commit }) {
+      axios({
+        url: '/banners',
+        method: 'GET',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          commit('setBanners', data)
+        })
+        .finally(() => {
+          commit('setLoadingStatus', false)
+        })
+    },
+    deleteBanner ({ commit }, id) {
+      axios({
+        url: `/banners/${id}`,
+        method: 'DELETE',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+        })
+    },
+    getBanner ({ commit }, payload) {
+      axios({
+        url: `/banners/${payload}`,
+        method: 'GET',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          commit('setSelectedData', data)
+        })
+    },
+    editBanner ({ commit }, payload) {
+      axios({
+        url: `/banners/${payload.id}`,
+        method: 'PUT',
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          router.push('/banners')
+        })
+    },
+    createBanner ({ commit }, payload) {
+      axios({
+        url: '/banners',
+        method: 'POST',
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          router.push('/')
+        })
+    }
   },
+
   modules: {
-  },
+  }
 })

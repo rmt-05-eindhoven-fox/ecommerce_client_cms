@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import List from '../views/List.vue'
-import Product from '../components/Product.vue'
-import AddProduct from '../views/AddProduct.vue'
-import DeleteProduct from '../components/DeleteProduct.vue'
-import DetailProduct from '../components/ProductDetail.vue'
+import Home from '../views/Home.vue'
+import EditProductForm from '../components/EditProductForm.vue'
+import CreateProductForm from '../components/CreateProductForm.vue'
+import Banners from '../views/Banners.vue'
+import EditBannerForm from '../components/EditBannerForm.vue'
 
 Vue.use(VueRouter)
 
@@ -15,58 +14,82 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('access_token')) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/banners',
+    name: 'Banners',
+    component: Banners,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('access_token')) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/banners/:id',
+    name: 'EditBannerForm',
+    component: EditBannerForm,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('access_token')) {
+        next()
+      } else {
+        next('/')
+      }
+    }
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
-  },
-  {
-    path: '/addProduct',
-    name: 'AddProduct',
-    component: AddProduct,
-  },
-  {
-    path: '/list/ProductDelete/:id',
-    name: 'DeleteProduct',
-    component: DeleteProduct,
-  },
-  {
-    path: '/list/ProductDetail/:id',
-    name: 'DetailProduct',
-    component: DetailProduct,
-  },
-  {
-    path: '/list',
-    name: 'List',
-    component: List,
-  },
-  {
-    path: '/product',
-    name: 'Product',
-    component: Product,
+    component: Login
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+  {
+    path: '/products/:id',
+    name: 'EditProductForm',
+    component: EditProductForm,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('access_token')) {
+        next()
+      } else {
+        next('/')
+      }
+    }
+  },
+  {
+    path: '/products',
+    name: 'CreateProductForm',
+    component: CreateProductForm,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('access_token')) {
+        next()
+      } else {
+        next('/')
+      }
+    }
+  },
+  
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
-})
-
-router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && !localStorage.access_token) next({ name: 'Login' })
-  else next();
-})
-router.beforeEach((to, from, next) => {
-  if (to.name === 'Login' && localStorage.access_token) next({ name: 'List' })
-  else next()
+  routes
 })
 
 export default router
-
