@@ -42,7 +42,7 @@
       </form>
     </div>
     <div class="cancel mt-2 mb-5">
-      <button @click.prevent="toBanner" class="btn btn-danger btn-block">Cancel</button>
+      <button @click.prevent="toBanner" class="btn btn-danger btn-block">Back</button>
     </div>
   </div>
 </template>
