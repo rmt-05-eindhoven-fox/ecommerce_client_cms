@@ -9,10 +9,11 @@
                         <h5 class="card-title"><strong>{{ product.name }}</strong></h5>
                         <p class="card-text">Price : Rp. {{ product.price }}</p>
                         <p class="card-text">Stock : {{ product.stock }}</p>
+                        <p class="card-text">ID : {{ product.id }}</p>
                     </div>
                     <div class="card-body">
-                        <a href="#" class="card-link">Edit</a>
-                        <a href="#" class="card-link">Delete</a>
+                        <button @click="jumpToEdit(`/edit-product/${product.id}`)">Edit</button>
+                        <button @click.prevent="deleteProduct(product.id)" class="delete-btn">Delete</button>
                     </div>
                     </div>
                 </div>
@@ -25,7 +26,15 @@
 export default {
   name: 'ListProducts',
   props: ['product'],
+  methods: {
+    jumpToEdit(link) {
+        this.$router.push(link)
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteProduct', id)
+    }
   }
+}
 </script>
 
 <style scoped>

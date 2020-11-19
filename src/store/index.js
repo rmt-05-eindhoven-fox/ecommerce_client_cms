@@ -7,11 +7,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    banners: [],
+    isLogin: false,
   },
   mutations: {
     SET_PRODUCTS(state, data) {
       state.products = data;
+    },
+    SET_LOGINSTATUS(state, data) {
+      state.isLogin = data
     }
   },
   actions: {
@@ -25,9 +30,6 @@ export default new Vuex.Store({
         }
       })
       .then( ({data}) => {
-        console.log("INI DATA",data);
-        console.log(data.access_token);
-        console.log(data.role);
         const access_token = data.access_token
         const role = data.role
         localStorage.setItem('access_token', access_token)
@@ -96,12 +98,14 @@ export default new Vuex.Store({
           role
         }
       })
-        .then(data => {
-          console.log(data)
-        })
-        .catch(error => {
-          console.log(error);
-        })
+      .then(({ data }) => {
+        console.log("Add New Product Success!");
+        this.$router.push({ name: "Dashboard" });
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Add New Product Failed!");
+      })
     },
     editProduct(context, payload) {
       const access_token = localStorage.getItem('access_token')
@@ -134,11 +138,14 @@ export default new Vuex.Store({
       const role = localStorage.getItem('role')
       axios({
         method: 'DELETE',
-        url: `http://localhost:3000/products/${payload.id}`,
+        url: `http://localhost:3000/products/${payload}`,
         headers: {
           access_token,
           role
         }
+      })
+      .then( () => {
+        this.dispatch('fetchProducts')
       })
     }
   },

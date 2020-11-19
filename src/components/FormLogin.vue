@@ -5,7 +5,7 @@
           <h1 class="mt-2" style="margin-bottom: 20px">Identify Yourself!</h1>
           <img
             src="../assets/login-logo.png"
-            style="width:200px; margin:50px"
+            style="width:200px; margin:10px"
           />
           <form @submit.prevent="login" id="login-form">
             <div class="form-group">
@@ -54,6 +54,7 @@ export default {
                 password: this.payload.password
             }
             this.$store.dispatch('login', payload)
+            this.$store.commit('SET_LOGINSTATUS', true);
         }
     }
 }
