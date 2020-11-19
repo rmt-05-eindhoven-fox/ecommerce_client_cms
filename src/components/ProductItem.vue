@@ -2,7 +2,7 @@
   <tr>
     <th scope="row">{{ product.id }}</th>
     <td>{{ product.name }}</td>
-    <td><img :src="product.image_url" onerror="this.src='https://www.metrorollerdoors.com.au/wp-content/uploads/2018/02/unavailable-image.jpg'" alt="image_not_found" width="auto" height="300"></td>
+    <td><img :src="product.image_url" onerror="this.src='https://www.metrorollerdoors.com.au/wp-content/uploads/2018/02/unavailable-image.jpg'" alt="image_not_found" style="max-width: 150px;"></td>
     <td>{{ product.Category.name }}</td>
     <td>{{ product.price }}</td>
     <td>{{ product.stock }}</td>

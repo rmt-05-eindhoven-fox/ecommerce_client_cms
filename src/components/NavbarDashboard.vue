@@ -1,38 +1,43 @@
 <template>
   <nav class="navbar navbar-dark bg-dark">
-    <ul class="nav nav-tabs">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ user }}</a>
-        <div class="dropdown-menu">
+    <div>
+      <span class="navbar-brand">Ecommerce-hacktiv (admin)</span>
+    </div>
+    <div>
+      <ul class="nav nav-tabs">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+          <div class="dropdown-menu">
+            <a @click.prevent="$router.push({ name: 'Products' })" class="dropdown-item" href="#">Products</a>
+            <div class="dropdown-divider"></div>
+            <a @click.prevent="goToAddProduct" class="dropdown-item" href="#">Add Product</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+          <div class="dropdown-menu">
+            <a @click.prevent="$router.push({ name: 'Categories' })" class="dropdown-item" href="#">Categories</a>
+            <a @click.prevent="$router.push({ name: 'AddCategory' })" class="dropdown-item" href="#">Add Category</a>
           <div class="dropdown-divider"></div>
-          <a @click.prevent="logout" class="dropdown-item" href="#">Logout</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
-        <div class="dropdown-menu">
-          <a @click.prevent="$router.push({ name: 'Products' })" class="dropdown-item" href="#">Products</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Banners</a>
+          <div class="dropdown-menu">
+            <a @click.prevent="$router.push({ name: 'Banners' })" class="dropdown-item" href="#">Banners</a>
+            <a @click.prevent="$router.push({ name: 'AddBanner' })" class="dropdown-item" href="#">Add Banner</a>
           <div class="dropdown-divider"></div>
-          <a @click.prevent="goToAddProduct" class="dropdown-item" href="#">Add Product</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-        <div class="dropdown-menu">
-          <a @click.prevent="$router.push({ name: 'Categories' })" class="dropdown-item" href="#">Categories</a>
-          <a @click.prevent="$router.push({ name: 'AddCategory' })" class="dropdown-item" href="#">Add Category</a>
-        <div class="dropdown-divider"></div>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Banners</a>
-        <div class="dropdown-menu">
-          <a @click.prevent="$router.push({ name: 'Banners' })" class="dropdown-item" href="#">Banners</a>
-          <a @click.prevent="$router.push({ name: 'AddBanner' })" class="dropdown-item" href="#">Add Banner</a>
-        <div class="dropdown-divider"></div>
-        </div>
-      </li>
-    </ul>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ user }}</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-divider"></div>
+            <a @click.prevent="logout" class="dropdown-item" href="#">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
 

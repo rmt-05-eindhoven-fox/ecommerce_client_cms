@@ -1,7 +1,7 @@
 <template>
   <section>
     <NavbarDashboard/>
-    <div class="container m-5 justify-content-center">
+    <div class="container-fluid m-5">
       <div class="row d-flex align-items-center">
         <div class="col-12">
           <div class="card">
