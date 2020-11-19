@@ -88,7 +88,6 @@ export default {
         status: this.banner.status,
         category: this.banner.category
       })
-      this.$router.push('/banner')
     }
   },
   created () {

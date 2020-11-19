@@ -92,7 +92,6 @@ export default {
         stock: this.product.stock,
         category: this.product.category
       })
-      this.$router.push('/')
     }
   },
   created () {

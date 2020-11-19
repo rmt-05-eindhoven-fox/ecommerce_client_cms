@@ -73,7 +73,7 @@ export default {
         stock: this.stock,
         category: this.category
       })
-      this.$router.push('/')
+      // this.$router.push('/')
     }
   }
 

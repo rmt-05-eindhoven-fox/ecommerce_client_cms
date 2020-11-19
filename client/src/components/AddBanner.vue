@@ -70,7 +70,6 @@ export default {
         status: this.status,
         category: this.category
       })
-      this.$router.push('/banner')
     }
   }
 }
