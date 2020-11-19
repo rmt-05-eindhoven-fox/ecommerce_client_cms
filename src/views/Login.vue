@@ -96,7 +96,6 @@ export default {
     outline: 20px solid #f66483 ;
     outline-offset: 40px;
 
-
   }
   .border {
     border: 1px solid pink !important;

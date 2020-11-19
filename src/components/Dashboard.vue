@@ -31,7 +31,7 @@
                       style="width: 65px; height: 65px; object-fit: contain"
                       >
                   </td>
-                  <td class="px-3">{{product.name}}</td>
+                  <td class="px-3" >{{product.name}}</td>
                   <td class="px-3">Rp {{product.price.toLocaleString(['ban', 'id'])}}</td>
                   <td class="px-3">{{product.stock}}</td>
                   <td class="px-3">
@@ -156,7 +156,7 @@ export default {
   }
 
   .img-left {
-    height: 80vh; position: absolute; z-index: 999; left: -250px; top: -20px;
+    height: 80vh; position: absolute; z-index: -1; left: -250px; top: -20px;
     transition: all .5s;
   }
   .img-left:hover {
@@ -165,7 +165,7 @@ export default {
   }
 
   .img-right {
-    height: 80vh; position: absolute; z-index: 999; right: -250px; top: -20px;
+    height: 80vh; position: absolute; z-index: -1; right: -250px; top: -20px;
     transition: all .5s;
   }
   .img-right:hover {
@@ -208,4 +208,5 @@ export default {
   /* .border {
     border: 5px solid #f66483 !important;
   } */
+
 </style>

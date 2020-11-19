@@ -23,6 +23,7 @@
                       v-model="name"
                       class="form-control text-pink text-center"
                       type="text"
+                      maxlength="20"
                   >
               </div>
 
@@ -45,6 +46,7 @@
                     v-model="price"
                     class="form-control text-pink text-center"
                     type="number"
+                    maxlength="10"
                   >
               </div>
 
@@ -56,6 +58,7 @@
                     v-model="stock"
                     class="form-control text-pink text-center"
                     type="number"
+                    maxlength="4"
                   >
               </div>
 
@@ -122,7 +125,7 @@ export default {
   }
 
   .img-left {
-    height: 80vh; position: absolute; z-index: 999; left: -70px; top: 60px;
+    height: 80vh; position: absolute; z-index: -1; left: -70px; top: 60px;
     transition: all .5s;
   }
   .img-left:hover {
@@ -131,7 +134,7 @@ export default {
   }
 
   .img-right {
-    height: 400px; position: absolute; z-index: 999; right: -30px; top: 90px;
+    height: 400px; position: absolute; z-index: -1; right: -30px; top: 90px;
     transition: all .5s;
   }
   .img-right:hover {
