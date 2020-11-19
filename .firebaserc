@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "ecommerce-chocochenka"
+    "default": "orangechenka",
+    "orangechenka": "orangechenka"
   }
 }

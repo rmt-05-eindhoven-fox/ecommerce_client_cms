@@ -2,7 +2,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3070'
+  baseURL: 'https://secure-hollows-52978.herokuapp.com'
 })
 
 instance.interceptors.response.use(function (response) {
