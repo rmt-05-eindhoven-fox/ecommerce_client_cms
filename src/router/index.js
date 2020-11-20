@@ -8,6 +8,7 @@ import Dashboard from '../components/Dashboard.vue'
 import ProductList from '../components/ProductList.vue'
 import AddProduct from '../components/AddProduct.vue'
 import EditProduct from '../components/EditProduct.vue'
+import Category from '../components/Categories.vue'
 
 Vue.use(VueRouter)
 
@@ -18,7 +19,7 @@ const routes = [
     component: Home,
     children: [
       {
-        path: 'dashboard',
+        path: '',
         name: 'Dashboard',
         component: Dashboard
       },
@@ -36,6 +37,11 @@ const routes = [
         path: 'edit',
         name: 'editproduct',
         component: EditProduct
+      },
+      {
+        path: 'category',
+        name: 'Category',
+        component: Category
       }
     ]
   },

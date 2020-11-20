@@ -3,7 +3,7 @@
       <div class="row no-gutters">
         <div class="col-md-2 bg-light" style="height: 1000px;">
           <b-list-group class="list-group list-group-flush pt-2 p-2 mt-3" style="text-align: left;">
-            <router-link to="/dashboard"><b-list-group-item id="dashboard" style="border-radius: 50px;" class="mb-2"><font-awesome-icon :icon="['fas', 'tachometer-alt']" size="1x" /> Dashboard </b-list-group-item></router-link>
+            <router-link to="/"><b-list-group-item id="dashboard" style="border-radius: 50px;" class="mb-2"><font-awesome-icon :icon="['fas', 'tachometer-alt']" size="1x" /> Dashboard </b-list-group-item></router-link>
             <router-link to="/products"><b-list-group-item id="products" style="border-radius: 50px;" class="mb-2"><font-awesome-icon :icon="['fas', 'archive']" size="1x" /> Products</b-list-group-item></router-link>
             <router-link to="/categories"><b-list-group-item id="categories" style="border-radius: 50px;" class="mb-2"><font-awesome-icon :icon="['fas', 'list']" size="1x" /> Categories</b-list-group-item></router-link>
           </b-list-group>
