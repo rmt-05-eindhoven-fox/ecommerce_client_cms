@@ -2,7 +2,7 @@
   <div class="Home">
     <Navbar/>
     <div class="row m-5">
-      <div class="container d-flex">
+      <div class="container d-flex flex-wrap">
         <div
         v-for="(product, i) in products"
         :key="i">
