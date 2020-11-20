@@ -13,19 +13,28 @@
 
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input type="text" v-model="name" class="form-control" placeholder="Product Name">
+              <input type="text" v-model="product.name" class="form-control" placeholder="Product Name">
             </div>
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input type="text" class="form-control" v-model="image_url" placeholder="image_url">
+              <input type="text" class="form-control" v-model="product.image_url" placeholder="image_url">
             </div>
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input type="number" class="form-control" placeholder="stock" v-model="stock">
+              <input type="number" class="form-control" placeholder="stock" v-model="product.stock">
             </div>
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input type="number" class="form-control" placeholder="price" v-model="price">
+              <input type="number" class="form-control" placeholder="price" v-model="product.price">
+            </div>
+            <div style="margin-bottom: 25px" class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <select v-model="product.Category.name">
+              <option disabled value="">Please select one</option>
+               <option v-for="option in categories" :value="option.name" :key="option.id">
+                {{ option.name }}
+              </option>>
+            </select>
             </div>
             <div style="margin-top:10px" class="form-group">
               <div class="col-sm-12 controls">
@@ -46,14 +55,6 @@ import axios from '../axios/axiosInstance'
 
 export default {
   name: 'EditProduct',
-  data() {
-    return {
-      name: '',
-      image_url: '',
-      stock: '',
-      price: ''
-    }
-  },
   methods: {
     toDashboard() {
       this.$router.push({
@@ -63,43 +64,28 @@ export default {
     fetchProductById() {
       const id = +this.$route.params.id
       const token = localStorage.getItem("token");
-
-      axios({
-          url: '/products/' + id,
-          method: 'get',
-          headers: {
-            access_token: token
-          }
-        })
-        .then(({
-          data
-        }) => {
-          this.name = data.foundProduct.name,
-            this.image_url = data.foundProduct.image_url,
-            this.stock = data.foundProduct.stock,
-            this.price = data.foundProduct.price
-        })
-        .catch(err => {
-          res.send(err.response.data.msg);
-        })
+      const payload = {
+        token: token,
+        id: id
+      }
+      this.$store.dispatch('fetchProductById', payload)
+    },
+    fetchCategories() {
+      this.$store.dispatch('fetchCategories')
     },
     edit() {
       const token = localStorage.getItem("token");
       const id = +this.$route.params.id
-
-      axios({
-          url: `/products/${id}`,
-          method: "put",
-          headers: {
-            access_token: token
-          },
-          data: {
-            name: this.name,
-            image_url: this.image_url,
-            stock: this.stock,
-            price: this.price,
-          },
-        })
+      const payload = {
+        token: token,
+        id: id,
+        name: this.product.name,
+        image_url: this.product.image_url,
+        stock: this.product.stock,
+        price: this.product.price,
+        category: this.product.Category.name
+      }
+      this.$store.dispatch('edit', payload)
         .then(({
           data
         }) => {
@@ -122,7 +108,16 @@ export default {
     }
   },
   created() {
-    this.fetchProductById()
+    this.fetchProductById(),
+    this.fetchCategories()
+  },
+  computed: {
+    product() {
+      return this.$store.state.product
+    },
+    categories() {
+      return this.$store.state.categories
+    }
   },
 }
 </script>

@@ -40,14 +40,11 @@ export default {
   },
   methods: {
     login() {
-      axios({
-          url: '/users/login',
-          method: 'post',
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        })
+      const payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('login', payload)
         .then(({
           data
         }) => {
@@ -64,7 +61,7 @@ export default {
         .catch(err => {
           Swal.fire({
             icon: "error",
-            title: "Error",
+            title: "Not For You",
             text: err.response.data.msg,
           });
         })

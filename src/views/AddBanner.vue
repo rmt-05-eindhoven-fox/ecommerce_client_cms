@@ -4,41 +4,28 @@
     <div style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 ml-5">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <div class="panel-title">Add Product</div>
+          <div class="panel-title">Add Banner</div>
         </div>
 
         <div style="padding-top:30px" class="panel-body">
           <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-          <form @submit.prevent="Add" class="form-horizontal" role="form">
+          <form @submit.prevent="AddBanner" class="form-horizontal" role="form">
 
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input type="text" v-model="name" class="form-control" placeholder="Product Name">
+              <input type="text" v-model="title" class="form-control" placeholder="Banner Name">
+            </div>
+            <div style="margin-bottom: 25px" class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <input type="text" class="form-control" v-model="status" placeholder="status">
             </div>
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
               <input type="text" class="form-control" v-model="image_url" placeholder="image_url">
             </div>
-            <div style="margin-bottom: 25px" class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input type="number" class="form-control" placeholder="stock" v-model="stock">
-            </div>
-            <div style="margin-bottom: 25px" class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input type="number" class="form-control" placeholder="price" v-model="price">
-            </div>
-            <div style="margin-bottom: 25px" class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <select v-model="category">
-              <option disabled value="">Please select one</option>
-               <option v-for="option in categories" :value="option.name" :key="option.id">
-                {{ option.name }}
-              </option>>
-            </select>
-            </div>
             <div style="margin-top:10px" class="form-group">
               <div class="col-sm-12 controls">
-                <button type="submit" class="btn btn-success">Add Product </button>
+                <button type="submit" class="btn btn-success">Add Banner </button>
                 <button @click="toDashboard" class="btn btn-danger ml-3">Go Back</button>
               </div>
             </div>
@@ -54,14 +41,12 @@
 import axios from '../axios/axiosInstance'
 
 export default {
-  name: 'AddProduct',
+  name: 'AddBanner',
   data() {
     return {
-      name: '',
-      image_url: '',
-      stock: '',
-      price: '',
-      category: ''
+      title: '',
+      status: '',
+      image_url: ''
     }
   },
   methods: {
@@ -70,20 +55,15 @@ export default {
         name: 'Dashboard'
       })
     },
-    fetchCategories() {
-      this.$store.dispatch('fetchCategories')
-    },
-    Add() {
+    AddBanner() {
       const token = localStorage.getItem("token");
       const payload = {
         token: token,
-        name: this.name,
-        image_url: this.image_url,
-        stock: +this.stock,
-        price: +this.price,
-        category: this.category
+        title: this.title,
+        status: this.status,
+        image_url: this.image_url
       }
-      this.$store.dispatch('add', payload)
+      this.$store.dispatch('AddBanner', payload)
         .then(({
           data
         }) => {
@@ -103,15 +83,7 @@ export default {
             text: err.response.data.msg,
           });
         })
-    }
-  },
-   created() {
-    this.fetchCategories()
-  },
-  computed: {
-    categories() {
-      return this.$store.state.categories
-    }
+    },
   },
 }
 </script>

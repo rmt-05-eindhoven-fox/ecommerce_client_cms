@@ -5,6 +5,7 @@
     <td>{{product.name}}</td>
     <td>{{product.stock}}</td>
     <td class="text-right">{{product.price}}</td>
+    <td class="text-right">{{product.Category.name}}</td>
     <td class="text-right">
       <button @click="toEdit(product.id)" class="btn btn-sm btn-warning mr-2"><i class="fa fa-edit"></i> </button>
       <button @click="deleteProd(product.id)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button>
@@ -26,14 +27,11 @@ export default {
     deleteProd(productId) {
       const token = localStorage.getItem("token");
       const id = +productId;
-
-      axios({
-          url: '/products/' + id,
-          method: "delete",
-          headers: {
-            access_token: token
-          },
-        })
+      const payload = {
+        token: token,
+        id: id
+      }
+      this.$store.dispatch('deleteProd', payload)
         .then(({
           data
         }) => {

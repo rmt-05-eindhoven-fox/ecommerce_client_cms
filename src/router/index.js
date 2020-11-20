@@ -26,6 +26,16 @@ const routes = [
     component: () => import('../views/AddProduct.vue')
   },
   {
+    path: '/AddBanner',
+    name: 'AddBanner',
+    component: () => import('../views/AddBanner.vue')
+  },
+  {
+    path: '/AddCategory',
+    name: 'AddCategory',
+    component: () => import('../views/AddCategory.vue')
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
     // route level code-splitting
@@ -43,6 +53,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name !== 'Login' && !localStorage.getItem("token")) next({ name: 'Login' })
+  else if(to.name == 'Login' && localStorage.getItem("token")) {
+    next({ name: 'Dashboard' })
+}
   else next()
 })
 
