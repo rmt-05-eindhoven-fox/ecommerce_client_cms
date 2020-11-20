@@ -7,8 +7,8 @@
    <button @click.prevent="logout" type="button" class="btn btn-danger">Sign Out</button>
    <HelloWorld :msg="title"/>
   <div class="row">
-  <div class="col-sm-6">
-    <div v-for="product in products" :key="product.id" class="card">
+  <div v-for="product in products" :key="product.id" class="col-sm-6">
+    <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{product.name}}</h5>
         <img :src="product.image_url" height="150px">

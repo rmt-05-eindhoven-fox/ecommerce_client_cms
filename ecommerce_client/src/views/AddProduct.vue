@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import Swal from 'vue-sweetalert2'
+
 export default {
   name: 'addProduct',
   data () {
@@ -56,6 +58,11 @@ export default {
         })
         .catch(err => {
           console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.responseJSON.message
+          })
         })
     }
   }
