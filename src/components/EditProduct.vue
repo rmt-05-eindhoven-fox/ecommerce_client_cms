@@ -3,9 +3,9 @@
     <h4 class="pt-3 text-left font-weight-bold">
       Edit Product
       <transition name="fade">
-        <b-button @click="showProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
+        <router-link to="/products"><b-button v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
         Back
-        </b-button>
+        </b-button></router-link>
       </transition>
     </h4>
     <hr>
@@ -35,7 +35,7 @@
       <label for="stock">Stock</label>
       <input v-model="stock" type="number" class="form-control" id="stock">
       </div>
-      <button @click.prevent="submitEdit" type="submit" class="btn btn-warning btn-block">Submit</button>
+      <router-link to="/products"><button @click.prevent="submitEdit" type="submit" class="btn btn-warning btn-block">Submit</button></router-link>
     </form>
   </div>
 </template>
@@ -63,7 +63,6 @@ export default {
         accessToken
       }
       this.$store.dispatch('editProduct', payload)
-      this.$emit('onsubmit')
     }
   },
   computed: {

@@ -41,28 +41,6 @@ export default {
           this.$router.push('/login')
         }
       }
-    },
-    showProducts () {
-      this.displayAdd = false
-      this.displayProducts = true
-      this.displayEdit = false
-      this.displayDashboard = false
-    },
-    showAddProduct () {
-      this.displayAdd = true
-      this.displayProducts = false
-      this.displayEdit = false
-    },
-    showEditProduct () {
-      this.displayAdd = false
-      this.displayProducts = false
-      this.displayEdit = true
-    },
-    showDashboard () {
-      this.displayAdd = false
-      this.displayProducts = false
-      this.displayEdit = false
-      this.displayDashboard = true
     }
   },
   components: {
