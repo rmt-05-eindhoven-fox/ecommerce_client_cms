@@ -39,7 +39,7 @@ const routes = [
         component: EditProduct
       },
       {
-        path: 'category',
+        path: 'categories',
         name: 'Category',
         component: Category
       }
