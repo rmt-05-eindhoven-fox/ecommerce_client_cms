@@ -1,7 +1,7 @@
 <template>
   <div class="products p-4 mt-3">
     <h4 class="pt-3 text-left font-weight-bold">
-      Add Product
+      Edit Product
       <transition name="fade">
         <b-button @click="showProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
         Back

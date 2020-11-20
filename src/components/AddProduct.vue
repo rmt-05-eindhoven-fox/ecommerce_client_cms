@@ -3,9 +3,9 @@
     <h4 class="pt-3 text-left font-weight-bold">
       Add Product
       <transition name="fade">
-        <b-button @click="showProducts" v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
+        <router-link to="/products"><b-button v-b-modal.addproduct class="font-weight-bold float-right" variant="info">
         Back
-        </b-button>
+        </b-button></router-link>
       </transition>
     </h4>
     <hr>
