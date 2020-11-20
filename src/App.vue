@@ -1,37 +1,8 @@
 <template>
   <div>
-    <Login v-if="pageName == 'login'"></Login>
-    <Home v-else-if="pageName == 'home'"></Home>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import Login from './views/Login.vue'
-import Home from './views/Home.vue'
-export default {
-  name: 'App',
-  components: {
-    Login, Home
-  },
-  data () {
-    return {
-      pageName: 'login'
-    }
-  },
-  methods: {
-    checkLogin () {
-      if (localStorage.access_token) {
-        this.pageName = 'home'
-      } else {
-        this.pageName = 'login'
-      }
-    }
-  },
-  created () {
-    this.checkLogin()
-  }
-}
-</script>
 
 <style>
 #app {

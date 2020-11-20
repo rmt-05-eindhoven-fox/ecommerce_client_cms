@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
-  <div class="row bg-warning justify-content-center align-items-center" style="height: 100vh">
+  <div class="row bg-dark justify-content-center align-items-center" style="height: 100vh">
     <div class="col-md-3 bg-white p-4 border rounded shadow">
       <form @submit.prevent="login">
         <div class="form-group">
@@ -34,6 +34,14 @@ export default {
         password: this.password
       }
       this.$store.dispatch('login', payload)
+        .then(({ data }) => {
+          console.log(data.access_token)
+          localStorage.setItem('access_token', data.access_token)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err.response.data.msg)
+        })
     }
   }
 }
