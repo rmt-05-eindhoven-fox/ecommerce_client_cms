@@ -16,7 +16,8 @@ export const store = new Vuex.Store({
     image_url: '',
     price: 0,
     stock: 0,
-    category: ''
+    category: '',
+    categories: ['SOFA & CHAIRS', 'LAPTOP & COMPUTERS', 'APPLIANCES', 'HOME ELECTRONICS']
   },
   actions: {
     fetchProducts ({ commit, state }, accessToken) {

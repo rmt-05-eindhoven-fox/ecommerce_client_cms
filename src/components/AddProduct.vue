@@ -21,10 +21,7 @@
         <div class="form-group text-left">
         <label for="category">Category</label>
         <select v-model="category" class="form-control">
-          <option value="SOFA & CHAIRS">SOFA & CHAIRS</option>
-          <option value="LAPTOP & COMPUTERS">LAPTOP & COMPUTERS</option>
-          <option value="APPLIANCES">APPLIANCES</option>
-          <option value="HOME ELECTRONICS">HOME ELECTRONICS</option>
+            <option v-for="(categori, i) in categories" :key="i" :value="categori">{{categori}}</option>
         </select>
         </div>
         <div class="form-group text-left">
@@ -69,6 +66,11 @@ export default {
       this.$store.dispatch('addProduct', payload)
       this.$store.dispatch('fetchProducts', accessToken)
       this.$emit('onsubmit')
+    }
+  },
+  computed: {
+    categories () {
+      return this.$store.state.categories
     }
   }
 }
